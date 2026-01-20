@@ -1,0 +1,77 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2025-01-22 12:53:34.898719",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+     "supplier",
+     "supplier_name",
+     "user",
+     "user_name",
+     "reason",
+     "selected_supplier"
+    ],
+    "fields": [
+     {
+      "fieldname": "supplier",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Supplier",
+      "options": "Supplier",
+      "read_only": 1
+     },
+     {
+      "fieldname": "user",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "User",
+      "options": "User",
+      "read_only": 1
+     },
+     {
+      "columns": 2,
+      "fieldname": "reason",
+      "fieldtype": "Small Text",
+      "in_list_view": 1,
+      "label": "Reason"
+     },
+     {
+      "columns": 1,
+      "default": "0",
+      "fieldname": "selected_supplier",
+      "fieldtype": "Check",
+      "in_list_view": 1,
+      "label": "Selected Supplier"
+     },
+     {
+      "fetch_from": "supplier.supplier_name",
+      "fieldname": "supplier_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Supplier Name",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "user.full_name",
+      "fieldname": "user_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "User Name",
+      "read_only": 1
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "istable": 1,
+    "links": [],
+    "modified": "2025-02-06 09:48:45.866413",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Discussion",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }

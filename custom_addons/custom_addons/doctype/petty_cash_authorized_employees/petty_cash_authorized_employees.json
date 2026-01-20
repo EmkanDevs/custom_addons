@@ -1,0 +1,186 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "PTC-AE-.####",
+    "creation": "2024-11-02 15:26:56.668473",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "employee",
+     "employee_name",
+     "department",
+     "status",
+     "user_id",
+     "head_of_department",
+     "supervisor",
+     "section_break_ttmw",
+     "company",
+     "start_date",
+     "end_date",
+     "max_amount",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Petty Cash Authorized Employees",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "employee",
+      "fieldtype": "Link",
+      "label": "Employee",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "employee.employee_name",
+      "fieldname": "employee_name",
+      "fieldtype": "Data",
+      "label": "Employee Name",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "employee.department",
+      "fieldname": "department",
+      "fieldtype": "Link",
+      "label": "Department",
+      "options": "Department",
+      "read_only": 1
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Active\nInactive"
+     },
+     {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Company",
+      "options": "Company",
+      "reqd": 1
+     },
+     {
+      "default": "Today",
+      "fieldname": "start_date",
+      "fieldtype": "Date",
+      "label": "Start Date"
+     },
+     {
+      "fieldname": "end_date",
+      "fieldtype": "Date",
+      "label": "End Date"
+     },
+     {
+      "default": "10000",
+      "fieldname": "max_amount",
+      "fieldtype": "Float",
+      "label": "Max Amount"
+     },
+     {
+      "fieldname": "section_break_ttmw",
+      "fieldtype": "Column Break"
+     },
+     {
+      "allow_on_submit": 1,
+      "fetch_from": "employee.user_id",
+      "fieldname": "user_id",
+      "fieldtype": "Link",
+      "label": "User ID",
+      "options": "User"
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "supervisor",
+      "fieldtype": "Link",
+      "label": "Supervisor",
+      "options": "User"
+     },
+     {
+      "fieldname": "head_of_department",
+      "fieldtype": "Table MultiSelect",
+      "hidden": 1,
+      "label": "Head of Department",
+      "options": "Head of department"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [
+     {
+      "link_doctype": "Petty Cash Request",
+      "link_fieldname": "employee"
+     }
+    ],
+    "modified": "2025-02-20 10:29:36.210919",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Petty Cash Authorized Employees",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Employee",
+      "share": 1
+     },
+     {
+      "create": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "HR User",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "HR Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "search_fields": "employee_name,employee",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

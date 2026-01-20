@@ -1,0 +1,155 @@
+{
+    "actions": [],
+    "allow_import": 1,
+    "allow_rename": 1,
+    "autoname": "RM-REQ-.YYYY.-.#####",
+    "creation": "2025-07-27 10:20:45.708465",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "request_date",
+     "project",
+     "project_name",
+     "column_break_nzoa",
+     "booking_request_reason",
+     "location_arabic",
+     "location",
+     "cost_center",
+     "section_break_5tkk",
+     "staff_list",
+     "section_break_lsif",
+     "suggested_hotellodge",
+     "column_break_w61v",
+     "status",
+     "section_break_uomh",
+     "remark",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "fieldname": "section_break_5tkk",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Temp Room Booking Request",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "default": "Today",
+      "fieldname": "request_date",
+      "fieldtype": "Date",
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0637\u0644\u0628"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "\u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "options": "Project",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "project.project_name",
+      "fieldname": "project_name",
+      "fieldtype": "Data",
+      "label": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "read_only": 1
+     },
+     {
+      "fieldname": "cost_center",
+      "fieldtype": "Link",
+      "label": "\u0645\u0631\u0643\u0632 \u0627\u0644\u062a\u0643\u0644\u0641\u0629",
+      "options": "Cost Center"
+     },
+     {
+      "fieldname": "location",
+      "fieldtype": "Link",
+      "label": "\u0627\u0644\u0645\u0648\u0642\u0639",
+      "options": "Location"
+     },
+     {
+      "fieldname": "staff_list",
+      "fieldtype": "Table",
+      "label": "\u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646",
+      "options": "Temp Room Booking List"
+     },
+     {
+      "fieldname": "column_break_nzoa",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "location_arabic",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0645\u0643\u0627\u0646 \u0628\u0627\u0644\u0639\u0631\u0628\u064a"
+     },
+     {
+      "fieldname": "section_break_uomh",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "remark",
+      "fieldtype": "Small Text",
+      "label": "\u0645\u0644\u0627\u062d\u0638\u0627\u062a"
+     },
+     {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "\u0627\u0644\u062d\u0627\u0644\u0629",
+      "options": "Submitted - \u0645\u0631\u0641\u0648\u0639\nCancelled - \u0645\u0644\u063a\u064a\nRejected - \u0645\u0631\u0641\u0648\u0636\nCompleted - \u0645\u0643\u062a\u0645\u0644"
+     },
+     {
+      "fieldname": "suggested_hotellodge",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0641\u0646\u062f\u0642/\u0627\u0644\u0646\u0632\u0644 \u0627\u0644\u0645\u0642\u062a\u0631\u062d"
+     },
+     {
+      "fieldname": "column_break_w61v",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "section_break_lsif",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "booking_request_reason",
+      "fieldtype": "Data",
+      "label": "\u0633\u0628\u0628 \u0637\u0644\u0628 \u0627\u0644\u062d\u062c\u0632"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2025-07-28 15:49:15.937068",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Temp Room Booking Request",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

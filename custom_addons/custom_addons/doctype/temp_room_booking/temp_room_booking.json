@@ -1,0 +1,260 @@
+{
+    "actions": [],
+    "allow_import": 1,
+    "allow_rename": 1,
+    "autoname": "RM-RESV-.YYYY.-.#####",
+    "creation": "2025-07-28 11:33:50.215786",
+    "default_view": "List",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "temp_room_booking_request",
+     "request_date",
+     "project",
+     "project_name",
+     "column_break_nzoa",
+     "booking_request_reason",
+     "location_arabic",
+     "location",
+     "cost_center",
+     "section_break_5tkk",
+     "staff_list",
+     "section_break_lsif",
+     "suggested_hotellodge",
+     "column_break_w61v",
+     "status",
+     "section_break_uomh",
+     "remark",
+     "payments_and_charges_section",
+     "invoice_no",
+     "invoice_date",
+     "payment_to",
+     "payment_to_name",
+     "payment_to_arabic",
+     "column_break_dwmk",
+     "accommodation_list",
+     "accommodation_type",
+     "accommodation_name_arabic",
+     "column_break_mlse",
+     "currency",
+     "amount",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "default": "Today",
+      "fieldname": "request_date",
+      "fieldtype": "Date",
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0637\u0644\u0628"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "\u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "options": "Project",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "project.project_name",
+      "fieldname": "project_name",
+      "fieldtype": "Data",
+      "label": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_nzoa",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "location_arabic",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0645\u0643\u0627\u0646 \u0628\u0627\u0644\u0639\u0631\u0628\u064a"
+     },
+     {
+      "fieldname": "location",
+      "fieldtype": "Link",
+      "label": "\u0627\u0644\u0645\u0648\u0642\u0639",
+      "options": "Location"
+     },
+     {
+      "fieldname": "cost_center",
+      "fieldtype": "Link",
+      "label": "\u0645\u0631\u0643\u0632 \u0627\u0644\u062a\u0643\u0644\u0641\u0629",
+      "options": "Cost Center"
+     },
+     {
+      "fieldname": "section_break_5tkk",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "staff_list",
+      "fieldtype": "Table",
+      "label": "\u0627\u0644\u0645\u0648\u0638\u0641\u064a\u0646",
+      "options": "Temp Room Booking List"
+     },
+     {
+      "fieldname": "section_break_lsif",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "suggested_hotellodge",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0641\u0646\u062f\u0642/\u0627\u0644\u0646\u0632\u0644 \u0627\u0644\u0645\u0642\u062a\u0631\u062d"
+     },
+     {
+      "fieldname": "column_break_w61v",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "\u0627\u0644\u062d\u0627\u0644\u0629",
+      "options": "Submitted - \u0645\u0631\u0641\u0648\u0639\nCancelled - \u0645\u0644\u063a\u064a\nRejected - \u0645\u0631\u0641\u0648\u0636\nCompleted - \u0645\u0643\u062a\u0645\u0644"
+     },
+     {
+      "fieldname": "section_break_uomh",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "remark",
+      "fieldtype": "Small Text",
+      "label": "\u0645\u0644\u0627\u062d\u0638\u0627\u062a"
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Temp Room Booking",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Temp Room Booking",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "payments_and_charges_section",
+      "fieldtype": "Section Break",
+      "label": "\u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0627\u062a \u0648\u0627\u0644\u0631\u0633\u0648\u0645"
+     },
+     {
+      "default": "SAR",
+      "fieldname": "currency",
+      "fieldtype": "Link",
+      "label": "\u0627\u0644\u0639\u0645\u0644\u0629",
+      "options": "Currency"
+     },
+     {
+      "fieldname": "amount",
+      "fieldtype": "Currency",
+      "label": "\u0627\u0644\u0645\u0628\u0644\u063a"
+     },
+     {
+      "fieldname": "invoice_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+     },
+     {
+      "fieldname": "invoice_date",
+      "fieldtype": "Date",
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+     },
+     {
+      "fieldname": "accommodation_list",
+      "fieldtype": "Link",
+      "label": "\u0625\u0633\u0645 \u0627\u0644\u0625\u0642\u0627\u0645\u0629/\u0627\u0644\u0633\u0643\u0646",
+      "options": "Accommodation List"
+     },
+     {
+      "fetch_from": "accommodation_list.accommodation_type",
+      "fieldname": "accommodation_type",
+      "fieldtype": "Data",
+      "label": "\u0646\u0648\u0639 \u0627\u0644\u0625\u0642\u0627\u0645\u0629/\u0627\u0644\u0633\u0643\u0646",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "accommodation_list.accommodation_name_arabic",
+      "fieldname": "accommodation_name_arabic",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0625\u0642\u0627\u0645\u0629/\u0627\u0644\u0633\u0643\u0646 \u0628\u0627\u0644\u0639\u0631\u0628\u064a",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_dwmk",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "column_break_mlse",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "temp_room_booking_request",
+      "fieldtype": "Link",
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0637\u0644\u0628 \u0627\u0644\u0623\u0635\u0644\u064a",
+      "options": "Temp Room Booking Request"
+     },
+     {
+      "fieldname": "booking_request_reason",
+      "fieldtype": "Data",
+      "label": "\u0633\u0628\u0628 \u0637\u0644\u0628 \u0627\u0644\u062d\u062c\u0632"
+     },
+     {
+      "fieldname": "payment_to",
+      "fieldtype": "Link",
+      "label": "Payment To",
+      "options": "Supplier"
+     },
+     {
+      "fetch_from": "payment_to.supplier_name",
+      "fieldname": "payment_to_name",
+      "fieldtype": "Data",
+      "label": "Payment To Name",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "payment_to.supplier_name_in_arabic",
+      "fieldname": "payment_to_arabic",
+      "fieldtype": "Data",
+      "label": "Payment To Arabic",
+      "read_only": 1
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-12-08 09:52:05.361662",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Temp Room Booking",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

@@ -1,0 +1,147 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "REQ-ITEM-.####",
+    "creation": "2024-11-04 14:50:26.040064",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "date_required",
+     "item_group_name",
+     "project",
+     "column_break_gq1y",
+     "item_code",
+     "item_name",
+     "unit_of_measure",
+     "section_break_rnzt",
+     "manufacturer",
+     "column_break_vnc6",
+     "item_description",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Request for a New Item",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "date_required",
+      "fieldtype": "Date",
+      "label": "Date Required"
+     },
+     {
+      "fieldname": "item_group_name",
+      "fieldtype": "Select",
+      "label": "Item Group Name",
+      "options": "Item Group"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "label": "Project",
+      "options": "Project"
+     },
+     {
+      "fieldname": "column_break_gq1y",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "item_code",
+      "fieldtype": "Data",
+      "label": "Item Code"
+     },
+     {
+      "fieldname": "item_name",
+      "fieldtype": "Data",
+      "label": "Item Name"
+     },
+     {
+      "fieldname": "unit_of_measure",
+      "fieldtype": "Link",
+      "label": "Unit of Measure",
+      "options": "UOM"
+     },
+     {
+      "fieldname": "section_break_rnzt",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "manufacturer",
+      "fieldtype": "Link",
+      "label": "Manufacturer",
+      "options": "Manufacturer"
+     },
+     {
+      "fieldname": "column_break_vnc6",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "item_description",
+      "fieldtype": "Small Text",
+      "label": "Item Description"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2024-11-04 14:53:45.263515",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Request for a New Item",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "MR Requester",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "MR Approver",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

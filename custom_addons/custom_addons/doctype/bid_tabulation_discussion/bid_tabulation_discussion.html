@@ -1,0 +1,51 @@
+<table class="table table-bordered small">
+    <thead>
+        <tr style="background-color: #fafafa;">
+            <th>{{ __("Supplier") }}</th>
+            <th>{{ __("Item Code") }}</th>
+            <th>{{ __("Item Name")}}</th>
+            <th>{{ __("Quantity") }}</th>
+            <th>{{ __("UOM")}}</th>
+            <th>{{ __("Price") }}</th>
+            <th>{{ __("Amount")}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in schedule_details %}
+            {% if row.is_supplier_row %}
+                <tr>
+                    <td colspan="7">
+                        <strong style="color: #28a745; text-decoration: none; font-weight: bold;">
+                            {{ row.supplier }} ({{ row.supplier_name }})
+                        </strong>
+                    </td>
+                </tr>
+                {% if row.total_qty %}
+                <tr>
+                    <td colspan="4" align="right" style="color: #007bff;">
+                        <strong>Total Quantity:</strong> {{ row.total_qty }}
+                    </td>
+                    <td colspan="3" align="right" style="color: #007bff;">
+                        <strong>Total Amount:</strong> {{ frappe.format(row.total, {fieldtype: "Currency"}) }}
+                    </td>
+                </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>
+                        <a class="bt-item" data-item-code="{{ row.item_code }}"
+                           style="font-weight: bold; cursor:pointer; color:#007bff; text-decoration:underline;">
+                            {{ row.item_code }}
+                        </a>
+                    </td>
+                    <td>{{ row.item_name }}</td>
+                    <td>{{ row.qty }}</td>
+                    <td>{{ row.uom }}</td>
+                    <td>{{ frappe.format(row.price, {fieldtype: "Currency"}) }}</td>
+                    <td>{{ frappe.format(row.amount, {fieldtype: "Currency"}) }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

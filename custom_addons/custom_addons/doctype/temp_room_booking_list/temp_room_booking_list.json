@@ -1,0 +1,81 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2025-07-27 10:41:04.894558",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+     "employee_id",
+     "full_name",
+     "designation",
+     "column_break_nzya",
+     "booking_level",
+     "duration_of_stay",
+     "check_in_date"
+    ],
+    "fields": [
+     {
+      "bold": 1,
+      "fieldname": "employee_id",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0645\u0648\u0638\u0641",
+      "options": "Employee",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "employee_id.employee_name",
+      "fieldname": "full_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0648\u0638\u0641",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "employee_id.designation",
+      "fieldname": "designation",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "\u0627\u0644\u0645\u0633\u0645\u0649 \u0627\u0644\u0648\u0638\u064a\u0641\u064a",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_nzya",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "booking_level",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u062d\u062c\u0632",
+      "options": "Standard - \u0642\u064a\u0627\u0633\u064a\nMid-Level - \u0645\u062a\u0648\u0633\u0637 \u0627\u0644\u0645\u0633\u062a\u0648\u0649\nHigh-Level - \u0639\u0627\u0644\u064a \u0627\u0644\u0645\u0633\u062a\u0648\u0649"
+     },
+     {
+      "fieldname": "duration_of_stay",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "\u0645\u062f\u0629 \u0627\u0644\u0625\u0642\u0627\u0645\u0629"
+     },
+     {
+      "fieldname": "check_in_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0648\u0635\u0648\u0644"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "istable": 1,
+    "links": [],
+    "modified": "2025-07-28 15:36:31.842619",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Temp Room Booking List",
+    "owner": "Administrator",
+    "permissions": [],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }

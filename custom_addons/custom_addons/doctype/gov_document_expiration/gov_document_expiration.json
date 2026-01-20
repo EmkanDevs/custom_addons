@@ -1,0 +1,155 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "DOC-EXP-.YYYY.-.#####",
+    "creation": "2025-04-27 14:04:19.740315",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "gov_document_type",
+     "gov_document_type_ar",
+     "column_break_7jpx",
+     "reminder_in_days",
+     "targeted_visit_office",
+     "column_break_o15a",
+     "issue_on",
+     "expire_on",
+     "section_break_fajp",
+     "prev_copy",
+     "latest_copy",
+     "renewal_status",
+     "customer",
+     "column_break_duvn",
+     "remark"
+    ],
+    "fields": [
+     {
+      "fieldname": "gov_document_type",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u0646\u0648\u0639 \u0627\u0644\u0645\u0633\u062a\u0646\u062f",
+      "options": "Gov Document Type"
+     },
+     {
+      "fetch_from": "gov_document_type.reminder_in_days",
+      "fieldname": "reminder_in_days",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": " \u0627\u0644\u062a\u0630\u0643\u064a\u0631 \u0642\u0628\u0644 (\u064a\u0648\u0645) "
+     },
+     {
+      "fetch_from": "gov_document_type.targeted_office",
+      "fieldname": "targeted_visit_office",
+      "fieldtype": "Link",
+      "label": " \u0627\u0644\u0645\u0643\u062a\u0628 \u0627\u0644\u0645\u0633\u062a\u0647\u062f\u0641 ",
+      "options": "Targeted Visit Office"
+     },
+     {
+      "default": "Today",
+      "fieldname": "issue_on",
+      "fieldtype": "Date",
+      "label": "\u0627\u0644\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0625\u0635\u062f\u0627\u0631"
+     },
+     {
+      "bold": 1,
+      "fieldname": "expire_on",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0625\u0646\u062a\u0647\u0627\u0621",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "gov_document_type.gov_document_type_ar",
+      "fieldname": "gov_document_type_ar",
+      "fieldtype": "Data",
+      "label": " \u0646\u0648\u0639 \u0627\u0644\u0645\u0633\u062a\u0646\u062f / \u0639\u0631\u0628\u064a",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_7jpx",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "column_break_o15a",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "section_break_fajp",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "prev_copy",
+      "fieldtype": "Attach",
+      "label": "\u0627\u0644\u0646\u0633\u062e\u0629 \u0627\u0644\u0633\u0627\u0628\u0642\u0629"
+     },
+     {
+      "fieldname": "column_break_duvn",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "latest_copy",
+      "fieldtype": "Attach",
+      "label": "\u0622\u062e\u0631 \u0646\u0633\u062e\u0629"
+     },
+     {
+      "fieldname": "remark",
+      "fieldtype": "Small Text",
+      "label": "\u0645\u0644\u0627\u062d\u0638\u0629"
+     },
+     {
+      "default": "Renewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f",
+      "fieldname": "renewal_status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "\u062d\u0627\u0644\u0629 \u0627\u0644\u062a\u062c\u062f\u064a\u062f",
+      "options": "\nRenewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f\nUnder Renewal - \u062a\u062d\u062a \u0627\u0644\u062a\u062c\u062f\u064a\u062f\nCancelled - \u062a\u0645 \u0627\u0644\u0625\u0644\u063a\u0627\u0621"
+     },
+     {
+      "fieldname": "customer",
+      "fieldtype": "Link",
+      "label": "\u0627\u0644\u0639\u0645\u064a\u0644",
+      "options": "Customer"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-05-06 09:47:45.111899",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Gov Document Expiration",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [
+     {
+      "color": "Green",
+      "title": "Renewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f"
+     },
+     {
+      "color": "Red",
+      "title": "Cancelled - \u062a\u0645 \u0627\u0644\u0625\u0644\u063a\u0627\u0621"
+     },
+     {
+      "color": "Yellow",
+      "title": "Under Renewal - \u062a\u062d\u062a \u0627\u0644\u062a\u062c\u062f\u064a\u062f"
+     }
+    ]
+   }

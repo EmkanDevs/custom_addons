@@ -1,0 +1,149 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "{sim_management}.-.###",
+    "creation": "2025-03-19 11:09:38.825268",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "date_of_recipet",
+     "employee",
+     "full_name",
+     "column_break_yv0s",
+     "department",
+     "designation",
+     "column_break_kpna",
+     "manager",
+     "manager_name",
+     "section_break_bivk",
+     "sim_management",
+     "service_no",
+     "column_break_uyw5",
+     "location",
+     "copy_of_the_sim"
+    ],
+    "fields": [
+     {
+      "fieldname": "section_break_bivk",
+      "fieldtype": "Section Break"
+     },
+     {
+      "default": "Today",
+      "fieldname": "date_of_recipet",
+      "fieldtype": "Date",
+      "label": "Date of Recipet "
+     },
+     {
+      "fieldname": "employee",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Employee",
+      "options": "Employee",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "employee.employee_name",
+      "fieldname": "full_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Full Name",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_yv0s",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fetch_from": "employee.department",
+      "fieldname": "department",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Department",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "employee.designation",
+      "fieldname": "designation",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Designation",
+      "read_only": 1
+     },
+     {
+      "fieldname": "sim_management",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": " SIM Management",
+      "options": "SIM Management",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "sim_management.location",
+      "fieldname": "location",
+      "fieldtype": "Data",
+      "label": "Location",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_uyw5",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "copy_of_the_sim",
+      "fieldtype": "Attach Image",
+      "label": "Copy of the SIM"
+     },
+     {
+      "fetch_from": "sim_management.service_no",
+      "fieldname": "service_no",
+      "fieldtype": "Data",
+      "label": "Service No"
+     },
+     {
+      "fieldname": "column_break_kpna",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "manager",
+      "fieldtype": "Link",
+      "label": "Manager",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "manager.employee_name",
+      "fieldname": "manager_name",
+      "fieldtype": "Data",
+      "label": "Manager Name",
+      "read_only": 1
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-03-19 11:56:01.069248",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "SIM Handover",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }

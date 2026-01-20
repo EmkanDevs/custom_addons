@@ -1,0 +1,196 @@
+{
+    "actions": [],
+    "autoname": "SIM-REQ-.####",
+    "creation": "2025-03-09 10:28:33.473486",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "date",
+     "voice_sim_card",
+     "data_sim_card",
+     "reason_of_purchase",
+     "sim_type",
+     "column_break_szfr",
+     "department",
+     "project",
+     "project_name",
+     "column_break_a41z",
+     "employee",
+     "full_name",
+     "designation",
+     "section_break_isiu",
+     "justification",
+     "section_break_bv39",
+     "sim_provider",
+     "column_break_td9i",
+     "sim_package_plan",
+     "column_break_yoc9",
+     "package_plan_name",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "default": "Today",
+      "fieldname": "date",
+      "fieldtype": "Date",
+      "label": "Date"
+     },
+     {
+      "default": "1",
+      "fieldname": "voice_sim_card",
+      "fieldtype": "Check",
+      "label": "Voice SIM Card"
+     },
+     {
+      "default": "0",
+      "fieldname": "data_sim_card",
+      "fieldtype": "Check",
+      "label": "Data SIM Card"
+     },
+     {
+      "fieldname": "reason_of_purchase",
+      "fieldtype": "Select",
+      "label": "Reason of Purchase",
+      "options": "\nFor Employee\nFor Camera\nFor Internet"
+     },
+     {
+      "fieldname": "column_break_szfr",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "department",
+      "fieldtype": "Link",
+      "label": "Department",
+      "options": "Department"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "label": "Project",
+      "options": "Project"
+     },
+     {
+      "fetch_from": "project.project_name",
+      "fieldname": "project_name",
+      "fieldtype": "Data",
+      "label": "Project Name",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_a41z",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "employee",
+      "fieldtype": "Link",
+      "label": "Employee",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "employee.employee_name",
+      "fieldname": "full_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Full Name",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "employee.designation",
+      "fieldname": "designation",
+      "fieldtype": "Data",
+      "label": " Designation",
+      "read_only": 1
+     },
+     {
+      "fieldname": "section_break_isiu",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "justification",
+      "fieldtype": "Small Text",
+      "label": "Justification"
+     },
+     {
+      "fieldname": "section_break_bv39",
+      "fieldtype": "Section Break",
+      "label": "Choose Provider & Paln:"
+     },
+     {
+      "allow_on_submit": 1,
+      "bold": 1,
+      "fieldname": "sim_provider",
+      "fieldtype": "Select",
+      "label": "SIM Provider",
+      "options": "\nSTC\nSTC Data\nMobily\nMobily Data\nZain"
+     },
+     {
+      "fieldname": "column_break_td9i",
+      "fieldtype": "Column Break"
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "sim_package_plan",
+      "fieldtype": "Link",
+      "label": " SIM Package Plan",
+      "options": "SIM Package Plan"
+     },
+     {
+      "fieldname": "column_break_yoc9",
+      "fieldtype": "Column Break"
+     },
+     {
+      "allow_on_submit": 1,
+      "fetch_from": "sim_package_plan.package_plan_name",
+      "fieldname": "package_plan_name",
+      "fieldtype": "Data",
+      "label": "Package Plan Name",
+      "read_only": 1
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "hidden": 1,
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Request New SIM",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "sim_type",
+      "fieldtype": "Select",
+      "label": "SIM Type",
+      "options": "\nPhysical\ne-SIM"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2025-07-03 08:45:14.549783",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Request New SIM",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

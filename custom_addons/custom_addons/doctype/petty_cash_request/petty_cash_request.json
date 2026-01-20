@@ -1,0 +1,247 @@
+{
+    "actions": [],
+    "autoname": "PTC-REQ-.####",
+    "creation": "2024-11-02 16:05:47.323406",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "employee",
+     "employee_id",
+     "employee_name",
+     "user_id",
+     "status",
+     "date_required_on",
+     "project",
+     "justification",
+     "section_break_tda8",
+     "company",
+     "department",
+     "priority",
+     "required_amount",
+     "received_amount",
+     "cost_center",
+     "purchase_invoice",
+     "amended_from",
+     "petty_cash_link",
+     "approval_status",
+     "supervisor",
+     "request_details_tab",
+     "custom_html_tab"
+    ],
+    "fields": [
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Petty Cash Request",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "section_break_tda8",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "employee",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Employee",
+      "options": "Petty Cash Authorized Employees",
+      "reqd": 1
+     },
+     {
+      "fetch_from": "employee.employee_name",
+      "fieldname": "employee_name",
+      "fieldtype": "Data",
+      "label": "Employee Name",
+      "read_only": 1
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Active\nInactive\nResolved"
+     },
+     {
+      "fieldname": "date_required_on",
+      "fieldtype": "Date",
+      "label": "Date Required on"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "label": "Project",
+      "options": "Project"
+     },
+     {
+      "fieldname": "justification",
+      "fieldtype": "Small Text",
+      "label": "Justification"
+     },
+     {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "label": "Company",
+      "options": "Company",
+      "reqd": 1
+     },
+     {
+      "fieldname": "department",
+      "fieldtype": "Link",
+      "label": "Department",
+      "options": "Department"
+     },
+     {
+      "fieldname": "priority",
+      "fieldtype": "Select",
+      "label": "Priority",
+      "options": "\nHigh\nMedium\nLow"
+     },
+     {
+      "fieldname": "required_amount",
+      "fieldtype": "Float",
+      "label": "Required Amount"
+     },
+     {
+      "fieldname": "cost_center",
+      "fieldtype": "Link",
+      "label": "Cost Center",
+      "options": "Cost Center"
+     },
+     {
+      "fieldname": "petty_cash_link",
+      "fieldtype": "Select",
+      "label": "Petty Cash Link",
+      "options": "Petty Cash Authorized Employees"
+     },
+     {
+      "fetch_from": "employee.employee",
+      "fieldname": "employee_id",
+      "fieldtype": "Link",
+      "label": "Employee ID",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "employee_id.user_id",
+      "fieldname": "user_id",
+      "fieldtype": "Link",
+      "label": "User ID",
+      "options": "User"
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "purchase_invoice",
+      "fieldtype": "Link",
+      "label": "Purchase Invoice",
+      "options": "Purchase Invoice"
+     },
+     {
+      "fieldname": "approval_status",
+      "fieldtype": "Data",
+      "label": "Approval status",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "employee.supervisor",
+      "fieldname": "supervisor",
+      "fieldtype": "Link",
+      "hidden": 1,
+      "in_standard_filter": 1,
+      "label": "Supervisor",
+      "options": "User"
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "received_amount",
+      "fieldtype": "Float",
+      "label": "Received Amount"
+     },
+     {
+      "fieldname": "request_details_tab",
+      "fieldtype": "Tab Break",
+      "label": "Request Details"
+     },
+     {
+      "fieldname": "custom_html_tab",
+      "fieldtype": "HTML",
+      "label": "Custom Html tab"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [
+     {
+      "link_doctype": "Purchase Receipt",
+      "link_fieldname": "petty_cash_request"
+     },
+     {
+      "link_doctype": "Expense Claim",
+      "link_fieldname": "petty_cash_request"
+     }
+    ],
+    "modified": "2025-03-25 07:53:29.647942",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Petty Cash Request",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "Employee",
+      "share": 1
+     },
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "HR User",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     },
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "HR Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

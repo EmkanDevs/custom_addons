@@ -242,3 +242,20 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+doc_events = {
+    "Purchase Receipt":{
+        "validate":"custom_addons.custom_addons.doc_events.purchase_receipt.validate",
+        "on_cancel":"custom_addons.custom_addons.doc_events.purchase_receipt.on_cancel",
+        "after_insert":"custom_addons.custom_addons.doc_events.purchase_receipt.after_insert"
+    },
+    "Expense Claim":{
+        "validate":"custom_addons.custom_addons.doc_events.expense_claim.validate",
+        "on_cancel":"custom_addons.custom_addons.doc_events.expense_claim.on_cancel",
+    },
+}
+
+doctype_js = {
+            "Request for Quotation":"public/js/request_for_quotation.js",
+            "Expense Claim":"public/js/expense_claim.js",
+            "Supplier Quotation":"public/js/supplier_quotation.js",
+}

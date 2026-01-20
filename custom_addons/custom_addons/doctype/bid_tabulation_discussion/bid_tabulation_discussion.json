@@ -1,0 +1,161 @@
+{
+    "actions": [],
+    "autoname": "naming_series:",
+    "creation": "2025-01-22 12:43:25.008830",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "custom_html",
+     "section_break_ygsy",
+     "user_list",
+     "request_for_quotation",
+     "supplier",
+     "reason",
+     "column_break_cqhl",
+     "naming_series",
+     "amended_from",
+     "material_request",
+     "section_break_bbja",
+     "discussion",
+     "final_supplier_section",
+     "final_supplier",
+     "supplier_quotation"
+    ],
+    "fields": [
+     {
+      "fieldname": "reason",
+      "fieldtype": "Small Text",
+      "label": "Reason"
+     },
+     {
+      "fieldname": "supplier",
+      "fieldtype": "Link",
+      "label": "Supplier",
+      "options": "Supplier"
+     },
+     {
+      "fieldname": "discussion",
+      "fieldtype": "Table",
+      "label": "Discussion",
+      "options": "Discussion"
+     },
+     {
+      "fieldname": "request_for_quotation",
+      "fieldtype": "Link",
+      "label": "Request for quotation",
+      "options": "Request for Quotation",
+      "read_only": 1
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Bid Tabulation Discussion",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "hidden": 1,
+      "label": "naming series",
+      "options": "BTD-"
+     },
+     {
+      "fieldname": "final_supplier_section",
+      "fieldtype": "Section Break",
+      "label": "Final Supplier"
+     },
+     {
+      "allow_on_submit": 1,
+      "description": "Final supplier as per discussion",
+      "fieldname": "final_supplier",
+      "fieldtype": "Link",
+      "label": "Final supplier",
+      "options": "Supplier",
+      "permlevel": 1
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "supplier_quotation",
+      "fieldtype": "Link",
+      "label": "Supplier Quotation",
+      "options": "Supplier Quotation",
+      "permlevel": 1
+     },
+     {
+      "fieldname": "custom_html",
+      "fieldtype": "HTML",
+      "label": "Custom Html"
+     },
+     {
+      "fieldname": "user_list",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "User List",
+      "options": "User Group",
+      "reqd": 1
+     },
+     {
+      "fieldname": "section_break_ygsy",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "column_break_cqhl",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "material_request",
+      "fieldtype": "Link",
+      "label": "Material Request",
+      "options": "Material Request",
+      "read_only": 1
+     },
+     {
+      "fieldname": "section_break_bbja",
+      "fieldtype": "Section Break"
+     }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [
+     {
+      "link_doctype": "Purchase Order",
+      "link_fieldname": "bid_tabulation"
+     },
+     {
+      "link_doctype": "Quotation",
+      "link_fieldname": "bid_tabulation"
+     }
+    ],
+    "modified": "2025-02-20 11:55:43.167734",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Bid Tabulation Discussion",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "amend": 1,
+      "cancel": 1,
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

@@ -1,0 +1,276 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2024-12-30 14:30:16.942226",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "basic_information_section",
+     "asset_local_code",
+     "date_of_purchase_acquisition",
+     "serial_number",
+     "column_break_vdsf",
+     "current_status",
+     "hard_disk_type",
+     "hard_disk_size_gb",
+     "supplier",
+     "purchase_order",
+     "column_break_teqj",
+     "ram_size",
+     "generation",
+     "asset",
+     "item_information_section",
+     "item",
+     "manufacturer",
+     "column_break_b8p8",
+     "item_group",
+     "item_name",
+     "section_break_qihr",
+     "software_details",
+     "assign_to_section",
+     "department",
+     "column_break_ttut",
+     "project",
+     "asset_softwares_section",
+     "oswindows_type",
+     "windows_key",
+     "activated",
+     "antivirus",
+     "more_items",
+     "column_break_dcey",
+     "location",
+     "cadmate",
+     "autodesk",
+     "anydesk"
+    ],
+    "fields": [
+     {
+      "fieldname": "basic_information_section",
+      "fieldtype": "Section Break",
+      "label": "Basic Information"
+     },
+     {
+      "fieldname": "asset_local_code",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Asset Tag/ID",
+      "reqd": 1
+     },
+     {
+      "fieldname": "date_of_purchase_acquisition",
+      "fieldtype": "Date",
+      "label": "Date of Acquisition"
+     },
+     {
+      "fieldname": "serial_number",
+      "fieldtype": "Data",
+      "label": "Serial Number"
+     },
+     {
+      "fieldname": "column_break_vdsf",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "current_status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Current Status",
+      "options": "\nIn Storage\nIn Use\nRetired\nAwaiting Disposal"
+     },
+     {
+      "fieldname": "hard_disk_type",
+      "fieldtype": "Select",
+      "label": "Hard Disk Type",
+      "options": "\nHard Disk Drive (HDD)\nSolid State Drive (SSD)\nM.2"
+     },
+     {
+      "fieldname": "hard_disk_size_gb",
+      "fieldtype": "Data",
+      "label": "Hard Disk Size (GB)"
+     },
+     {
+      "fieldname": "column_break_teqj",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "ram_size",
+      "fieldtype": "Data",
+      "label": "RAM Size"
+     },
+     {
+      "fieldname": "generation",
+      "fieldtype": "Data",
+      "label": "Generation"
+     },
+     {
+      "fieldname": "asset",
+      "fieldtype": "Link",
+      "label": "Asset",
+      "options": "Asset"
+     },
+     {
+      "fieldname": "item_information_section",
+      "fieldtype": "Section Break",
+      "label": "Item Information"
+     },
+     {
+      "fieldname": "item",
+      "fieldtype": "Link",
+      "label": "Item",
+      "options": "Item"
+     },
+     {
+      "fetch_from": "item.default_item_manufacturer",
+      "fieldname": "manufacturer",
+      "fieldtype": "Data",
+      "label": "Manufacturer",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_b8p8",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fetch_from": "item.item_group",
+      "fieldname": "item_group",
+      "fieldtype": "Data",
+      "label": "Item Group",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "item.item_name",
+      "fieldname": "item_name",
+      "fieldtype": "Data",
+      "label": "Item Name",
+      "read_only": 1
+     },
+     {
+      "fieldname": "asset_softwares_section",
+      "fieldtype": "Section Break",
+      "label": "Asset Software's"
+     },
+     {
+      "fieldname": "oswindows_type",
+      "fieldtype": "Select",
+      "label": "OS/Windows Type",
+      "options": "\nWindows Server 2022 Standard\nWindows 7\nWindows 10 Pro\nWindows 10 Business\nWindows 11 Pro\nWindows 11 Business"
+     },
+     {
+      "fieldname": "windows_key",
+      "fieldtype": "Data",
+      "label": "Windows Key"
+     },
+     {
+      "default": "0",
+      "fieldname": "activated",
+      "fieldtype": "Check",
+      "label": "Activated"
+     },
+     {
+      "default": "0",
+      "fieldname": "antivirus",
+      "fieldtype": "Check",
+      "label": "Antivirus "
+     },
+     {
+      "fieldname": "more_items",
+      "fieldtype": "Small Text",
+      "label": "More Items"
+     },
+     {
+      "fieldname": "column_break_dcey",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "location",
+      "fieldtype": "Link",
+      "label": "Location",
+      "options": "Location"
+     },
+     {
+      "fieldname": "cadmate",
+      "fieldtype": "Data",
+      "label": "Cadmate"
+     },
+     {
+      "fieldname": "autodesk",
+      "fieldtype": "Data",
+      "label": "AutoDesk"
+     },
+     {
+      "fieldname": "anydesk",
+      "fieldtype": "Data",
+      "label": "AnyDesk"
+     },
+     {
+      "fieldname": "assign_to_section",
+      "fieldtype": "Section Break",
+      "label": "Assign To"
+     },
+     {
+      "fieldname": "department",
+      "fieldtype": "Link",
+      "label": "Department",
+      "options": "Department"
+     },
+     {
+      "fieldname": "column_break_ttut",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "label": "Project",
+      "options": "Project"
+     },
+     {
+      "fieldname": "section_break_qihr",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "software_details",
+      "fieldtype": "Table",
+      "label": "Software details",
+      "options": "IT Asset Software Subscriptions"
+     },
+     {
+      "fieldname": "supplier",
+      "fieldtype": "Link",
+      "label": "Supplier",
+      "options": "Supplier"
+     },
+     {
+      "depends_on": "eval:doc.supplier",
+      "fieldname": "purchase_order",
+      "fieldtype": "Link",
+      "label": "Purchase Order",
+      "options": "Purchase Order"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-04-17 15:17:04.657757",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "IT Asset Management",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }

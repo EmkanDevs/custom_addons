@@ -1,0 +1,359 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:violation_no",
+    "creation": "2025-05-27 14:27:10.293869",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "\u0645\u0639\u0644\u0648\u0645\u0627\u062a_\u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629_section",
+     "violation_no",
+     "area_permit_no",
+     "violation_penalty_reason",
+     "violation_penalty_reason_arabic",
+     "issuing_authority",
+     "column_break_sigg",
+     "company",
+     "penalty_date",
+     "objection_bcd",
+     "issuing_authority_arabic",
+     "efaa",
+     "column_break_vyfw",
+     "area_po_no",
+     "penalty_amount",
+     "violation_description",
+     "section_break_edk3",
+     "project",
+     "project_name",
+     "project_manager",
+     "pm_contact_no",
+     "column_break_fwyw",
+     "area_manager",
+     "penalty_status",
+     "objection_no",
+     "objection_status",
+     "column_break_ct6p",
+     "location",
+     "area",
+     "objection_reason",
+     "payment_information_section",
+     "sadad_no",
+     "payment_due_date",
+     "payment_to",
+     "payment_to_name",
+     "payment_to_arabic",
+     "column_break_ejit",
+     "close_violation",
+     "inform_accounting",
+     "notification_sent",
+     "payment_status",
+     "section_break_jwun",
+     "from_account",
+     "column_break_jtal",
+     "to_account"
+    ],
+    "fields": [
+     {
+      "fieldname": "section_break_edk3",
+      "fieldtype": "Section Break",
+      "label": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u0634\u0631\u0648\u0639:"
+     },
+     {
+      "fieldname": "violation_no",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "\u0631\u0642\u0645 \u062a\u0635\u0631\u064a\u062d \u0627\u0644\u0645\u0646\u0637\u0642\u0629",
+      "reqd": 1,
+      "unique": 1
+     },
+     {
+      "fieldname": "area_permit_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u062a\u0635\u0631\u064a\u062d \u0627\u0644\u0645\u0646\u0637\u0642\u0629"
+     },
+     {
+      "fieldname": "area_po_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0645\u0634\u0631\u0648\u0639"
+     },
+     {
+      "fieldname": "column_break_vyfw",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "penalty_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629",
+      "reqd": 1
+     },
+     {
+      "fieldname": "objection_bcd",
+      "fieldtype": "Date",
+      "label": "\u0622\u062e\u0631 \u062a\u0627\u0631\u064a\u062e \u0644\u0644\u0625\u0639\u062a\u0631\u0627\u0636"
+     },
+     {
+      "default": "0",
+      "fieldname": "penalty_amount",
+      "fieldtype": "Currency",
+      "in_list_view": 1,
+      "label": "\u0645\u0628\u0644\u063a \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629",
+      "reqd": 1
+     },
+     {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "in_standard_filter": 1,
+      "label": "\u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "options": "Project"
+     },
+     {
+      "fetch_from": "project.project_name",
+      "fieldname": "project_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "read_only": 1
+     },
+     {
+      "fieldname": "location",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u0627\u0644\u0645\u0648\u0642\u0639",
+      "options": "Location"
+     },
+     {
+      "fieldname": "column_break_fwyw",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "penalty_status",
+      "fieldtype": "Select",
+      "label": "\u0627\u0644\u0625\u0639\u062a\u0631\u0627\u0636",
+      "options": "\nObjection\nExpired"
+     },
+     {
+      "fieldname": "objection_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0625\u0639\u062a\u0631\u0627\u0636"
+     },
+     {
+      "fieldname": "objection_status",
+      "fieldtype": "Select",
+      "label": "\u062d\u0627\u0644\u0629 \u0627\u0644\u0625\u0639\u062a\u0631\u0627\u0636",
+      "options": "\nOver\nRejected\nUnder Study\nAccepted"
+     },
+     {
+      "fieldname": "violation_penalty_reason",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u0633\u0628\u0628 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629",
+      "options": "Violation Penalty Reason"
+     },
+     {
+      "fieldname": "project_manager",
+      "fieldtype": "Link",
+      "label": "\u0645\u062f\u064a\u0631 \u0627\u0644\u0645\u0634\u0631\u0648\u0639",
+      "options": "User"
+     },
+     {
+      "fieldname": "area_manager",
+      "fieldtype": "Link",
+      "label": "\u0645\u062f\u064a\u0631 \u0627\u0644\u0645\u0646\u0637\u0642\u0629",
+      "options": "User"
+     },
+     {
+      "fieldname": "pm_contact_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u0645\u062f\u064a\u0631 \u0627\u0644\u0645\u0634\u0631\u0648\u0639"
+     },
+     {
+      "fieldname": "payment_information_section",
+      "fieldtype": "Section Break",
+      "label": "Payment Information:"
+     },
+     {
+      "fieldname": "payment_due_date",
+      "fieldtype": "Date",
+      "label": "\u0622\u062e\u0631 \u062a\u0627\u0631\u064a\u062e \u0644\u0644\u0633\u062f\u0627\u062f"
+     },
+     {
+      "fieldname": "column_break_ejit",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "payment_status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u062d\u0627\u0644\u0629 \u0627\u0644\u062f\u0641\u0639",
+      "options": "\nUnpaid\nPaid\nCanceled"
+     },
+     {
+      "fieldname": "column_break_sigg",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "sadad_no",
+      "fieldtype": "Data",
+      "label": "\u0631\u0642\u0645 \u0627\u0644\u0633\u062f\u0627\u062f"
+     },
+     {
+      "default": "0",
+      "fieldname": "inform_accounting",
+      "fieldtype": "Check",
+      "label": "\u0625\u062e\u0637\u0627\u0631 \u0627\u0644\u0645\u062d\u0627\u0633\u0628\u0629"
+     },
+     {
+      "default": "0",
+      "fieldname": "close_violation",
+      "fieldtype": "Check",
+      "label": "\u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629"
+     },
+     {
+      "fetch_from": "location.parent_location",
+      "fieldname": "area",
+      "fieldtype": "Data",
+      "label": "\u0627\u0644\u0645\u0646\u0637\u0642\u0629",
+      "read_only": 1
+     },
+     {
+      "fieldname": "column_break_ct6p",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fetch_from": "violation_penalty_reason.penalty_reason_arabic",
+      "fieldname": "violation_penalty_reason_arabic",
+      "fieldtype": "Data",
+      "label": "\u0633\u0628\u0628 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629 \u0628\u0627\u0644\u0639\u0631\u0628\u064a",
+      "read_only": 1
+     },
+     {
+      "fieldname": "objection_reason",
+      "fieldtype": "Small Text",
+      "label": "\u062a\u0641\u0635\u064a\u0644 \u0627\u0644\u0625\u0639\u062a\u0631\u0627\u0636"
+     },
+     {
+      "fieldname": "section_break_jwun",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "from_account",
+      "fieldtype": "Link",
+      "hidden": 1,
+      "label": "\u0645\u0646 \u0627\u0644\u062d\u0633\u0627\u0628",
+      "options": "Account"
+     },
+     {
+      "fieldname": "column_break_jtal",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "to_account",
+      "fieldtype": "Link",
+      "hidden": 1,
+      "label": "\u0625\u0644\u0649 \u0627\u0644\u062d\u0633\u0627\u0628",
+      "options": "Account"
+     },
+     {
+      "fieldname": "company",
+      "fieldtype": "Link",
+      "label": "\u0627\u0644\u0634\u0631\u0643\u0629",
+      "options": "Company",
+      "reqd": 1
+     },
+     {
+      "default": "0",
+      "fieldname": "notification_sent",
+      "fieldtype": "Check",
+      "hidden": 1,
+      "label": "Notification Sent"
+     },
+     {
+      "fieldname": "issuing_authority",
+      "fieldtype": "Link",
+      "label": "\u062c\u0647\u0629 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629",
+      "options": "Violation Issuing Authority"
+     },
+     {
+      "fieldname": "violation_description",
+      "fieldtype": "Small Text",
+      "label": "\u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629"
+     },
+     {
+      "fetch_from": "issuing_authority.issuing_authority_arabic",
+      "fieldname": "issuing_authority_arabic",
+      "fieldtype": "Data",
+      "label": "\u062c\u0647\u0629 \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629 \u0628\u0627\u0644\u0639\u0631\u0628\u064a",
+      "read_only": 1
+     },
+     {
+      "fieldname": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a_\u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629_section",
+      "fieldtype": "Section Break",
+      "label": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u062e\u0627\u0644\u0641\u0629"
+     },
+     {
+      "fieldname": "efaa",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "\u0645\u0646\u0635\u0629 \u0625\u064a\u0641\u0627\u0621"
+     },
+     {
+      "fieldname": "payment_to",
+      "fieldtype": "Link",
+      "label": "Payment To",
+      "options": "Supplier"
+     },
+     {
+      "fetch_from": "payment_to.supplier_name",
+      "fieldname": "payment_to_name",
+      "fieldtype": "Data",
+      "label": "Payment To Name",
+      "read_only": 1
+     },
+     {
+      "fetch_from": "payment_to.supplier_name_in_arabic",
+      "fieldname": "payment_to_arabic",
+      "fieldtype": "Data",
+      "label": "Payment To Arabic",
+      "read_only": 1
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [
+     {
+      "link_doctype": "Journal Entry",
+      "link_fieldname": "project_site_violation"
+     }
+    ],
+    "modified": "2025-12-05 05:58:00.359224",
+    "modified_by": "ali.alebrahim@conpillars.com",
+    "module": "Custom Addons",
+    "name": "Project Site Violation",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

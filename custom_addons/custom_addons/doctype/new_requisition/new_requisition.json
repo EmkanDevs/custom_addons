@@ -1,0 +1,212 @@
+{
+    "actions": [],
+    "allow_import": 1,
+    "autoname": "REQUIS-.####",
+    "creation": "2025-01-05 15:06:11.257008",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "basic_information_section",
+     "requested_on",
+     "subject",
+     "request_from",
+     "service_group",
+     "department_service",
+     "head_of_department",
+     "doc_status",
+     "priority",
+     "tag_idno",
+     "column_break_1jvm",
+     "submitted_by",
+     "for_customer",
+     "for_project",
+     "for_department",
+     "for_employee",
+     "employee_name",
+     "designation",
+     "attachment",
+     "section_break_wrd1",
+     "description",
+     "amended_from"
+    ],
+    "fields": [
+     {
+      "fieldname": "basic_information_section",
+      "fieldtype": "Section Break",
+      "label": "Basic Information"
+     },
+     {
+      "bold": 1,
+      "default": "Today",
+      "fieldname": "requested_on",
+      "fieldtype": "Date",
+      "label": "Requested On"
+     },
+     {
+      "fieldname": "subject",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Subject",
+      "reqd": 1
+     },
+     {
+      "fieldname": "request_from",
+      "fieldtype": "Link",
+      "label": "Request From",
+      "options": "Department"
+     },
+     {
+      "fieldname": "priority",
+      "fieldtype": "Link",
+      "label": "Priority",
+      "options": "Issue Priority"
+     },
+     {
+      "fieldname": "column_break_1jvm",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "submitted_by",
+      "fieldtype": "Data",
+      "label": "Submitted By",
+      "read_only": 1
+     },
+     {
+      "fieldname": "for_project",
+      "fieldtype": "Link",
+      "label": "For Project",
+      "options": "Project"
+     },
+     {
+      "fieldname": "for_department",
+      "fieldtype": "Link",
+      "label": "For Department",
+      "options": "Department"
+     },
+     {
+      "fieldname": "for_employee",
+      "fieldtype": "Link",
+      "label": "For Employee",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "for_employee.employee_name",
+      "fieldname": "employee_name",
+      "fieldtype": "Data",
+      "label": "Employee Name",
+      "read_only": 1
+     },
+     {
+      "fieldname": "section_break_wrd1",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
+     },
+     {
+      "fieldname": "service_group",
+      "fieldtype": "Link",
+      "label": "Service Group",
+      "options": "Service Group"
+     },
+     {
+      "fieldname": "department_service",
+      "fieldtype": "Link",
+      "label": "Department Service",
+      "options": "Department Service List"
+     },
+     {
+      "fetch_from": "for_employee.designation",
+      "fieldname": "designation",
+      "fieldtype": "Data",
+      "label": "Designation",
+      "read_only": 1
+     },
+     {
+      "fieldname": "tag_idno",
+      "fieldtype": "Data",
+      "label": "TAG ID/No"
+     },
+     {
+      "fieldname": "for_customer",
+      "fieldtype": "Link",
+      "label": "For Customer",
+      "options": "Customer"
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "New Requisition",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "head_of_department",
+      "fieldtype": "Table MultiSelect",
+      "label": "Head of Department",
+      "options": "Head of department"
+     },
+     {
+      "allow_on_submit": 1,
+      "fieldname": "doc_status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Status",
+      "options": "Open\nWorking\nPending Review\nCompleted\nCancelled"
+     },
+     {
+      "fieldname": "attachment",
+      "fieldtype": "Attach",
+      "label": "Attachment"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [
+     {
+      "group": "Actions",
+      "link_doctype": "Task",
+      "link_fieldname": "custom_requisition"
+     },
+     {
+      "group": "Needs",
+      "link_doctype": "Material Request",
+      "link_fieldname": "custom_new_requisition"
+     }
+    ],
+    "modified": "2025-05-09 07:26:24.278521",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "New Requisition",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "select": 1,
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "search_fields": "subject,request_from",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }

@@ -1,0 +1,47 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2025-02-18 09:45:58.905661",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+     "software",
+     "purchased_from",
+     "purchased_date"
+    ],
+    "fields": [
+     {
+      "fieldname": "software",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Software"
+     },
+     {
+      "fieldname": "purchased_from",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Purchased From"
+     },
+     {
+      "fieldname": "purchased_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Purchased Date"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "istable": 1,
+    "links": [],
+    "modified": "2025-06-11 13:07:32.997403",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "IT Asset Software Subscriptions",
+    "owner": "Administrator",
+    "permissions": [],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }
