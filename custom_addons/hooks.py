@@ -259,3 +259,12 @@ doctype_js = {
             "Expense Claim":"public/js/expense_claim.js",
             "Supplier Quotation":"public/js/supplier_quotation.js",
 }
+
+fixtures = [
+    {
+        "dt": "Custom Field",
+        "filters": {
+            "module": "Custom Addons"
+        }
+    },
+]
