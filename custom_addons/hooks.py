@@ -243,9 +243,7 @@ app_license = "mit"
 # }
 
 override_whitelisted_methods = {
-3
-
-"erpnext.buying.doctype.request_for_quotation.request_for_quotation.make_supplier_quotation_from_rfq":"custom_addons.custom_addons.override.request_for_quotation.make_supplier_quotation_from_rfq",
+    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.make_supplier_quotation_from_rfq":"custom_addons.custom_addons.override.request_for_quotation.make_supplier_quotation_from_rfq",
 }
 
 doc_events = {

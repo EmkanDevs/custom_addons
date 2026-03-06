@@ -8,16 +8,24 @@ from frappe.model.document import Document
 class ProjectSiteViolation(Document):
 	pass
 
+import frappe
+
 @frappe.whitelist()
 def make_payment_request(docname):
-    doc = frappe.get_doc("Project Site Violation",docname)
+    # Get source document
+    doc = frappe.get_doc("Project Site Violation", docname)
+
+    # Permission check
+    doc.check_permission("read")
+
     data = frappe.new_doc("Payment Requester")
-    data.payment_request_type =  "Outward"
+    data.payment_request_type = "Outward"
     data.reference_doctype = "Project Site Violation"
     data.reference_name = doc.name
-    data.grand_total = doc.penalty_amount 
+    data.grand_total = doc.penalty_amount
     data.party_type = "Customer"
-    data.party = frappe.db.get_value("Project",doc.project,"customer")
-    data.save()
-    
+    data.party = frappe.db.get_value("Project", doc.project, "customer")
+
+    data.insert()  # insert is better than save for new docs
+
     return data

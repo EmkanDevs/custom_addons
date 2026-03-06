@@ -14,19 +14,29 @@ class RentalContract(Document):
 
 @frappe.whitelist()
 def make_payment_request(rental_contract):
-    doc = frappe.get_doc("Rental Contract",rental_contract)
+    # Get Rental Contract
+    doc = frappe.get_doc("Rental Contract", rental_contract)
+
+    # Permission check on source document
+    doc.check_permission("read")
+
+    # Permission check for new document creation
+    if not frappe.has_permission("Payment Requester", "create"):
+        frappe.throw("You do not have permission to create Payment Request")
+
     data = frappe.new_doc("Payment Requester")
-    data.payment_request_type =  "Outward"
+    data.payment_request_type = "Outward"
     data.reference_doctype = "Rental Contract"
     data.reference_name = doc.name
-    data.grand_total = doc.yearly_rent 
+    data.grand_total = doc.yearly_rent
     data.party_type = "Customer"
-    data.party = frappe.db.get_value("Project",doc.project,"customer")
+    data.party = frappe.db.get_value("Project", doc.project, "customer")
     data.payment_account = doc.payment_account
-    data.save()
-    
+
+    data.insert()   # correct method for new docs
+
     return data
-    
+
 def send_rental_reminders_electric_and_water():
     today_date = getdate(today())
     day_of_month = today_date.day

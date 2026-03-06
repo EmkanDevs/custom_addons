@@ -142,24 +142,36 @@ def fetch_purchaseorder_and_expenseclaim_details(petty_cash_request):
 
 @frappe.whitelist()
 def set_petty_cash(data, purchase_receipts):
+    import json
+
     if isinstance(purchase_receipts, str):
-        import json
         purchase_receipts = json.loads(purchase_receipts)
-        
+
     for receipt_name in purchase_receipts:
-        if frappe.db.exists("Purchase Receipt",receipt_name):
-            doc = frappe.get_doc("Purchase Receipt", receipt_name)
-            doc.db_set("petty_cash_request", data,update_modified=False)
+        doc = frappe.get_doc("Purchase Receipt", receipt_name)
+
+        # permission validation
+        doc.check_permission("write")
+
+        doc.db_set("petty_cash_request", data, update_modified=False)
             
 @frappe.whitelist()
 def clear_petty_cash_request(purchase_receipt):
     try:
-        # frappe.throw(str(purchase_receipt))
-        frappe.db.set_value("Purchase Receipt", purchase_receipt, "petty_cash_request", "")
-        # frappe.db.commit()  # Ensure the change is saved in the database
+        doc = frappe.get_doc("Purchase Receipt", purchase_receipt)
+
+        # Permission Check
+        doc.check_permission("write")
+
+        doc.db_set("petty_cash_request", "", update_modified=False)
+
         return "success"
+
+    except frappe.PermissionError:
+        frappe.throw("You do not have permission to modify this Purchase Receipt")
+
     except Exception as e:
-        frappe.log_error(f"Error clearing petty_cash_request: {str(e)}")
+        frappe.log_error(frappe.get_traceback(), "Clear Petty Cash Request Error")
         return "error"
 
 
