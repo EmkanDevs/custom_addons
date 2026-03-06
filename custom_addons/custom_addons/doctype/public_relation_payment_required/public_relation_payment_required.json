@@ -201,17 +201,6 @@
       "options": "\nUnpaid\nPaid\nCanceled"
      },
      {
-      "fieldname": "amended_from",
-      "fieldtype": "Link",
-      "hidden": 1,
-      "label": "Amended From",
-      "no_copy": 1,
-      "options": "Public Relation Payment Required",
-      "print_hide": 1,
-      "read_only": 1,
-      "search_index": 1
-     },
-     {
       "fieldname": "invoice_no",
       "fieldtype": "Data",
       "in_standard_filter": 1,

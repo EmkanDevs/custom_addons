@@ -4,7 +4,7 @@ frappe.ui.form.on("Purchase Order", {
             __("Service Status"),
             () => {
                 frappe.call({
-                    method: "mkan_customization.mkan_customization.doc_events.purchase_order.service_status_map",
+                    method: "custom_addons.custom_addons.doc_events.purchase_order.service_status_map",
                     args: {
                         source_name: frm.doc.name
                     },

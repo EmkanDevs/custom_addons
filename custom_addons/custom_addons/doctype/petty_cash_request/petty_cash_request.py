@@ -47,13 +47,17 @@ def make_expense_claim(source_name, target_doc=None):
     return doc
 
 
+from frappe.utils import escape_html
+
 @frappe.whitelist()
 def fetch_purchaseorder_and_expenseclaim_details(petty_cash_request):
+
     purchase_receipt = frappe.get_all(
         "Purchase Receipt",
         filters={"petty_cash_request": petty_cash_request, "docstatus": 1},
         fields=["name", "grand_total", "creation", "total_taxes_and_charges"]
     )
+
     expense_claim = frappe.get_all(
         "Expense Claim",
         filters={"petty_cash_request": petty_cash_request, "docstatus": 1},
@@ -82,17 +86,24 @@ def fetch_purchaseorder_and_expenseclaim_details(petty_cash_request):
         ec = expense_claim[i] if i < len(expense_claim) else None
 
         html_content += "<tr>"
+
         if pr:
             purchase_link = frappe.utils.get_url_to_form("Purchase Receipt", pr['name'])
+
+            pr_name = escape_html(pr['name'])
+            pr_creation = escape_html(str(pr['creation'].date()))
+            pr_tax = escape_html(str(pr['total_taxes_and_charges']))
+            pr_total = escape_html(format(pr['grand_total'], ',.2f'))
+
             html_content += f"""
                 <td width="50%" style="padding: 10px; border: 1px solid #444;">
                     <strong style="padding-right: 280px;">
-                        <a href="{purchase_link}" target="_blank" style="color: #28a745; text-decoration: underline; font-weight: bold;">{pr['name']}</a>
-                    </strong> 
-                    <button type="button" class="btn btn-dark remove-pr" data-pr="{pr['name']}"> X </button><br>
-                    Created On: {pr['creation'].date()}<br>
-                    Total Taxes and Charges: {pr['total_taxes_and_charges']}<br>
-                    Grand Total: {format(pr['grand_total'], ',.2f')}
+                        <a href="{purchase_link}" target="_blank" style="color: #28a745; text-decoration: underline; font-weight: bold;">{pr_name}</a>
+                    </strong>
+                    <button type="button" class="btn btn-dark remove-pr" data-pr="{pr_name}"> X </button><br>
+                    Created On: {pr_creation}<br>
+                    Total Taxes and Charges: {pr_tax}<br>
+                    Grand Total: {pr_total}
                 </td>
             """
         else:
@@ -100,14 +111,20 @@ def fetch_purchaseorder_and_expenseclaim_details(petty_cash_request):
 
         if ec:
             expense_link = frappe.utils.get_url_to_form("Expense Claim", ec['name'])
+
+            ec_name = escape_html(ec['name'])
+            ec_creation = escape_html(str(ec['creation'].date()))
+            ec_tax = escape_html(str(ec['total_taxes_and_charges']))
+            ec_total = escape_html(format(ec['grand_total'], ',.2f'))
+
             html_content += f"""
                 <td width="50%" style="padding: 10px; border: 1px solid #444;">
                     <strong>
-                        <a href="{expense_link}" target="_blank" style="color: #28a745; text-decoration: underline; font-weight: bold;">{ec['name']}</a>
+                        <a href="{expense_link}" target="_blank" style="color: #28a745; text-decoration: underline; font-weight: bold;">{ec_name}</a>
                     </strong><br>
-                    Created On: {ec['creation'].date()}<br>
-                    Total Taxes and Charges: {ec['total_taxes_and_charges']}<br>
-                    Grand Total: {format(ec['grand_total'], ',.2f')}
+                    Created On: {ec_creation}<br>
+                    Total Taxes and Charges: {ec_tax}<br>
+                    Grand Total: {ec_total}
                 </td>
             """
         else:
@@ -122,7 +139,6 @@ def fetch_purchaseorder_and_expenseclaim_details(petty_cash_request):
     """
 
     return html_content
-
 
 @frappe.whitelist()
 def set_petty_cash(data, purchase_receipts):

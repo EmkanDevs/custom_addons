@@ -242,6 +242,12 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+override_whitelisted_methods = {
+3
+
+"erpnext.buying.doctype.request_for_quotation.request_for_quotation.make_supplier_quotation_from_rfq":"custom_addons.custom_addons.override.request_for_quotation.make_supplier_quotation_from_rfq",
+}
+
 doc_events = {
     "Purchase Receipt":{
         "validate":"custom_addons.custom_addons.doc_events.purchase_receipt.validate",
@@ -252,6 +258,16 @@ doc_events = {
         "validate":"custom_addons.custom_addons.doc_events.expense_claim.validate",
         "on_cancel":"custom_addons.custom_addons.doc_events.expense_claim.on_cancel",
     },
+    "Supplier Quotation":{
+        "on_cancel":"custom_addons.custom_addons.doc_events.supplier_quotation.on_cancel",
+    },
+    "Request for Quotation":{
+        "on_submit":"custom_addons.custom_addons.doc_events.request_for_quotation.on_submit",
+    },
+    "Purchase Order":{
+        "after_insert":"custom_addons.custom_addons.doc_events.purchase_order.after_insert",
+    },
+    
 }
 
 doctype_js = {

@@ -7,6 +7,7 @@ from datetime import datetime
 from frappe.utils import getdate, today
 from frappe.desk.form.load import get_attachments
 from frappe.model.mapper import get_mapped_doc
+from frappe.utils import escape_html
 
 class RentalContract(Document):
     pass
@@ -36,7 +37,7 @@ def send_rental_reminders_electric_and_water():
             "contract_is_active": 1
         },
         fields=[
-            "name", "project_name", "location", "onwer_name", "onwer_contact_no",
+            "name", "project_name", "location", "owner_name", "onwer_contact_no",
             "monthly_reminder_day_elctric", "monthly_reminder_day_water",
             "start_of_contract", "note"
         ]
@@ -56,21 +57,24 @@ def send_rental_reminders_electric_and_water():
             send_email_reminder_electric_and_water(contract, "Water")
 
 def send_email_reminder_electric_and_water(contract, reminder_type):
-    subject = f"{reminder_type} Reminder for {contract.project_name} - {contract.name}"
+    from frappe.utils import escape_html
+
+    subject = f"{reminder_type} Reminder for {escape_html(contract.project_name)} - {escape_html(contract.name)}"
+
     message = f"""
-    <p>Dear {contract.owner_name},</p>
-    <p>This is a monthly reminder for your <strong>{reminder_type.lower()} utility</strong> as per your contract at <strong>{contract.location}</strong>.</p>
+    <p>Dear {escape_html(contract.owner_name)},</p>
+    <p>This is a monthly reminder for your <strong>{escape_html(reminder_type.lower())} utility</strong> as per your contract at <strong>{escape_html(contract.location)}</strong>.</p>
     <ul>
-        <li><b>Contract:</b> {contract.name}</li>
-        <li><b>Contract Type:</b> {contract.contract_type}</li>
-        <li><b>Contract No:</b> {contract.contract_no}</li>
-        <li><b>Start Date:</b> {contract.start_of_contract}</li>
-        <li><b>End Date:</b> {contract.end_of_contract}</li>
-        <li><b>Project:</b> {contract.project_name}</li>
-        <li><b>Location:</b> {contract.location}</li>
-        <li><b>Accommodation Type:</b> {contract.accommodation_type or "N/A"}</li>
-        <li><b>Payment Frequency:</b> {contract.payment_frequency}</li>
-        <li><b>Yearly Rent:</b> {contract.yearly_rent}</li>
+        <li><b>Contract:</b> {escape_html(contract.name)}</li>
+        <li><b>Contract Type:</b> {escape_html(str(contract.contract_type or ""))}</li>
+        <li><b>Contract No:</b> {escape_html(str(contract.contract_no or ""))}</li>
+        <li><b>Start Date:</b> {escape_html(str(contract.start_of_contract))}</li>
+        <li><b>End Date:</b> {escape_html(str(contract.end_of_contract))}</li>
+        <li><b>Project:</b> {escape_html(contract.project_name)}</li>
+        <li><b>Location:</b> {escape_html(contract.location)}</li>
+        <li><b>Accommodation Type:</b> {escape_html(contract.accommodation_type or "N/A")}</li>
+        <li><b>Payment Frequency:</b> {escape_html(str(contract.payment_frequency))}</li>
+        <li><b>Yearly Rent:</b> {escape_html(str(contract.yearly_rent))}</li>
     </ul>
     <p>Kindly take necessary actions.</p>
     <p>Regards,<br>Your Team</p>
@@ -119,7 +123,7 @@ def send_rent_payment_reminders():
     contracts = frappe.get_all(
         "Rental Contract",
         filters={"contract_is_active": 1},
-        fields=["name", "project_name", "location", "onwer_name", "onwer_contact_no",
+        fields=["name", "project_name", "location", "owner_name", "onwer_contact_no",
                 "yearly_rent", "payment_frequency", "start_of_contract", "owner"]
     )
 
@@ -150,21 +154,25 @@ def send_rent_payment_reminders():
             send_rent_email(contract, round(rent_amount, 2))
 
 def send_rent_email(contract, rent_amount):
-    subject = f"Rent Payment Reminder - {contract.project_name}"
+
+    from frappe.utils import escape_html
+
+    subject = f"Rent Payment Reminder - {escape_html(contract.project_name)}"
+
     message = f"""
-    <p>Dear {contract.onwer_name},</p>
+    <p>Dear {escape_html(contract.owner_name)},</p>
     <p>This is a reminder that your rent payment is due as per your rental contract:</p>
     <ul>
-        <li><b>Contract:</b> {contract.name}</li>
-        <li><b>Contract Type:</b> {contract.contract_type}</li>
-        <li><b>Contract No:</b> {contract.contract_no}</li>
-        <li><b>Start Date:</b> {contract.start_of_contract}</li>
-        <li><b>End Date:</b> {contract.end_of_contract}</li>
-        <li><b>Project:</b> {contract.project_name}</li>
-        <li><b>Location:</b> {contract.location}</li>
-        <li><b>Accommodation Type:</b> {contract.accommodation_type or "N/A"}</li>
-        <li><b>Payment Frequency:</b> {contract.payment_frequency}</li>
-        <li><b>Yearly Rent:</b> {contract.yearly_rent}</li>
+        <li><b>Contract:</b> {escape_html(contract.name)}</li>
+        <li><b>Contract Type:</b> {escape_html(str(contract.contract_type or ""))}</li>
+        <li><b>Contract No:</b> {escape_html(str(contract.contract_no or ""))}</li>
+        <li><b>Start Date:</b> {escape_html(str(contract.start_of_contract))}</li>
+        <li><b>End Date:</b> {escape_html(str(contract.end_of_contract))}</li>
+        <li><b>Project:</b> {escape_html(contract.project_name)}</li>
+        <li><b>Location:</b> {escape_html(contract.location)}</li>
+        <li><b>Accommodation Type:</b> {escape_html(contract.accommodation_type or "N/A")}</li>
+        <li><b>Payment Frequency:</b> {escape_html(str(contract.payment_frequency))}</li>
+        <li><b>Yearly Rent:</b> {escape_html(str(contract.yearly_rent))}</li>
     </ul>
     <p>Please ensure timely payment. Thank you.</p>
     <p>Regards,<br>Your Team</p>

@@ -76,7 +76,6 @@ frappe.ui.form.on("Petty Cash Request", {
                 },
                 limit: 50
             }).then(records => {
-                console.log("Fetched Purchase Receipts: ", records);
     
                 if (!records || records.length === 0) {
                     frappe.msgprint(__("No new Purchase Receipts available."));
@@ -84,7 +83,6 @@ frappe.ui.form.on("Petty Cash Request", {
                 }
     
                 const already_linked_receipts = frm.doc.purchase_receipts?.map(d => d.purchase_receipt) || [];
-                console.log("Existing linked receipts:", already_linked_receipts);
     
                 // Keep full records instead of just names
                 const available_records = records.filter(rec => !already_linked_receipts.includes(rec.name));
@@ -150,7 +148,7 @@ frappe.ui.form.on("Petty Cash Request", {
                                     message: __(`Processed ${selected.length} Purchase Receipt(s).`),
                                     indicator: 'green'
                                 });
-                                frm.refresh();
+                                window.location.reload();
                             }
                         });
     

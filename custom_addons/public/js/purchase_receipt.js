@@ -83,7 +83,7 @@ frappe.ui.form.on("Purchase Receipt", {
                             let mr_list = values.material_requests.map(row => row.material_request);
                             
                             frappe.call({
-                                method: "mkan_customization.mkan_customization.doc_events.purchase_receipt.make_purchase_receipt_from_multiple_mr",
+                                method: "custom_addons.custom_addons.doc_events.purchase_receipt.make_purchase_receipt_from_multiple_mr",
                                 args: {
                                     material_requests: mr_list,
                                     supplier: values.supplier

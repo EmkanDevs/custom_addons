@@ -4,27 +4,26 @@ def execute(filters=None):
     if not filters:
         filters = {}
 
-    # Get filters
-    project = filters.get("project")
-    project_site_violation = filters.get("project_site_violation")
-    violation_penalty_reason = filters.get("violation_penalty_reason")
-
-    # Build dynamic conditions
     conditions = []
-    if project:
-        conditions.append(f"project = '{project}'")
-    if project_site_violation:
-        conditions.append(f"name = '{project_site_violation}'")
-    if violation_penalty_reason:
-        conditions.append(f"violation_penalty_reason = '{violation_penalty_reason}'")
+    query_filters = {}
 
-    # Join conditions with AND
-    where_clause = " AND ".join(conditions)
-    if where_clause:
-        where_clause = "AND " + where_clause
+    if filters.get("project"):
+        conditions.append("project = %(project)s")
+        query_filters["project"] = filters.get("project")
 
-    # Fetch data
-    data = frappe.db.sql(f"""
+    if filters.get("project_site_violation"):
+        conditions.append("name = %(project_site_violation)s")
+        query_filters["project_site_violation"] = filters.get("project_site_violation")
+
+    if filters.get("violation_penalty_reason"):
+        conditions.append("violation_penalty_reason = %(violation_penalty_reason)s")
+        query_filters["violation_penalty_reason"] = filters.get("violation_penalty_reason")
+
+    where_clause = ""
+    if conditions:
+        where_clause = " AND " + " AND ".join(conditions)
+
+    data = frappe.db.sql("""
         SELECT
             name,
             area_permit_no,
@@ -52,9 +51,8 @@ def execute(filters=None):
         FROM `tabProject Site Violation`
         WHERE docstatus < 2 {where_clause}
         ORDER BY penalty_date DESC
-    """, as_dict=True)
+    """.format(where_clause=where_clause), query_filters, as_dict=True)
 
-    # Columns remain unchanged
     columns = [
         {"label": "Violation ID", "fieldname": "name", "fieldtype": "Link", "options": "Project Site Violation"},
         {"label": "Area Permit No", "fieldname": "area_permit_no", "fieldtype": "Data"},
