@@ -1,0 +1,154 @@
+{
+    "actions": [],
+    "allow_import": 1,
+    "allow_rename": 1,
+    "autoname": "format:M-{YYYY}-{###}",
+    "creation": "2025-12-03 10:29:57.925412",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "full_name",
+     "gender",
+     "country",
+     "date_of_birth",
+     "national_code",
+     "outside_country",
+     "designation_name_arabic",
+     "column_break_drov",
+     "passport_number",
+     "passport_valid_upto",
+     "residence_issue",
+     "residence_expire",
+     "resident_expire_hijri",
+     "section_break_phbx",
+     "timestamp",
+     "column_break_yfwu",
+     "employer_number",
+     "employee_number"
+    ],
+    "fields": [
+     {
+      "fieldname": "full_name",
+      "fieldtype": "Data",
+      "label": "Full Name"
+     },
+     {
+      "fieldname": "gender",
+      "fieldtype": "Data",
+      "label": "Gender",
+      "options": "Gender"
+     },
+     {
+      "fieldname": "country",
+      "fieldtype": "Data",
+      "label": "Country",
+      "options": "Country"
+     },
+     {
+      "fieldname": "date_of_birth",
+      "fieldtype": "Date",
+      "label": "Date of Birth"
+     },
+     {
+      "fieldname": "national_code",
+      "fieldtype": "Data",
+      "label": "National Code"
+     },
+     {
+      "fieldname": "outside_country",
+      "fieldtype": "Select",
+      "label": "Outside Country",
+      "options": "\n\u0646\u0639\u0645\n\u0644\u0627"
+     },
+     {
+      "fieldname": "designation_name_arabic",
+      "fieldtype": "Data",
+      "label": "Designation Name Arabic"
+     },
+     {
+      "fieldname": "column_break_drov",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "passport_number",
+      "fieldtype": "Data",
+      "label": "Passport Number"
+     },
+     {
+      "fieldname": "passport_valid_upto",
+      "fieldtype": "Date",
+      "label": "Passport Valid Upto"
+     },
+     {
+      "fieldname": "residence_issue",
+      "fieldtype": "Date",
+      "label": "Residence Issue"
+     },
+     {
+      "fieldname": "residence_expire",
+      "fieldtype": "Date",
+      "label": "Residence Expire"
+     },
+     {
+      "fieldname": "resident_expire_hijri",
+      "fieldtype": "Data",
+      "label": "Resident Expire Hijri"
+     },
+     {
+      "fieldname": "section_break_phbx",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "timestamp",
+      "fieldtype": "Datetime",
+      "label": "Timestamp"
+     },
+     {
+      "fieldname": "column_break_yfwu",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "employer_number",
+      "fieldtype": "Data",
+      "label": "Employer Number"
+     },
+     {
+      "fieldname": "employee_number",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Employee Number",
+      "options": "Employee"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-12-05 08:52:35.908896",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Muqeem",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "rows_threshold_for_grid_search": 20,
+    "show_title_field_in_link": 1,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "full_name"
+   }

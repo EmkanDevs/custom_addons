@@ -1,90 +1,89 @@
 {
-    "actions": [],
-    "allow_rename": 1,
-    "autoname": "field:gov_document_type",
-    "creation": "2025-04-27 13:43:32.818107",
-    "doctype": "DocType",
-    "engine": "InnoDB",
-    "field_order": [
-     "gov_document_type",
-     "gov_document_type_ar",
-     "section_break_z9w2",
-     "reminder_in_days",
-     "targeted_office",
-     "remind_by_role"
-    ],
-    "fields": [
-     {
-      "fieldname": "section_break_z9w2",
-      "fieldtype": "Column Break"
-     },
-     {
-      "fieldname": "gov_document_type",
-      "fieldtype": "Data",
-      "in_list_view": 1,
-      "label": "\u0646\u0648\u0639 \u0627\u0644\u0645\u0633\u062a\u0646\u062f / \u0625\u0646\u062c\u0644\u064a\u0632\u064a",
-      "reqd": 1,
-      "unique": 1
-     },
-     {
-      "fieldname": "gov_document_type_ar",
-      "fieldtype": "Data",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "label": "Gov Document Type AR",
-      "reqd": 1
-     },
-     {
-      "default": "30",
-      "fieldname": "reminder_in_days",
-      "fieldtype": "Int",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "label": "\u0627\u0644\u062a\u0630\u0643\u064a\u0631 \u0642\u0628\u0644 (\u064a\u0648\u0645)",
-      "reqd": 1
-     },
-     {
-      "fieldname": "targeted_office",
-      "fieldtype": "Link",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "label": "\u0627\u0644\u0645\u0643\u062a\u0628 \u0627\u0644\u0645\u0633\u062a\u0647\u062f\u0641",
-      "options": "Targeted Visit Office"
-     },
-     {
-      "fieldname": "remind_by_role",
-      "fieldtype": "Link",
-      "label": "\u062a\u0630\u0643\u064a\u0631 \u0635\u0627\u062d\u0628 \u0627\u0644\u062f\u0648\u0631",
-      "options": "Role"
-     }
-    ],
-    "grid_page_length": 50,
-    "index_web_pages_for_search": 1,
-    "links": [],
-    "modified": "2025-05-06 09:31:21.406178",
-    "modified_by": "Administrator",
-    "module": "Custom Addons",
-    "name": "Gov Document Type",
-    "naming_rule": "By fieldname",
-    "owner": "Administrator",
-    "permissions": [
-     {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "System Manager",
-      "share": 1,
-      "write": 1
-     }
-    ],
-    "quick_entry": 1,
-    "row_format": "Dynamic",
-    "sort_field": "modified",
-    "sort_order": "DESC",
-    "states": [],
-    "title_field": "gov_document_type_ar"
-   }
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:gov_document_type",
+ "creation": "2025-04-27 13:43:32.818107",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "gov_document_type",
+  "gov_document_type_ar",
+  "section_break_z9w2",
+  "reminder_in_days",
+  "targeted_office",
+  "remind_by_role"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_z9w2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gov_document_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Gov Document Type",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "gov_document_type_ar",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Gov Document Type AR"
+  },
+  {
+   "default": "30",
+   "fieldname": "reminder_in_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Reminder in Days",
+   "reqd": 1
+  },
+  {
+   "fieldname": "targeted_office",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Targeted Office",
+   "options": "Targeted Visit Office"
+  },
+  {
+   "fieldname": "remind_by_role",
+   "fieldtype": "Link",
+   "label": "Remind by Role",
+   "options": "Role"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-13 11:19:56.296206",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Gov Document Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "gov_document_type_ar"
+}

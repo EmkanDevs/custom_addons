@@ -1,0 +1,22 @@
+{
+ "content": null,
+ "creation": "2026-03-19 15:36:49.175675",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-03-20 13:03:18.054689",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "emloyee-custody-dash",
+ "owner": "Administrator",
+ "page_name": "emloyee-custody-dash",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0
+}

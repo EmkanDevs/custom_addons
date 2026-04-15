@@ -246,6 +246,10 @@ override_whitelisted_methods = {
     "erpnext.buying.doctype.request_for_quotation.request_for_quotation.make_supplier_quotation_from_rfq":"custom_addons.custom_addons.override.request_for_quotation.make_supplier_quotation_from_rfq",
 }
 
+override_doctype_class = {
+	"Expense Claim": "custom_addons.custom_addons.override.expense_claim.ExpenseClaim",
+}
+
 doc_events = {
     "Purchase Receipt":{
         "validate":"custom_addons.custom_addons.doc_events.purchase_receipt.validate",
@@ -268,10 +272,35 @@ doc_events = {
     
 }
 
+scheduler_events = {
+    "hourly": [
+        "custom_addons.custom_addons.doctype.helpdesk_request.helpdesk_request.check_and_close_timeout_tickets"
+    ],
+
+     "daily": [
+        "custom_addons.custom_addons.doctype.gov_document_expiration.gov_document_expiration.renewal_status",
+        "custom_addons.custom_addons.doctype.gov_document_expiration.gov_document_expiration.send_expiration_reminders",
+        "custom_addons.custom_addons.doctype.rental_contract.rental_contract.send_rental_reminders_electric_and_water",
+        "custom_addons.custom_addons.doctype.rental_contract.rental_contract.send_rent_payment_reminders"
+    ],
+    "weekly": [
+        "custom_addons.custom_addons.doc_events.timesheet.auto_submit_upcoming_timesheets"
+    ],
+    "monthly": [
+        "custom_addons.custom_addons.doc_events.timesheet.auto_submit_upcoming_timesheets"
+    ]
+}
+
 doctype_js = {
             "Request for Quotation":"public/js/request_for_quotation.js",
             "Expense Claim":"public/js/expense_claim.js",
             "Supplier Quotation":"public/js/supplier_quotation.js",
+            "Employee" : "public/js/employee.js",
+            "Timesheet" : "public/js/timesheet.js"
+}
+
+doctype_list_js = {
+    "Timesheet": "public/js/timesheet_list.js"
 }
 
 fixtures = [

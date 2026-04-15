@@ -1,65 +1,37 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "DOC-EXP-.YYYY.-.#####",
- "creation": "2025-04-27 14:04:19.740315",
+ "autoname": "STAFF-DOC-EXP-.#####",
+ "creation": "2026-04-14 08:17:41.906271",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "gov_document_type",
   "gov_document_type_ar",
-  "column_break_7jpx",
+  "column_break_cskg",
   "reminder_in_days",
-  "targeted_visit_office",
-  "column_break_o15a",
+  "targeted_office",
+  "column_break_weyp",
   "issue_on",
   "expire_on",
-  "section_break_fajp",
+  "section_break_hmei",
   "prev_copy",
   "latest_copy",
+  "expires_in_days",
   "renewal_status",
   "customer",
-  "column_break_duvn",
+  "customer_name",
+  "column_break_ydiz",
   "remark",
   "supplier",
-  "expire_in_days"
+  "supplier_name"
  ],
  "fields": [
   {
    "fieldname": "gov_document_type",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Gov Document Type",
    "options": "Gov Document Type"
-  },
-  {
-   "fetch_from": "gov_document_type.reminder_in_days",
-   "fieldname": "reminder_in_days",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Reminder in Days"
-  },
-  {
-   "fetch_from": "gov_document_type.targeted_office",
-   "fieldname": "targeted_visit_office",
-   "fieldtype": "Link",
-   "label": "Targeted Office",
-   "options": "Targeted Visit Office"
-  },
-  {
-   "default": "Today",
-   "fieldname": "issue_on",
-   "fieldtype": "Date",
-   "label": "Issue On"
-  },
-  {
-   "bold": 1,
-   "fieldname": "expire_on",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Expire On",
-   "reqd": 1
   },
   {
    "fetch_from": "gov_document_type.gov_document_type_ar",
@@ -69,15 +41,39 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_7jpx",
+   "fieldname": "column_break_cskg",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_o15a",
+   "fetch_from": "gov_document_type.reminder_in_days",
+   "fieldname": "reminder_in_days",
+   "fieldtype": "Data",
+   "label": "Reminder in Days",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "gov_document_type.targeted_office",
+   "fieldname": "targeted_office",
+   "fieldtype": "Data",
+   "label": "Targeted Office",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_weyp",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_fajp",
+   "fieldname": "issue_on",
+   "fieldtype": "Date",
+   "label": "Issue On"
+  },
+  {
+   "fieldname": "expire_on",
+   "fieldtype": "Date",
+   "label": "Expire On"
+  },
+  {
+   "fieldname": "section_break_hmei",
    "fieldtype": "Section Break"
   },
   {
@@ -86,24 +82,14 @@
    "label": "Prev. Copy"
   },
   {
-   "fieldname": "column_break_duvn",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "latest_copy",
    "fieldtype": "Attach",
    "label": "Latest Copy"
   },
   {
-   "fieldname": "remark",
-   "fieldtype": "Small Text",
-   "label": "Remark"
-  },
-  {
    "default": "Renewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f",
    "fieldname": "renewal_status",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Renewal Status",
    "options": "\nRenewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f\nUnder Renewal - \u062a\u062d\u062a \u0627\u0644\u062a\u062c\u062f\u064a\u062f\nCancelled - \u062a\u0645 \u0627\u0644\u0625\u0644\u063a\u0627\u0621"
   },
@@ -114,24 +100,47 @@
    "options": "Customer"
   },
   {
+   "fieldname": "column_break_ydiz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  },
+  {
+   "fieldname": "expires_in_days",
+   "fieldtype": "Data",
+   "label": "Expires in Days"
+  },
+  {
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
    "options": "Supplier"
   },
   {
-   "fieldname": "expire_in_days",
-   "fieldtype": "Int",
-   "label": "Expire in Days"
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "supplier.supplier_name",
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-14 10:00:02.482279",
+ "modified": "2026-04-14 08:38:56.463085",
  "modified_by": "Administrator",
  "module": "Custom Addons",
- "name": "Gov Document Expiration",
+ "name": "Staff Document Expiration",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
@@ -149,20 +158,8 @@
   }
  ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [
-  {
-   "color": "Green",
-   "title": "Renewed - \u062a\u0645 \u0627\u0644\u062a\u062c\u062f\u064a\u062f"
-  },
-  {
-   "color": "Red",
-   "title": "Cancelled - \u062a\u0645 \u0627\u0644\u0625\u0644\u063a\u0627\u0621"
-  },
-  {
-   "color": "Yellow",
-   "title": "Under Renewal - \u062a\u062d\u062a \u0627\u0644\u062a\u062c\u062f\u064a\u062f"
-  }
- ]
+ "states": []
 }
