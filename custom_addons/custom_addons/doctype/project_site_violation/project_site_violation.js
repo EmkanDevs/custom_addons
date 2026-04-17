@@ -6,7 +6,7 @@ frappe.ui.form.on('Project Site Violation', {
         // Filter for Account fields
         let account_filter = {
             filters: {
-                company: 'Construction Pillars Company',
+                company: frm.doc.company,
                 is_group: 0,
                 account_currency: 'SAR'
             }

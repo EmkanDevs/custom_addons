@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-16 15:29:18.276475",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "hours",
+  "naming_series",
+  "equipment_section",
+  "equipment_name",
+  "column_break_bogs",
+  "door_no_or_plate_no",
+  "project_section",
+  "project_id",
+  "supplier_section",
+  "supplier_name",
+  "section_break_phav",
+  "operator_nationality"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date "
+  },
+  {
+   "fieldname": "hours",
+   "fieldtype": "Float",
+   "label": "Hours"
+  },
+  {
+   "fieldname": "equipment_section",
+   "fieldtype": "Section Break",
+   "label": "Equipment "
+  },
+  {
+   "fetch_from": "door_no_or_plate_no.equipment_description",
+   "fieldname": "equipment_name",
+   "fieldtype": "Data",
+   "label": "Equipment Name"
+  },
+  {
+   "fieldname": "column_break_bogs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "door_no_or_plate_no",
+   "fieldtype": "Link",
+   "label": "Door No or Plate No",
+   "options": "Equipment Asset Management"
+  },
+  {
+   "fieldname": "project_section",
+   "fieldtype": "Section Break",
+   "label": "Project"
+  },
+  {
+   "fieldname": "project_id",
+   "fieldtype": "Link",
+   "label": "Project ID",
+   "options": "Project"
+  },
+  {
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier "
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Link",
+   "label": "Supplier Name ",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "section_break_phav",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "operator_nationality",
+   "fieldtype": "Data",
+   "label": "Operator Nationality"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "RET-.YYYY.-",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-17 07:32:03.306600",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Rental Equipment Timesheet",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

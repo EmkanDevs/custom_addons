@@ -1,0 +1,230 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:asset_local_code",
+ "creation": "2025-05-11 14:57:47.714167",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "asset_local_code",
+  "serial_number",
+  "active",
+  "column_break_x81q",
+  "equipment_description",
+  "asset_location",
+  "current_status",
+  "column_break_fb7c",
+  "date_of_purchase_acquisition",
+  "purchase_order",
+  "asset",
+  "section_break_gxqs",
+  "equipment_category",
+  "equipment_type",
+  "column_break_i7pn",
+  "remark",
+  "section_break_kcmr",
+  "item",
+  "manufacturer",
+  "column_break_4ku0",
+  "item_group",
+  "item_name",
+  "assign_to_section",
+  "department",
+  "project",
+  "column_break_cpuz",
+  "cost_center",
+  "warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_kcmr",
+   "fieldtype": "Section Break",
+   "label": "Item Information"
+  },
+  {
+   "fieldname": "asset_local_code",
+   "fieldtype": "Data",
+   "label": "Asset Tag/ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "date_of_purchase_acquisition",
+   "fieldtype": "Date",
+   "label": "Date of Acquisition"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number"
+  },
+  {
+   "default": "In Use",
+   "fieldname": "current_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Current Status",
+   "options": "\nIn Storage\nIn Use\nRetired\nAwaiting Disposal"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  },
+  {
+   "fieldname": "asset",
+   "fieldtype": "Link",
+   "label": "Asset",
+   "options": "Asset"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "manufacturer",
+   "fieldtype": "Link",
+   "label": "Manufacturer",
+   "options": "Manufacturer"
+  },
+  {
+   "fieldname": "column_break_4ku0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "item.item_group",
+   "fieldname": "item_group",
+   "fieldtype": "Data",
+   "label": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "equipment_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Equipment Description"
+  },
+  {
+   "fieldname": "asset_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Asset Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "assign_to_section",
+   "fieldtype": "Section Break",
+   "label": "Assign To"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "section_break_gxqs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_cpuz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "column_break_x81q",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_fb7c",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Active"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "equipment_category",
+   "fieldtype": "Data",
+   "label": "Equipment Category"
+  },
+  {
+   "fieldname": "column_break_i7pn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "equipment_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Equipment Type",
+   "options": "Equipment Type"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-16 13:21:58.265979",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Equipment Asset Management",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

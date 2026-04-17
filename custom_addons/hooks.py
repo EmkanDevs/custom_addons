@@ -296,11 +296,13 @@ doctype_js = {
             "Expense Claim":"public/js/expense_claim.js",
             "Supplier Quotation":"public/js/supplier_quotation.js",
             "Employee" : "public/js/employee.js",
-            "Timesheet" : "public/js/timesheet.js"
+            "Timesheet" : "public/js/timesheet.js",
+            "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js"
 }
 
 doctype_list_js = {
-    "Timesheet": "public/js/timesheet_list.js"
+    "Timesheet": "public/js/timesheet_list.js",
+    "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js"
 }
 
 fixtures = [
