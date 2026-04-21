@@ -2,41 +2,41 @@ frappe.listview_settings['Rental Equipment Timesheet'] = {
     onload: function(listview) {
 
         // // --- 1. Mass Submit Button ---
-        // listview.page.add_inner_button(__('Submit'), function() {
-        //     const selected_items = listview.get_checked_items();
+        listview.page.add_inner_button(__('Submit'), function() {
+            const selected_items = listview.get_checked_items();
 
-        //     if (selected_items.length === 0) {
-        //         frappe.msgprint({
-        //             message: __('Please select the Rental Equipment Timesheets you want to submit using the checkboxes.'),
-        //             indicator: 'orange',
-        //             title: __('No Items Selected')
-        //         });
-        //         return;
-        //     }
+            if (selected_items.length === 0) {
+                frappe.msgprint({
+                    message: __('Please select the Rental Equipment Timesheets you want to submit using the checkboxes.'),
+                    indicator: 'orange',
+                    title: __('No Items Selected')
+                });
+                return;
+            }
 
-        //     frappe.confirm(
-        //         __('Are you sure you want to submit {0} selected Rental Equipment Timesheets?', [selected_items.length]),
-        //         () => {
-        //             frappe.call({
-        //                 method: 'custom_addons.custom_addons.doc_events.rental_equipment_timesheet.mass_submit_rental_equipment_timesheets',
-        //                 args: {
-        //                     names: selected_items.map(d => d.name)
-        //                 },
-        //                 freeze: true,
-        //                 freeze_message: __("Submitting..."),
-        //                 callback: function(r) {
-        //                     if (!r.exc) {
-        //                         listview.refresh();
-        //                         frappe.show_alert({
-        //                             message: __('{0} Rental Equipment Timesheets submitted successfully', [r.message]),
-        //                             indicator: 'green'
-        //                         });
-        //                     }
-        //                 }
-        //             });
-        //         }
-        //     );
-        // });
+            frappe.confirm(
+                __('Are you sure you want to submit {0} selected Rental Equipment Timesheets?', [selected_items.length]),
+                () => {
+                    frappe.call({
+                        method: 'custom_addons.custom_addons.doc_events.rental_equipment_timesheet.mass_submit_rental_equipment_timesheets',
+                        args: {
+                            names: selected_items.map(d => d.name)
+                        },
+                        freeze: true,
+                        freeze_message: __("Submitting..."),
+                        callback: function(r) {
+                            if (!r.exc) {
+                                listview.refresh();
+                                frappe.show_alert({
+                                    message: __('{0} Rental Equipment Timesheets submitted successfully', [r.message]),
+                                    indicator: 'green'
+                                });
+                            }
+                        }
+                    });
+                }
+            );
+        });
 
         // --- 2. Upload Rental Equipment Timesheet Excel Button ---
         listview.page.add_inner_button(__('Upload Timesheet Excel'), function() {

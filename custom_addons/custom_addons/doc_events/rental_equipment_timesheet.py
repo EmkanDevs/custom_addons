@@ -5,32 +5,32 @@ from frappe import _
 from frappe.utils import getdate, today, flt
 
 
-# @frappe.whitelist()
-# def mass_submit_rental_equipment_timesheets(names):
-#     if isinstance(names, str):
-#         import json
-#         names = json.loads(names)
+@frappe.whitelist()
+def mass_submit_rental_equipment_timesheets(names):
+    if isinstance(names, str):
+        import json
+        names = json.loads(names)
 
-#     count = 0
-#     errors = []
+    count = 0
+    errors = []
 
-#     for name in names:
-#         try:
-#             doc = frappe.get_doc("Rental Equipment Timesheet", name)
-#             if doc.docstatus == 0:  # Only submit Drafts
-#                 doc.submit()
-#                 count += 1
-#         except Exception as e:
-#             errors.append(f"Error submitting {name}: {str(e)}")
+    for name in names:
+        try:
+            doc = frappe.get_doc("Rental Equipment Timesheet", name)
+            if doc.docstatus == 0:  # Only submit Drafts
+                doc.submit()
+                count += 1
+        except Exception as e:
+            errors.append(f"Error submitting {name}: {str(e)}")
 
-#     if errors:
-#         frappe.msgprint({
-#             "title": _("Partial Success"),
-#             "indicator": "orange",
-#             "message": _("Submitted {0} docs. Errors encountered:<br>{1}").format(count, "<br>".join(errors))
-#         })
+    if errors:
+        frappe.msgprint({
+            "title": _("Partial Success"),
+            "indicator": "orange",
+            "message": _("Submitted {0} docs. Errors encountered:<br>{1}").format(count, "<br>".join(errors))
+        })
 
-#     return count
+    return count
 
 
 @frappe.whitelist()

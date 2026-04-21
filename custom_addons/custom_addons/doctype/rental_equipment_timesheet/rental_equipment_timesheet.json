@@ -9,6 +9,7 @@
   "date",
   "hours",
   "naming_series",
+  "status",
   "equipment_section",
   "equipment_name",
   "column_break_bogs",
@@ -18,7 +19,8 @@
   "supplier_section",
   "supplier_name",
   "section_break_phav",
-  "operator_nationality"
+  "operator_nationality",
+  "amended_from"
  ],
  "fields": [
   {
@@ -90,12 +92,31 @@
    "label": "Series",
    "options": "RET-.YYYY.-",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Rental Equipment Timesheet",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nBilled\nPayslip\nCompleted\nCancelled",
+   "print_hide": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2026-04-17 07:32:03.306600",
+ "modified": "2026-04-21 12:13:27.947220",
  "modified_by": "Administrator",
  "module": "Custom Addons",
  "name": "Rental Equipment Timesheet",
@@ -112,6 +133,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
