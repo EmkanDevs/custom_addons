@@ -1,0 +1,359 @@
+/* =========================================================
+   Project Expense Analysis — Enhanced UI
+   Compatible with Frappe / ERPNext page context
+========================================================= */
+
+/* ---------------------------------------------------------
+   Stats Summary Bar
+--------------------------------------------------------- */
+.expense-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.expense-stat-card {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e9ecef);
+    border-radius: 10px;
+    padding: 12px 14px;
+    transition: box-shadow 0.2s ease;
+}
+
+.expense-stat-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.expense-stat-card .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8c97a8;
+    margin-bottom: 5px;
+}
+
+.expense-stat-card .stat-value {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+}
+
+.expense-stat-card .stat-sub {
+    font-size: 11px;
+    color: #adb5bd;
+    margin-top: 3px;
+}
+
+/* ---------------------------------------------------------
+   Tab Navigation — Pill container style
+--------------------------------------------------------- */
+.expense-tab-nav {
+    display: flex;
+    gap: 4px;
+    background: #f0f2f5;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.expense-tab-nav .tab-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+    user-select: none;
+    position: relative;
+}
+
+.expense-tab-nav .tab-btn:hover {
+    color: #1f2937;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.expense-tab-nav .tab-btn.active {
+    background: #ffffff;
+    color: #1f2937;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Badge showing record count */
+.expense-tab-nav .tab-btn .tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.08);
+    color: #6c757d;
+
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 7px;
+    min-width: 22px;
+    line-height: 1.6;
+
+    transition: all 0.18s ease;
+}
+
+.expense-tab-nav .tab-btn.active .tab-badge {
+    background: #2490ef;
+    color: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   Tab Content Wrapper
+--------------------------------------------------------- */
+.expense-tab-panel {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 200px;
+    position: relative;
+}
+
+/* ---------------------------------------------------------
+   Datatable wrapper tweaks
+--------------------------------------------------------- */
+.expense-tab-panel .datatable-wrapper {
+    overflow-x: auto;
+}
+
+/* ---------------------------------------------------------
+   Loading overlay
+--------------------------------------------------------- */
+.expense-loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    z-index: 10;
+    font-size: 14px;
+    color: #6c757d;
+    gap: 10px;
+    backdrop-filter: blur(2px);
+}
+
+.expense-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #dee2e6;
+    border-top-color: #2490ef;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------------
+   Empty state
+--------------------------------------------------------- */
+.expense-empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: #adb5bd;
+}
+
+.expense-empty-state .empty-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    opacity: 0.4;
+}
+
+.expense-empty-state p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ---------------------------------------------------------
+   Filters layout
+--------------------------------------------------------- */
+.expense-filters-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+}
+
+.expense-refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 20px;
+    background: #2490ef;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: all 0.18s ease;
+    box-shadow: 0 2px 8px rgba(36, 144, 239, 0.25);
+    white-space: nowrap;
+
+    width: auto;        /* ADD THIS */
+    align-self: flex-start;  /* ADD THIS */
+}
+
+.expense-refresh-btn:hover {
+    background: #1d7fe0;
+    box-shadow: 0 4px 14px rgba(36, 144, 239, 0.35);
+    transform: translateY(-1px);
+}
+
+.expense-refresh-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.expense-refresh-btn.loading {
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   Frappe DataTable overrides
+   (column header, row height, hover, number alignment)
+--------------------------------------------------------- */
+.expense-tab-panel .dt-header .dt-cell--header {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #8c97a8;
+    background: #f8f9fb;
+}
+
+.expense-tab-panel .dt-row:hover .dt-cell {
+    background: #f5f8ff !important;
+}
+
+.expense-tab-panel .dt-cell__content {
+    font-size: 13px;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 900px) {
+    .expense-stats-bar {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .expense-tab-nav {
+        gap: 2px;
+    }
+
+    .expense-tab-nav .tab-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+        flex: none;
+        width: calc(50% - 2px);
+    }
+
+    .expense-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .expense-export-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+    
+        padding: 8px 20px;
+        background: #1d6f42;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+    
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    
+        transition: all 0.18s ease;
+        box-shadow: 0 2px 8px rgba(29, 111, 66, 0.25);
+        white-space: nowrap;
+    
+        width: auto;
+        align-self: flex-start;
+    }
+    
+    .expense-export-btn:hover {
+        background: #185e38;
+        box-shadow: 0 4px 14px rgba(29, 111, 66, 0.35);
+        transform: translateY(-1px);
+    }
+    
+    .expense-export-btn:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+    
+    .expense-export-btn:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    .expense-refresh-btn.loading {
+        position: relative;
+        pointer-events: none;
+        opacity: 0.85;
+    }
+    
+    .expense-refresh-btn.loading::after {
+    
+        content: "";
+    
+        width: 14px;
+        height: 14px;
+    
+        margin-left: 8px;
+    
+        border: 2px solid rgba(255,255,255,0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+    
+        display: inline-block;
+    
+        animation: expense-spin 0.7s linear infinite;
+    }
+    
+    @keyframes expense-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}

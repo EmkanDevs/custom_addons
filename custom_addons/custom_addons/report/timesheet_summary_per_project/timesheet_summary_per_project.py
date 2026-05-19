@@ -133,6 +133,7 @@ def get_columns():
 		{"fieldname": "department",          "label": _("Department"),           "fieldtype": "Link",     "options": "Department",      "width": 150},
 		{"fieldname": "branch",              "label": _("Branch"),               "fieldtype": "Link",     "options": "Branch",          "width": 130},
 		{"fieldname": "employment_type",     "label": _("Employment Type"),      "fieldtype": "Link",     "options": "Employment Type", "width": 140},
+		{"fieldname": "stand_by", "label": _("Stand By"), "fieldtype": "Data", "width": 100},
 		{"fieldname": "working_hours",       "label": _("Working Hours"),        "fieldtype": "Float",                                  "width": 130},
 		{"fieldname": "ot_hours",            "label": _("OT Hours"),             "fieldtype": "Float",                                  "width": 110},
 		{"fieldname": "working_hour_amount", "label": _("Working Hour Amount"),  "fieldtype": "Currency",                               "width": 170},
@@ -185,7 +186,8 @@ def get_data(filters):
 			IFNULL(ts.department, emp.department)                    AS department,
 			emp.branch                                               AS branch,
 			emp.employment_type                                      AS employment_type,
-
+			CASE WHEN MAX(ts.stand_by) = 1 THEN 'Yes' ELSE 'No' END  AS stand_by,
+			
 			SUM(IFNULL(tsd.working_hours, 0))                        AS working_hours,
 			SUM(IFNULL(tsd.ot_hrs, 0))                               AS ot_hours,
 
@@ -242,6 +244,12 @@ def build_conditions(filters):
 			values["docstatus"] = status_map[filters["status"]]
 		elif filters["status"] == "Payslip":
 			conditions.append("ts.status = 'Payslip'")
+
+	if filters.get("stand_by"):
+		if filters["stand_by"] == "Yes":
+			conditions.append("ts.stand_by = 1")
+		elif filters["stand_by"] == "No":
+			conditions.append("ts.stand_by = 0")
 
 	if filters.get("project"):
 		conditions.append("tsd.project = %(project)s")

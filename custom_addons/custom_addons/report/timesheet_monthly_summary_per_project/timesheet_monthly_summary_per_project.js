@@ -215,7 +215,73 @@ frappe.query_reports["Timesheet Monthly Summary Per Project"] = {
 			options: ["", "Draft", "Submitted", "Cancelled", "Payslip", "Completed"].join("\n"),
 			width: "100",
 		},
+		{
+			fieldname: "stand_by",
+			label: __("Stand By"),
+			fieldtype: "Select",
+			options: "\nYes\nNo",
+		},
 	],
+
+	onload: function(report) {
+		console.log("Report onload called");
+		console.log("User roles:", frappe.user_roles);
+		console.log("Has General Manager role:", frappe.user.has_role("General manager"));
+		
+		// Check if user has General manager role (note: lowercase 'm')
+		if (frappe.user.has_role("General manager")) {
+			console.log("Adding Approval button");
+			report.page.add_inner_button(__("Approval"), function() {
+				let filters = report.get_values();
+				
+				// Validate that required filters are set
+				if (!filters.year || !filters.month) {
+					frappe.msgprint({
+						title: __("Missing Filters"),
+						message: __("Please select Project, Year, and Month before approving."),
+						indicator: "red"
+					});
+					return;
+				}
+
+				// Confirm approval action
+				frappe.confirm(
+					__("Are you sure you want to approve all Timesheets for the selected filters?"),
+					function() {
+						// Call server method to approve timesheets
+						frappe.call({
+							method: "custom_addons.custom_addons.report.timesheet_monthly_summary_per_project.timesheet_monthly_summary_per_project.approve_timesheets",
+							args: {
+								filters: filters
+							},
+							freeze: true,
+							freeze_message: __("Approving timesheets..."),
+							callback: function(r) {
+								if (r.message) {
+									frappe.msgprint({
+										title: __("Success"),
+										message: __("{0} timesheet(s) have been approved successfully.", [r.message.count]),
+										indicator: "green"
+									});
+									// Refresh the report
+									report.refresh();
+								}
+							},
+							error: function(r) {
+								frappe.msgprint({
+									title: __("Error"),
+									message: __("Failed to approve timesheets. Please try again."),
+									indicator: "red"
+								});
+							}
+						});
+					}
+				);
+			});
+		} else {
+			console.log("User does not have General manager role");
+		}
+	},
 
 	// -------------------------------------------------------------------------
 	// Formatter

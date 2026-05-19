@@ -55,6 +55,12 @@ def get_columns():
             "fieldtype": "Data",
             "width": 250,
         },
+        {
+            "label": "Stand By",
+            "fieldname": "stand_by",
+            "fieldtype": "Data",
+            "width": 100,
+        },
     ]
 
 
@@ -70,7 +76,8 @@ def get_data(filters):
             IFNULL(p.project_code, '')      AS project_code,
             IFNULL(p.project_name, '')      AS activity,
             ''                              AS job_card,
-            IFNULL(tsd.description, '')     AS notes
+            IFNULL(tsd.description, '')     AS notes,
+            CASE WHEN ts.stand_by = 1 THEN 'Yes' ELSE 'No' END  AS stand_by
         FROM `tabTimesheet` ts
         INNER JOIN `tabTimesheet Detail` tsd ON tsd.parent = ts.name
         LEFT  JOIN `tabProject`          p   ON p.name = tsd.project
@@ -104,5 +111,11 @@ def get_conditions(filters):
     if filters.get("to_date"):
         conditions.append("AND ts.start_date <= %(to_date)s")
         values["to_date"] = filters["to_date"]
+
+    if filters.get("stand_by"):
+        if filters["stand_by"] == "Yes":
+            conditions.append("AND ts.stand_by = 1") 
+        elif filters["stand_by"] == "No":
+            conditions.append("AND ts.stand_by = 0") 
 
     return " ".join(conditions), values

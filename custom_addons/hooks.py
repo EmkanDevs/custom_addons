@@ -269,6 +269,10 @@ doc_events = {
     "Purchase Order":{
         "after_insert":"custom_addons.custom_addons.doc_events.purchase_order.after_insert",
     },
+    "Salary Component": {
+        "validate": "custom_addons.custom_addons.doc_events.salary_component.validate"
+    }
+    
     
 }
 
@@ -297,12 +301,24 @@ doctype_js = {
             "Supplier Quotation":"public/js/supplier_quotation.js",
             "Employee" : "public/js/employee.js",
             "Timesheet" : "public/js/timesheet.js",
-            "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js"
+            "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js",
+            "Medical Insurance Sheet":    "public/js/medical_insurance_sheet_list.js",
+            "Salary Slip":                "public/js/salary_slip_list.js",
+            "Material Request":"public/js/material_request.js"
+
 }
+
+app_include_js = [
+    "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"
+]
 
 doctype_list_js = {
     "Timesheet": "public/js/timesheet_list.js",
-    "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js"
+    "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js",
+    "Medical Insurance Sheet":    "public/js/medical_insurance_sheet_list.js",
+    "Salary Slip":                "public/js/salary_slip_list.js"
+    
+
 }
 
 fixtures = [

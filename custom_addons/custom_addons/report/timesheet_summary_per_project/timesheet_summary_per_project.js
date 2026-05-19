@@ -53,5 +53,11 @@ frappe.query_reports["Timesheet Summary Per Project"] = {
 			fieldtype: "Select",
 			options: "\nDraft\nSubmitted\nCancelled\nPayslip",
 		},
+		{
+			fieldname: "stand_by",
+			label: __("Stand By"),
+			fieldtype: "Select",
+			options: "\nYes\nNo",
+		},
 	],
 };

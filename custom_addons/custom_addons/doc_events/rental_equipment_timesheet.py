@@ -168,3 +168,26 @@ def upload_rental_equipment_timesheet(file_url):
     frappe.db.commit()
 
     return {"created": created, "skipped": skipped}
+
+@frappe.whitelist()
+def download_rental_equipment_timesheet_template():
+    from frappe.utils.xlsxutils import make_xlsx
+
+    columns = [
+        "SN",
+        "EQUIPMENT NAME",
+        "Project ID",
+        "Door No-Plate No",
+        "Operator Nationality",
+        "Supplier Name",
+        "Hour",
+        "Date",
+    ]
+
+    data = [columns]  # Header row only — user fills the rest
+
+    xlsx_file = make_xlsx(data, "Rental Equipment Timesheet Template")
+
+    frappe.response["filename"]    = "Rental_Equipment_Timesheet_Template.xlsx"
+    frappe.response["filecontent"] = xlsx_file.getvalue()
+    frappe.response["type"]        = "binary"

@@ -29,5 +29,11 @@ frappe.query_reports["MenaME Export"] = {
 			fieldtype: "Date",
 			width: "100px",
 		},
+		{
+			fieldname: "stand_by",
+			label: __("Stand By"),
+			fieldtype: "Select",
+			options: "\nYes\nNo",
+		},
 	],
 };

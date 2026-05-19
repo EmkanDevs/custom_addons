@@ -161,3 +161,34 @@ def import_gosi_data(file_url):
 		frappe.log_error(f"Import failed: {str(e)}", "Gosi Import Error")
 		frappe.throw(f"Import failed: {str(e)}")
 
+
+
+
+@frappe.whitelist()
+def download_gosi_template():
+    from frappe.utils.xlsxutils import make_xlsx
+
+    columns = [
+        "Full Name",
+        "National Code",
+        "Country",
+        "Gender",
+        "Date of Birth",
+        "Basic Salary",
+        "Housing",
+        "Commissions",
+        "Other Allowances",
+        "Total Salary",
+        "Subject to Contributions",
+        "Designation Name Arabic",
+        "Date of Enrollment",
+        "Eligibility for Social Insurance System 1445",
+    ]
+
+    data = [columns]  # Header row only — user fills the rest
+
+    xlsx_file = make_xlsx(data, "GOSI Template")
+
+    frappe.response["filename"]    = "GOSI_Template.xlsx"
+    frappe.response["filecontent"] = xlsx_file.getvalue()
+    frappe.response["type"]        = "binary"

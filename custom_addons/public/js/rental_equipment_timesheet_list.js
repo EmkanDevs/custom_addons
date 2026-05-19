@@ -44,6 +44,47 @@ frappe.listview_settings['Rental Equipment Timesheet'] = {
                 title: __('Upload Rental Equipment Timesheet Excel'),
                 fields: [
                     {
+                        fieldtype: "HTML",
+                        fieldname: "template_section",
+                        options: `
+                            <div style="
+                                background: #f8f9fa;
+                                border: 1px solid #dfe3e6;
+                                border-radius: 10px;
+                                padding: 18px;
+                                margin-bottom: 15px;
+                            ">
+                                <div style="
+                                    font-size: 15px;
+                                    font-weight: 600;
+                                    margin-bottom: 8px;
+                                    color: #2c3e50;
+                                ">
+                                    Upload Instructions
+                                </div>
+                                <div style="
+                                    font-size: 13px;
+                                    line-height: 1.7;
+                                    color: #555;
+                                    margin-bottom: 15px;
+                                ">
+                                    1. Download the official Salary Slip template.<br>
+                                    2. Fill employee salary details in the same format.<br>
+                                    3. Upload the completed Excel file below.
+                                </div>
+                                
+                                <a
+                                    href="/api/method/custom_addons.custom_addons.doc_events.rental_equipment_timesheet.download_rental_equipment_timesheet_template"
+                                    class="btn btn-primary btn-sm"
+                                    target="_blank"
+                                >
+                                    <i class="fa fa-download"></i>
+                                    Download Demo Template
+                                </a>
+                            </div>
+                        `
+                    },
+                    {
                         label: __('Attach Excel File'),
                         fieldname: 'file',
                         fieldtype: 'Attach',

@@ -136,3 +136,163 @@ def get_employee_custody(employee=None):
     """, values, as_dict=True)
 
     return data
+
+@frappe.whitelist()
+def get_medical_insurance(employee):
+    # Try employee_number first
+    emp_number = frappe.db.get_value('Employee', employee, 'employee_number')
+
+    if emp_number:
+        data = frappe.db.sql("""
+            SELECT
+                mis.main_member_id AS employee,
+                mis.main_member_id,
+                mis.bupa_id,
+                mis.employee_number,
+                mis.member_name,
+                mis.relationship,
+                mis.main_membership_no,
+                mis.member_cchi_status,
+                mis.member_reject_reason
+            FROM `tabMedical Insurance Sheet` mis
+            WHERE mis.employee_number = %s
+            ORDER BY mis.creation DESC
+        """, (emp_number,), as_dict=True)
+    else:
+        # Fallback: match directly by main_member_id
+        data = frappe.db.sql("""
+            SELECT
+                mis.main_member_id AS employee,
+                mis.main_member_id,
+                mis.bupa_id,
+                mis.employee_number,
+                mis.member_name,
+                mis.relationship,
+                mis.main_membership_no,
+                mis.member_cchi_status,
+                mis.member_reject_reason
+            FROM `tabMedical Insurance Sheet` mis
+            WHERE mis.main_member_id = %s
+            ORDER BY mis.creation DESC
+        """, (employee,), as_dict=True)
+
+    return data
+
+
+    
+
+@frappe.whitelist()
+def get_equipment_tools(employee, active_only=0):
+
+    records = frappe.db.sql("""
+
+        SELECT
+            elr.custody_holder_id,
+            elr.custody_holder_name,
+
+            eli.item_code,
+            eli.item_name,
+            eli.item_group,
+            eli.fixed_asset,
+            eli.project,
+            proj.project_name,
+            eli.tag_number,
+            eli.quantity,
+            elr.transaction_type
+
+        FROM `tabEquipment Log Register` elr
+
+        INNER JOIN `tabEquipment Log Item` eli
+            ON eli.parent = elr.name
+
+        LEFT JOIN `tabProject` proj
+            ON proj.name = eli.project
+
+        WHERE elr.docstatus = 1
+        AND elr.custody_holder_id = %(employee)s
+
+        ORDER BY eli.item_code
+
+    """, {
+        "employee": employee
+    }, as_dict=True)
+
+    balance_map = {}
+
+    for row in records:
+
+        # =========================
+        # ASSET
+        # =========================
+
+        if row.fixed_asset:
+
+            key = (
+                row.item_code,
+                row.tag_number,
+                row.project
+            )
+
+            if key not in balance_map:
+
+                balance_map[key] = {
+                    "item_code": row.item_code,
+                    "item_name": row.item_name,
+                    "item_group": row.item_group,
+                    "stock_asset": "Asset",
+                    "project": row.project,
+                    "project_name": row.project_name,
+                    "balance_qty": 0
+                }
+
+            if row.transaction_type == "Issue / Receiving":
+                balance_map[key]["balance_qty"] += 1
+
+            elif row.transaction_type == "Return":
+                balance_map[key]["balance_qty"] -= 1
+
+        # =========================
+        # STOCK
+        # =========================
+
+        else:
+
+            key = (
+                row.item_code,
+                row.project
+            )
+
+            if key not in balance_map:
+
+                balance_map[key] = {
+                    "item_code": row.item_code,
+                    "item_name": row.item_name,
+                    "item_group": row.item_group,
+                    "stock_asset": "Stock",
+                    "project": row.project,
+                    "project_name": row.project_name,
+                    "balance_qty": 0
+                }
+
+            qty = row.quantity or 0
+
+            if row.transaction_type == "Issue / Receiving":
+                balance_map[key]["balance_qty"] += qty
+
+            elif row.transaction_type == "Return":
+                balance_map[key]["balance_qty"] -= qty
+
+    final_data = []
+
+    for value in balance_map.values():
+
+        # Active only = show balance > 0
+        if int(active_only):
+
+            if value["balance_qty"] > 0:
+                final_data.append(value)
+
+        else:
+            final_data.append(value)
+
+    return final_data

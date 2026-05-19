@@ -53,6 +53,7 @@ def get_columns():
 		{"fieldname": "employment_type",      "label": _("Employment Type"),      "fieldtype": "Link",     "options": "Employment Type", "width": 140},
 		{"fieldname": "start_date",           "label": _("Start Date"),           "fieldtype": "Date",                                   "width": 110},
 		{"fieldname": "end_date",             "label": _("End Date"),             "fieldtype": "Date",                                   "width": 110},
+		{"fieldname": "stand_up", "label": _("Stand By"), "fieldtype": "Data", "width": 100},
 		{"fieldname": "working_hours",        "label": _("Working Hours"),        "fieldtype": "Float",                                  "width": 120},
 		{"fieldname": "working_hour_rate",    "label": _("Working Hour Rate"),    "fieldtype": "Currency",                               "width": 140},
 		{"fieldname": "ot_hours",             "label": _("OT Hours"),             "fieldtype": "Float",                                  "width": 100},
@@ -77,6 +78,7 @@ def get_data(filters):
 			emp.employment_type                                                      AS employment_type,
 			ts.start_date                                                            AS start_date,
 			ts.end_date                                                              AS end_date,
+			CASE WHEN ts.stand_up = 1 THEN 'Yes' ELSE 'No' END  AS stand_up,
 			IFNULL(SUM(tsd.working_hours), 0)                                        AS working_hours,
 			IFNULL(MAX(tsd.working_hour_rate_), 0)                                   AS working_hour_rate,
 			IFNULL(SUM(tsd.ot_hrs), 0)                                               AS ot_hours,
@@ -140,6 +142,12 @@ def build_conditions(filters):
 			values["docstatus"] = status_map[filters["status"]]
 		elif filters["status"] == "Payslip":
 			conditions.append("ts.status = 'Payslip'")
+
+	if filters.get("stand_by"):
+		if filters["stand_by"] == "Yes":
+			conditions.append("ts.stand_by = 1")
+		elif filters["stand_by"] == "No":
+			conditions.append("ts.stand_by = 0")
 
 	for key, col in {"employee": "ts.employee", "department": "ts.department"}.items():
 		if filters.get(key):

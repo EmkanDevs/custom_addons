@@ -14,7 +14,8 @@ def get_columns():
         {"label": _("Transaction Date"), "fieldname": "transaction_date", "fieldtype": "Date", "width": 120},
         {"label": _("Transaction Period"), "fieldname": "transaction_period", "fieldtype": "Float", "width": 160},
         {"label": _("Project"), "fieldname": "activity", "fieldtype": "Link", "options": "Project", "width": 180},
-        {"label": _("Notes"), "fieldname": "notes", "fieldtype": "Small Text", "width": 300}
+        {"label": _("Notes"), "fieldname": "notes", "fieldtype": "Small Text", "width": 300},
+        {"label": _("Stand By"), "fieldname": "stand_up", "fieldtype": "Data", "width": 100}
     ]
 
 def get_data(filters):
@@ -36,6 +37,12 @@ def get_data(filters):
         conditions.append("ts.parent_project = %(project)s")
         values["project"] = filters.get("project")
 
+    if filters.get("stand_by"):
+        if filters["stand_by"] == "Yes":
+            conditions.append("ts.stand_by = 1")
+        elif filters["stand_by"] == "No":
+            conditions.append("ts.stand_by = 0")
+
     where_clause = " WHERE " + " AND ".join(conditions) if conditions else " WHERE 1=1 "
     
     query = f"""
@@ -45,7 +52,8 @@ def get_data(filters):
             ts.start_date as transaction_date,
             ts.total_hours as transaction_period,
             ts.parent_project as activity,
-            tld.description as notes
+            tld.description as notes,
+            CASE WHEN ts.stand_by = 1 THEN 'Yes' ELSE 'No' END  AS stand_by
         FROM 
             `tabTimesheet` ts
         LEFT JOIN

@@ -1,0 +1,121 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "ELR-.YYYY.-.####",
+    "creation": "2026-05-14 15:14:32.005523",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "section_break_ybyc",
+     "custody_no",
+     "amended_from",
+     "transaction_type",
+     "column_break_tgir",
+     "custody_holder_id",
+     "receiving_date",
+     "return_date",
+     "column_break_nfol",
+     "custody_holder_name",
+     "section_break_lylb",
+     "equipment_log_item"
+    ],
+    "fields": [
+     {
+      "fieldname": "section_break_ybyc",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Equipment Log Register",
+      "print_hide": 1,
+      "read_only": 1,
+      "search_index": 1
+     },
+     {
+      "fieldname": "custody_no",
+      "fieldtype": "Int",
+      "label": "Custody No"
+     },
+     {
+      "fieldname": "column_break_tgir",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "custody_holder_id",
+      "fieldtype": "Link",
+      "label": " Custody Holder ID No",
+      "options": "Employee"
+     },
+     {
+      "fetch_from": "custody_holder_id.employee_name",
+      "fieldname": "custody_holder_name",
+      "fieldtype": "Data",
+      "label": " Custody Holder Name"
+     },
+     {
+      "fieldname": "column_break_nfol",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "transaction_type",
+      "fieldtype": "Select",
+      "label": "Transaction Type",
+      "options": "\nIssue / Receiving\nReturn"
+     },
+     {
+      "depends_on": "eval:doc.transaction_type == 'Issue / Receiving'",
+      "fieldname": "receiving_date",
+      "fieldtype": "Date",
+      "label": "Receiving Date"
+     },
+     {
+      "depends_on": "eval:doc.transaction_type == 'Return'",
+      "fieldname": "return_date",
+      "fieldtype": "Date",
+      "label": "Return Date"
+     },
+     {
+      "fieldname": "section_break_lylb",
+      "fieldtype": "Section Break"
+     },
+     {
+      "fieldname": "equipment_log_item",
+      "fieldtype": "Table",
+      "label": "Equipment Log Item",
+      "options": "Equipment Log Item"
+     }
+    ],
+    "grid_page_length": 50,
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2026-05-15 10:49:15.272101",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Equipment Log Register",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "submit": 1,
+      "write": 1
+     }
+    ],
+    "row_format": "Dynamic",
+    "rows_threshold_for_grid_search": 20,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+   }

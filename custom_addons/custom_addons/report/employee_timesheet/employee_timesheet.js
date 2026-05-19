@@ -26,6 +26,12 @@ frappe.query_reports["Employee Timesheet"] = {
             "label": __("Project"),
             "fieldtype": "Link",
             "options": "Project"
-        }
+        },
+        {
+            fieldname: "stand_by",
+            label: __("Stand By"),
+            fieldtype: "Select",
+            options: "\nYes\nNo",
+        },
     ]
 };

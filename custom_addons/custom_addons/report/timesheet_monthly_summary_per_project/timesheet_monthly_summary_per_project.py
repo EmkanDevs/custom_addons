@@ -189,6 +189,7 @@ def get_columns():
 		{"label": _("Branch"),               "fieldname": "branch",              "fieldtype": "Link",     "options": "Branch",          "width": 130},
 		{"label": _("Employment Type"),      "fieldname": "employment_type",     "fieldtype": "Link",     "options": "Employment Type", "width": 140},
 		{"label": _("Month"),                "fieldname": "month",               "fieldtype": "Data",                                   "width": 110},
+		{"label": _("Stand By"), "fieldname": "stand_by", "fieldtype": "Data", "width": 100},
 		{"label": _("Working Hours"),        "fieldname": "working_hours",       "fieldtype": "Float",    "precision": 2,               "width": 130},
 		{"label": _("OT Hours"),             "fieldname": "ot_hours",            "fieldtype": "Float",    "precision": 2,               "width": 110},
 		{"label": _("Working Hour Amount"),  "fieldname": "working_hour_amount", "fieldtype": "Currency",                               "width": 170},
@@ -212,6 +213,7 @@ def get_data(filters):
 			DATE_FORMAT(ts.start_date, '%%b-%%Y')                            AS month,
 			MONTH(ts.start_date)                                             AS month_num,
 			YEAR(ts.start_date)                                              AS year_num,
+			CASE WHEN MAX(ts.stand_by) = 1 THEN 'Yes' ELSE 'No' END          AS stand_by,
 
 			SUM(IFNULL(tsd.working_hours, 0))                                AS working_hours,
 			SUM(IFNULL(tsd.ot_hrs, 0))                                       AS ot_hours,
@@ -289,6 +291,12 @@ def get_conditions(filters):
 		conditions.append("AND ts.status = %(state)s")
 		values["state"] = filters["state"]
 
+	if filters.get("stand_by"):
+		if filters["stand_by"] == "Yes":
+			conditions.append("AND ts.stand_by = 1")   
+		elif filters["stand_by"] == "No":
+			conditions.append("AND ts.stand_by = 0") 
+
 	return " ".join(conditions), values
 
 
@@ -346,3 +354,100 @@ def get_conditions(filters):
 # 		flush_group(group_rows)
 
 	# return result
+
+
+
+# ---------------------------------------------------------------------------
+# Approval Method - Mark timesheets as approved
+# ---------------------------------------------------------------------------
+@frappe.whitelist()
+def approve_timesheets(filters):
+	"""
+	Approve all Timesheets matching the given filters.
+	Only users with 'General manager' role can execute this.
+	"""
+	# Check if user has General manager role (note: lowercase 'm')
+	if not frappe.has_permission("Timesheet", "write") or not "General manager" in frappe.get_roles():
+		frappe.throw(_("You don't have permission to approve timesheets."))
+	
+	# Parse filters if they come as JSON string
+	if isinstance(filters, str):
+		import json
+		filters = json.loads(filters)
+	
+	# Build conditions to find matching timesheets
+	conditions = []
+	values = {}
+	
+	if filters.get("project"):
+		conditions.append("tsd.project = %(project)s")
+		values["project"] = filters["project"]
+	
+	if filters.get("department"):
+		conditions.append("IFNULL(ts.department, emp.department) = %(department)s")
+		values["department"] = filters["department"]
+	
+	if filters.get("branch"):
+		conditions.append("emp.branch = %(branch)s")
+		values["branch"] = filters["branch"]
+	
+	if filters.get("employment_type"):
+		conditions.append("emp.employment_type = %(employment_type)s")
+		values["employment_type"] = filters["employment_type"]
+	
+	if filters.get("month"):
+		month_num = [
+			"January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December",
+		].index(filters["month"]) + 1
+		conditions.append("MONTH(ts.start_date) = %(month_num)s")
+		values["month_num"] = month_num
+	
+	if filters.get("year"):
+		conditions.append("YEAR(ts.start_date) = %(year)s")
+		values["year"] = filters["year"]
+	
+	if filters.get("state"):
+		conditions.append("ts.status = %(state)s")
+		values["state"] = filters["state"]
+	
+	if filters.get("stand_by"):
+		if filters["stand_by"] == "Yes":
+			conditions.append("ts.stand_by = 1")
+		elif filters["stand_by"] == "No":
+			conditions.append("ts.stand_by = 0")
+	
+	where_clause = " AND ".join(conditions) if conditions else "1=1"
+	
+	# Get all matching timesheets (distinct parent timesheets)
+	timesheets = frappe.db.sql(
+		f"""
+		SELECT DISTINCT ts.name
+		FROM `tabTimesheet Detail` tsd
+		INNER JOIN `tabTimesheet` ts ON ts.name = tsd.parent
+		LEFT JOIN `tabEmployee` emp ON emp.name = ts.employee
+		WHERE ts.docstatus != 2
+		AND {where_clause}
+		""",
+		values,
+		as_dict=True
+	)
+	
+	if not timesheets:
+		frappe.msgprint(_("No timesheets found matching the selected filters."))
+		return {"count": 0}
+	
+	# Update each timesheet
+	count = 0
+	for ts in timesheets:
+		try:
+			doc = frappe.get_doc("Timesheet", ts.name)
+			doc.custom_approved = 1
+			doc.save(ignore_permissions=True)
+			count += 1
+		except Exception as e:
+			frappe.log_error(f"Error approving timesheet {ts.name}: {str(e)}", "Timesheet Approval Error")
+	
+	frappe.db.commit()
+	
+	return {"count": count}

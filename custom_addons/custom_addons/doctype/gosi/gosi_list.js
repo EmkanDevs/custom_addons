@@ -6,6 +6,46 @@ frappe.listview_settings['Gosi'] = {
                 title: 'Import Gosi Data',
                 fields: [
                     {
+                        fieldtype: "HTML",
+                        fieldname: "template_section",
+                        options: `
+                            <div style="
+                                background: #f8f9fa;
+                                border: 1px solid #dfe3e6;
+                                border-radius: 10px;
+                                padding: 18px;
+                                margin-bottom: 15px;
+                            ">
+                                <div style="
+                                    font-size: 15px;
+                                    font-weight: 600;
+                                    margin-bottom: 8px;
+                                    color: #2c3e50;
+                                ">
+                                    Upload Instructions
+                                </div>
+                                <div style="
+                                    font-size: 13px;
+                                    line-height: 1.7;
+                                    color: #555;
+                                    margin-bottom: 15px;
+                                ">
+                                    1. Download the official GOSI template.<br>
+                                    2. Fill in employee details in the same format.<br>
+                                    3. Upload the completed Excel or CSV file below.
+                                </div>
+                                <a
+                                    href="/api/method/custom_addons.custom_addons.doctype.gosi.gosi.download_gosi_template"
+                                    class="btn btn-primary btn-sm"
+                                    target="_blank"
+                                >
+                                    <i class="fa fa-download"></i>
+                                    Download Demo Template
+                                </a>
+                            </div>
+                        `
+                    },
+                    {
                         label: 'Upload File',
                         fieldname: 'file',
                         fieldtype: 'Attach',

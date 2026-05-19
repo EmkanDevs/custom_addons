@@ -70,6 +70,12 @@ frappe.query_reports["Timesheet Summary"] = {
             "label": __("Total Hours Less Than"),
             "fieldtype": "Float",
             "default": 0
-        }
+        },
+		{
+			fieldname: "stand_by",
+			label: __("Stand By"),
+			fieldtype: "Select",
+			options: "\nYes\nNo",
+		},
 	],
 };

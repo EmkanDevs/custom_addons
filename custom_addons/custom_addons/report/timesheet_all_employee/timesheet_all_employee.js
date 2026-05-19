@@ -70,10 +70,17 @@ frappe.query_reports["Timesheet All Employee"] = {
             fieldtype: "Float",
         },
         {
+            fieldname: "stand_by",
+            label: __("Stand By"),
+            fieldtype: "Select",
+            options: "\nYes\nNo",
+        },
+        {
             fieldname: "show_zero_working_hours",
             label: __("Show Zero Working Hours Only"),
             fieldtype: "Check",
             default: 0,
         },
+
     ],
 };

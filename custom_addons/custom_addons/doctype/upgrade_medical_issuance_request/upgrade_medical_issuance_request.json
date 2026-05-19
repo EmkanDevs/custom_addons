@@ -1,0 +1,276 @@
+{
+ "actions": [],
+ "autoname": "UMIR-.YY.-.####",
+ "creation": "2026-04-27 08:45:13.955375",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_personal",
+  "from",
+  "to",
+  "column_break_qtkg",
+  "member_name",
+  "relationship",
+  "col_break_2",
+  "gender",
+  "marital_status",
+  "section_id",
+  "id_no",
+  "country",
+  "col_break_3",
+  "employee_number",
+  "employee_name",
+  "section_cchi",
+  "medical_insurrance",
+  "medical_insurrance_grade",
+  "position_include",
+  "col_break_5",
+  "cchi_policy_status",
+  "member_cchi_status",
+  "member_cchi_upload_date",
+  "expenses_section",
+  "targeted_payment",
+  "settled_with_hr",
+  "column_break_avnb",
+  "amount",
+  "settled_with_accounting",
+  "payment_plan_section",
+  "payment_type",
+  "starting_from",
+  "column_break_qxbe",
+  "each_payment",
+  "ending_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "id_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ID No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Member Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_personal",
+   "fieldtype": "Section Break",
+   "label": "Personal Details"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "\nM\nF"
+  },
+  {
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status",
+   "options": "\nSingle\nMarried\nDivorced\nWidowed"
+  },
+  {
+   "fieldname": "col_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "relationship",
+   "fieldtype": "Select",
+   "label": "Relationship",
+   "options": "\nEmployee\nWife\nSon\nDaughter\nOther"
+  },
+  {
+   "fieldname": "section_id",
+   "fieldtype": "Section Break",
+   "label": "ID & Nationality"
+  },
+  {
+   "fieldname": "col_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "main_member_id.employee_number",
+   "fieldname": "employee_number",
+   "fieldtype": "Link",
+   "label": "Employee Number",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "section_cchi",
+   "fieldtype": "Section Break",
+   "label": "CCHI Status"
+  },
+  {
+   "fieldname": "cchi_policy_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "CCHI Policy Status",
+   "options": "\nApproved\nRejected\nPending"
+  },
+  {
+   "fieldname": "col_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "member_cchi_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Member CCHI Status",
+   "options": "\nApproved\nRejected\nPending"
+  },
+  {
+   "fieldname": "member_cchi_upload_date",
+   "fieldtype": "Date",
+   "label": "Member CCHI Upload Date"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fetch_from": "employee_number.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_insurrance",
+   "fieldtype": "Link",
+   "label": "Medical Insurrance (Requested)",
+   "options": "Medical Insurrance Policy"
+  },
+  {
+   "fetch_from": "medical_insurrance.medical_insurrance_grade",
+   "fieldname": "medical_insurrance_grade",
+   "fieldtype": "Data",
+   "label": "Medical Insurrance Grade",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "medical_insurrance.position_include",
+   "fieldname": "position_include",
+   "fieldtype": "Data",
+   "label": "Position Include",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expenses_section",
+   "fieldtype": "Section Break",
+   "label": "Expenses"
+  },
+  {
+   "default": "Difference on Employee",
+   "fieldname": "targeted_payment",
+   "fieldtype": "Select",
+   "label": "Targeted Payment",
+   "options": "\nFull on Company\nFull on Employee\nDifference on Employee"
+  },
+  {
+   "default": "0",
+   "fieldname": "settled_with_hr",
+   "fieldtype": "Check",
+   "label": "Settled with HR"
+  },
+  {
+   "fieldname": "column_break_avnb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "settled_with_accounting",
+   "fieldtype": "Check",
+   "label": "Settled with Accounting",
+   "read_only": 1
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Date",
+   "label": "From"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "label": "To"
+  },
+  {
+   "fieldname": "column_break_qtkg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.amount > 0",
+   "fieldname": "payment_plan_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Plan"
+  },
+  {
+   "default": "Monthly",
+   "fieldname": "payment_type",
+   "fieldtype": "Select",
+   "label": "Payment Type",
+   "mandatory_depends_on": "eval:doc.amount > 0",
+   "options": "\nMonthly\nQuarterly\nHalf Year\nYearly"
+  },
+  {
+   "fieldname": "starting_from",
+   "fieldtype": "Date",
+   "label": "Starting From",
+   "mandatory_depends_on": "eval:doc.amount > 0"
+  },
+  {
+   "fieldname": "column_break_qxbe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "each_payment",
+   "fieldtype": "Currency",
+   "label": "Each Payment",
+   "mandatory_depends_on": "eval:doc.amount > 0"
+  },
+  {
+   "fieldname": "ending_at",
+   "fieldtype": "Date",
+   "label": "Ending At",
+   "mandatory_depends_on": "eval:doc.amount > 0"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-30 15:57:15.032352",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Upgrade Medical Issuance request",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

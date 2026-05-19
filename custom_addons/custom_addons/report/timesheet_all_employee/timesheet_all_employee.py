@@ -160,6 +160,7 @@ def get_columns():
         {"fieldname": "department",           "label": _("Department"),           "fieldtype": "Link",     "options": "Department",      "width": 150},
         {"fieldname": "designation",          "label": _("Designation"),          "fieldtype": "Link",     "options": "Designation",     "width": 150},
         {"fieldname": "project_name",         "label": _("Project Name"),         "fieldtype": "Data",                                   "width": 180},
+        {"fieldname": "stand_by", "label": _("Stand By"), "fieldtype": "Data", "width": 100},
         {"fieldname": "working_hours",        "label": _("Working Hours"),        "fieldtype": "Float",                                  "width": 120},
         {"fieldname": "ot_hours",             "label": _("OT Hours"),             "fieldtype": "Float",                                  "width": 100},
         {"fieldname": "working_hour_amount",  "label": _("Working Hour Amount"),  "fieldtype": "Currency",                               "width": 160},
@@ -183,6 +184,7 @@ def get_data(filters):
             emp.department                                                           AS department,
             emp.designation                                                          AS designation,
             GROUP_CONCAT(DISTINCT tsd.project ORDER BY tsd.project SEPARATOR ', ')  AS project_name,
+            CASE WHEN MAX(ts.stand_by) = 1 THEN 'Yes' ELSE 'No' END                 AS stand_by,
 
             SUM(IFNULL(tsd.working_hours, 0))              AS working_hours,
             MAX(IFNULL(tsd.working_hour_rate_, 0))         AS working_hour_rate,
@@ -250,6 +252,7 @@ def build_conditions(filters):
         if filters["status"] in status_map:
             join_conds.append("ts.docstatus = %(docstatus)s")
             values["docstatus"] = status_map[filters["status"]]
+    
 
     # Multi-select fields — employee, department, designation
     multi_select_map = {
@@ -300,6 +303,12 @@ def build_conditions(filters):
 
 def build_having_clause(filters, values):
     having_conditions = []
+
+    if filters.get("stand_by"):
+        if filters["stand_by"] == "Yes":
+            having_conditions.append("MAX(ts.stand_by) = 1")
+        elif filters["stand_by"] == "No":
+            having_conditions.append("(MAX(ts.stand_by) = 0 OR MAX(ts.stand_by) IS NULL)")
 
     if filters.get("show_zero_working_hours"):
         having_conditions.append("(SUM(IFNULL(tsd.working_hours, 0)) + SUM(IFNULL(tsd.ot_hrs, 0))) = 0")

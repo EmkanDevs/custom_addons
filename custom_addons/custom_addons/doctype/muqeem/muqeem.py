@@ -172,3 +172,34 @@ def import_muqeem_data(file_url):
 	except Exception as e:
 		frappe.log_error(f"Import failed: {str(e)}", "Muqeem Import Error")
 		frappe.throw(f"Import failed: {str(e)}")
+
+
+
+@frappe.whitelist()
+def download_muqeem_template():
+    from frappe.utils.xlsxutils import make_xlsx
+
+    columns = [
+        "Full Name",
+        "Gender",
+        "Country",
+        "Date of Birth",
+        "National Code",
+        "Outside Country",
+        "Designation Name Arabic",
+        "Passport Number",
+        "Passport Valid Upto",
+        "Residence Issue",
+        "Residence Expire",
+        "Resident Expire Hijri",
+        "Employer Number",
+        "Employee Number",
+    ]
+
+    data = [columns]  # Header row only — user fills the rest
+
+    xlsx_file = make_xlsx(data, "Muqeem Template")
+
+    frappe.response["filename"]    = "Muqeem_Template.xlsx"
+    frappe.response["filecontent"] = xlsx_file.getvalue()
+    frappe.response["type"]        = "binary"

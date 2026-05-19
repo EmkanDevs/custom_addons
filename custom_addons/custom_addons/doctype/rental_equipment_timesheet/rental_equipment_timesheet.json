@@ -16,6 +16,8 @@
   "door_no_or_plate_no",
   "project_section",
   "project_id",
+  "column_break_gdwz",
+  "project_code",
   "supplier_section",
   "supplier_name",
   "section_break_phav",
@@ -110,13 +112,23 @@
    "label": "Status",
    "options": "Draft\nSubmitted\nBilled\nPayslip\nCompleted\nCancelled",
    "print_hide": 1
+  },
+  {
+   "fieldname": "column_break_gdwz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "project_id.project_code",
+   "fieldname": "project_code",
+   "fieldtype": "Data",
+   "label": "Project Code"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-21 12:13:27.947220",
+ "modified": "2026-05-01 12:45:05.939181",
  "modified_by": "Administrator",
  "module": "Custom Addons",
  "name": "Rental Equipment Timesheet",

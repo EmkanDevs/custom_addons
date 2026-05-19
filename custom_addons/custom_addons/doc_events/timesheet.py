@@ -129,6 +129,7 @@ import os
 from frappe import _
 from datetime import datetime, time
 from frappe.utils import today, get_datetime, getdate, add_to_date, flt, time_diff_in_hours
+from frappe.utils.xlsxutils import make_xlsx
 
 @frappe.whitelist()
 def mass_submit_timesheets(names):
@@ -244,6 +245,9 @@ def upload_timesheet(file_url):
             ts.start_date = row_date
             ts.end_date = row_date
             
+            stand_by_val = str(row.get("Stand By", "") or "").strip().lower()
+            ts.stand_by = 1 if stand_by_val in ["1", "yes", "true", "✓", "x"] else 0
+
             if project_id and frappe.db.exists("Project", project_id):
                 ts.parent_project = project_id
 
@@ -308,3 +312,34 @@ def upload_timesheet(file_url):
     frappe.db.commit()
     
     return {"created": created, "skipped": skipped}
+
+
+@frappe.whitelist()
+def download_timesheet_template():
+
+    columns = [
+        "S.No",
+        "Employees id",
+        "Employees Name"
+        "Job Title",
+        "Nationality",
+        "Iqama Number",
+        "In Time",
+        "Out Time",
+        "Normal",
+        "OT",
+        "company",
+        "IMC Ref #",
+        "Remark",
+        "Date",
+        "Stand By"
+    ]
+    
+
+    data = [columns]
+
+    xlsx_file = make_xlsx(data, "Timesheet Template")
+
+    frappe.response["filename"] = "Timesheet_Template.xlsx"
+    frappe.response["filecontent"] = xlsx_file.getvalue()
+    frappe.response["type"] = "binary"
