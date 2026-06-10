@@ -118,7 +118,6 @@ def send_reminder_email(doc_name, expire_on, recipients, customer, gov_document_
 					"fname": file_doc.file_name,
 					"fcontent": f.read()
 				}
-			# print(f"attachments: {file_doc}")
 
 		except Exception as e:
 			frappe.log_error(f"Failed to attach file {file_url}: {str(e)}")
@@ -129,7 +128,6 @@ def send_reminder_email(doc_name, expire_on, recipients, customer, gov_document_
 		if attachment:
 			attachments.append(attachment)
 
-	print(f"Sending email to: {recipients}")
 
 	frappe.sendmail(
 		recipients=recipients,

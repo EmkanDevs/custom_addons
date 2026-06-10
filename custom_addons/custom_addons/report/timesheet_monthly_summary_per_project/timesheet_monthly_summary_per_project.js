@@ -224,13 +224,8 @@ frappe.query_reports["Timesheet Monthly Summary Per Project"] = {
 	],
 
 	onload: function(report) {
-		console.log("Report onload called");
-		console.log("User roles:", frappe.user_roles);
-		console.log("Has General Manager role:", frappe.user.has_role("General manager"));
-		
 		// Check if user has General manager role (note: lowercase 'm')
 		if (frappe.user.has_role("General manager")) {
-			console.log("Adding Approval button");
 			report.page.add_inner_button(__("Approval"), function() {
 				let filters = report.get_values();
 				
@@ -278,9 +273,7 @@ frappe.query_reports["Timesheet Monthly Summary Per Project"] = {
 					}
 				);
 			});
-		} else {
-			console.log("User does not have General manager role");
-		}
+		} 
 	},
 
 	// -------------------------------------------------------------------------

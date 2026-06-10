@@ -12,10 +12,21 @@ import frappe
 
 @frappe.whitelist()
 def make_payment_request(docname):
+    # API-level permission check
+    if not frappe.has_permission(
+        "Project Site Violation",
+        ptype="read",
+        doc=docname
+    ):
+        frappe.throw(
+            _("You do not have permission to access this Project Site Violation"),
+            frappe.PermissionError,
+        )
+
     # Get source document
     doc = frappe.get_doc("Project Site Violation", docname)
 
-    # Permission check
+    # Additional document-level permission check
     doc.check_permission("read")
 
     data = frappe.new_doc("Payment Requester")
@@ -26,6 +37,6 @@ def make_payment_request(docname):
     data.party_type = "Customer"
     data.party = frappe.db.get_value("Project", doc.project, "customer")
 
-    data.insert()  # insert is better than save for new docs
+    data.insert()
 
     return data

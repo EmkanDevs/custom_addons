@@ -26,18 +26,19 @@ frappe.ui.form.on("Bid Tabulation Discussion", {
         });
     },
 
-    final_supplier: function(frm) {
-        frappe.call({
+    final_supplier: async function(frm) {
+        const r = await frappe.call({
             method: "custom_addons.custom_addons.doctype.bid_tabulation_discussion.bid_tabulation_discussion.set_supplier_quotation_value",
-            args: { request_for_quotation: frm.doc.request_for_quotation, supplier: frm.doc.final_supplier },
-            async: false,
-            callback: function(r) {
-                if (r.message) {
-                    frm.set_value("supplier_quotation", r.message[0]);
-                    frm.save_or_update();
-                }
+            args: {
+                request_for_quotation: frm.doc.request_for_quotation,
+                supplier: frm.doc.final_supplier
             }
         });
+
+        if (r.message) {
+            await frm.set_value("supplier_quotation", r.message[0]);
+            await frm.save_or_update();
+        }
     },
 
     make_purchase_order: function(frm) {

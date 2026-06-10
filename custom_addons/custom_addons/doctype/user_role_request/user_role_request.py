@@ -464,9 +464,6 @@ def share_document_with_role_owners(docname):
     try:
         doc = frappe.get_doc("User Role Request", docname)
 
-        print(
-            f"[AUTO-SHARE] Running as Administrator for {docname}"
-        )
 
         role_owners = set()
         for row in doc.role_request_details:
@@ -477,7 +474,6 @@ def share_document_with_role_owners(docname):
                         role_owners.add(owner)
 
         if not role_owners:
-            print(f"No role owners found for {docname}")
             return False
 
         shared_count = 0
@@ -537,7 +533,6 @@ def notify_employee_or_external_user(doc):
 		recipients.append(doc.email_id)
 
 	if not recipients:
-		print(f"No recipient found for User Role Request {doc.name}")
 		return
 
 	subject = _("Notification: User Role Request Closed")

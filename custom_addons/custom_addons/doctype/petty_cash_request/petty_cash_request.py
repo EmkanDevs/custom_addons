@@ -148,12 +148,20 @@ def set_petty_cash(data, purchase_receipts):
         purchase_receipts = json.loads(purchase_receipts)
 
     for receipt_name in purchase_receipts:
+        if not frappe.has_permission(
+            "Purchase Receipt",
+            ptype="write",
+            doc=receipt_name
+        ):
+            frappe.throw(
+                _("No permission for Purchase Receipt {0}").format(receipt_name),
+                frappe.PermissionError,
+            )
+
         doc = frappe.get_doc("Purchase Receipt", receipt_name)
-
-        # permission validation
-        doc.check_permission("write")
-
         doc.db_set("petty_cash_request", data, update_modified=False)
+
+    return True
             
 @frappe.whitelist()
 def clear_petty_cash_request(purchase_receipt):
@@ -173,9 +181,3 @@ def clear_petty_cash_request(purchase_receipt):
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Clear Petty Cash Request Error")
         return "error"
-
-
-# from mkan_customization.api import send_email_on_state_change
-# @frappe.whitelist()
-# def notify_supervisor(petty_cash_request):
-#     send_email_on_state_change(petty_cash_request)

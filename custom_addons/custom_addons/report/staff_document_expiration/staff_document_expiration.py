@@ -26,7 +26,7 @@ def get_columns():
         },
         {
             "label": "Employee Name",
-            "fieldname": "custom_employee_name_",
+            "fieldname": "custom_employee_name_",      
             "fieldtype": "Data",
             "width": 150
         },
