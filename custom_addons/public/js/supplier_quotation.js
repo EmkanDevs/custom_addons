@@ -91,10 +91,10 @@ frappe.ui.form.on("Supplier Quotation", {
         .map(item => item.request_for_quotation)
         .filter(rfq => rfq);
 
-    if (rfqs.length === 0) {
-        frappe.throw("Please create Request for Quotation before creating Purchase Order");
-        return;
-    }
+    // if (rfqs.length === 0) {
+    //     frappe.throw("Please create Request for Quotation before creating Purchase Order");
+    //     return;
+    // }
 
     // Search directly in Bid Tabulation Discussion for matching RFQs
     frappe.call({
