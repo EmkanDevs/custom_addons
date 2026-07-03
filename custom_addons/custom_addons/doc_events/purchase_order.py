@@ -1,38 +1,38 @@
 import frappe
 from frappe import _
 
-def after_insert(self, method):
-    self.custom_bid_tabulation_check = 1
-    self.db_set("custom_bid_tabulation_check", 1)
+# def after_insert(self, method):
+#     self.custom_bid_tabulation_check = 1
+#     self.db_set("custom_bid_tabulation_check", 1)
 
-    if not self.supplier:
-        return
+#     if not self.supplier:
+#         return
 
-    supplier = frappe.get_doc("Supplier", self.supplier)
+#     supplier = frappe.get_doc("Supplier", self.supplier)
 
-    missing_fields = []
+#     missing_fields = []
 
-    if not supplier.get("custom_default_iban_no"):
-        missing_fields.append("Default IBAN No.")
+#     if not supplier.get("custom_default_iban_no"):
+#         missing_fields.append("Default IBAN No.")
 
-    if not supplier.get("custom_section_materials_services"):
-        missing_fields.append("Section, Materials, Services")
+#     if not supplier.get("custom_section_materials_services"):
+#         missing_fields.append("Section, Materials, Services")
 
-    if not supplier.get("tax_id"):
-        missing_fields.append("Tax ID")
+#     if not supplier.get("tax_id"):
+#         missing_fields.append("Tax ID")
 
-    if not supplier.get("custom_cr_number"):
-        missing_fields.append("CR Number")
+#     if not supplier.get("custom_cr_number"):
+#         missing_fields.append("CR Number")
 
-    if not supplier.get("primary_address"):
-        missing_fields.append("Address")
+#     if not supplier.get("primary_address"):
+#         missing_fields.append("Address")
 
-    if missing_fields:
-        frappe.throw(
-            _("Supplier {0} is missing required data: {1}").format(
-                self.supplier_name, ", ".join(missing_fields)
-            )
-        )
+#     if missing_fields:
+#         frappe.throw(
+#             _("Supplier {0} is missing required data: {1}").format(
+#                 self.supplier_name, ", ".join(missing_fields)
+#             )
+#         )
     
 @frappe.whitelist()
 def service_status_map(source_name):

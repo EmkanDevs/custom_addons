@@ -266,9 +266,9 @@ doc_events = {
     "Request for Quotation":{
         "on_submit":"custom_addons.custom_addons.doc_events.request_for_quotation.on_submit",
     },
-    "Purchase Order":{
-        "after_insert":"custom_addons.custom_addons.doc_events.purchase_order.after_insert",
-    },
+    # "Purchase Order":{
+    #     "after_insert":"custom_addons.custom_addons.doc_events.purchase_order.after_insert",
+    # },
     "Salary Component": {
         "validate": "custom_addons.custom_addons.doc_events.salary_component.validate"
     }
