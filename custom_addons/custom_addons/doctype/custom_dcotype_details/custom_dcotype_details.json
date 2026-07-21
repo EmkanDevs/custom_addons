@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-07-16 14:22:59.837981",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "custom_doctype",
+  "has_child_table",
+  "child_table",
+  "field_and_script"
+ ],
+ "fields": [
+  {
+   "fieldname": "custom_doctype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parent Doctype",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "has_child_table",
+   "fieldtype": "Check",
+   "label": "Has Child Table"
+  },
+  {
+   "default": "0",
+   "fieldname": "field_and_script",
+   "fieldtype": "Check",
+   "label": "Create Field and Script for Parent Account"
+  },
+  {
+   "depends_on": "eval:doc.has_child_table",
+   "fieldname": "child_table",
+   "fieldtype": "Link",
+   "label": "Child Table",
+   "mandatory_depends_on": "eval:doc.has_child_table",
+   "options": "DocType"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-16 15:30:11.326654",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Custom Dcotype Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

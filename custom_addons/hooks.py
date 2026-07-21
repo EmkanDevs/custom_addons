@@ -304,7 +304,9 @@ doctype_js = {
             "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js",
             "Medical Insurance Sheet":    "public/js/medical_insurance_sheet_list.js",
             "Salary Slip":                "public/js/salary_slip_list.js",
-            "Material Request":"public/js/material_request.js"
+            "Material Request":"public/js/material_request.js",
+            "Purchase Invoice": "public/js/purchase_invoice.js",
+            "Journal Entry":"public/js/journal_entry.js",
 
 }
 

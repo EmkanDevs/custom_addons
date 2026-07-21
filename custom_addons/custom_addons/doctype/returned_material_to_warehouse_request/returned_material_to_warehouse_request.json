@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:RMWR-{#####}",
+ "creation": "2026-07-13 11:09:32.405219",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_yrw8",
+  "date",
+  "reason_of_return",
+  "return_condition",
+  "amended_from",
+  "supplier_name",
+  "supplier_code",
+  "column_break_zbtw",
+  "handed_by",
+  "project",
+  "project_name",
+  "default_target_warehouse",
+  "stock_entry_reference",
+  "returned_items_section",
+  "returned_item_list",
+  "section_break_jhbm",
+  "remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_yrw8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Returned Material to Warehouse Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_zbtw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "project.project_name",
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_of_return",
+   "fieldtype": "Select",
+   "label": "Reason of Return",
+   "options": "\nSurplus\nReusable Condition\nDamaged\nExpired",
+   "reqd": 1
+  },
+  {
+   "fieldname": "return_condition",
+   "fieldtype": "Select",
+   "label": "Return Condition",
+   "options": "\nExcellent\nVery Good\nGood\nAcceptable\nDamaged\nScrap"
+  },
+  {
+   "fieldname": "handed_by",
+   "fieldtype": "Data",
+   "label": "Handed By"
+  },
+  {
+   "fieldname": "returned_items_section",
+   "fieldtype": "Section Break",
+   "label": "Returned Items:"
+  },
+  {
+   "fieldname": "returned_item_list",
+   "fieldtype": "Table",
+   "label": "Returned Item List",
+   "options": "Returned Material to Warehouse Items"
+  },
+  {
+   "fieldname": "section_break_jhbm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Small Text",
+   "label": "Remark"
+  },
+  {
+   "fieldname": "default_target_warehouse",
+   "fieldtype": "Link",
+   "label": "Default Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "stock_entry_reference",
+   "fieldtype": "Link",
+   "label": "Stock Entry Reference",
+   "options": "Stock Entry"
+  },
+  {
+   "fieldname": "supplier_code",
+   "fieldtype": "Link",
+   "label": "Sub-Contractor Code",
+   "options": "Supplier"
+  },
+  {
+    "fetch_from": "supplier_code.supplier_name",
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Sub-Contractor Name",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_return_material_ref_doc"
+  }
+ ],
+ "modified": "2026-07-13 11:11:10.267799",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Returned Material to Warehouse Request",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
