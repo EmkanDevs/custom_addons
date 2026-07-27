@@ -143,7 +143,7 @@ frappe.query_reports["Stock Balance Extended"] = {
 			fieldname: "active_items",
 			label: __("Active Items Only"),
 			fieldtype: "Check",
-			default: 1
+			default: 0
 		},
 		
 	],

@@ -1,7 +1,10 @@
 # Copyright (c) 2025, Finbyz and contributors
 # For license information, please see license.txt
 
+from collections import defaultdict
+
 import frappe
+
 
 def execute(filters=None):
     """Main function to generate the tree report"""
@@ -12,6 +15,7 @@ def execute(filters=None):
     data = get_data(filters)
 
     return columns, data
+
 
 def get_columns():
     """Define the report columns"""
@@ -27,11 +31,12 @@ def get_columns():
         {"label": "Quantity", "fieldname": "qty", "fieldtype": "Float", "width": 100},
         {"label": "Project", "fieldname": "project", "fieldtype": "Link", "options": "Project", "width": 150},
         {"label": "Schedule Date", "fieldname": "schedule_date", "fieldtype": "Date", "width": 120},
-        {"label": "Indent", "fieldname": "indent", "fieldtype": "Int", "width": 50,"hidden":1},
+        {"label": "Indent", "fieldname": "indent", "fieldtype": "Int", "width": 50, "hidden": 1},
         {"label": "Purchase Order", "fieldname": "purchase_order", "fieldtype": "Link", "options": "Purchase Order", "width": 250},
         {"label": "Request for Quotation", "fieldname": "request_for_quotation", "fieldtype": "Link", "options": "Request for Quotation", "width": 250},
         {"label": "Supplier Quotation", "fieldname": "supplier_quotation", "fieldtype": "Link", "options": "Supplier Quotation", "width": 250},
     ]
+
 
 def get_data(filters):
     """Fetches and organizes the report data in a tree format"""
@@ -57,9 +62,9 @@ def get_data(filters):
         else:
             project_conditions.append("EXISTS (SELECT 1 FROM `tabMaterial Request Item` mri WHERE mri.parent = mr.name AND mri.project = %(project)s)")
             values["project"] = filters["project"]
-        
+
         conditions.extend(project_conditions)
-        
+
     if filters.get("from_date") and filters.get("to_date"):
         conditions.append("""
             EXISTS (
@@ -71,7 +76,6 @@ def get_data(filters):
         """)
         values["from_date"] = filters["from_date"]
         values["to_date"] = filters["to_date"]
-
 
     condition_str = " AND ".join(conditions) if conditions else "1=1"
 
@@ -112,47 +116,61 @@ def get_data(filters):
         ORDER BY mr.creation DESC
     """
 
-    
     parent_rows = frappe.db.sql(parent_query, values, as_dict=True)
-    
+
+    if not parent_rows:
+        return []
+
+    parent_names = tuple(row["material_request"] for row in parent_rows)
+
+    # ------------------------------------------------------------------
+    # Batch-fetch ALL child items for ALL parents in a single query,
+    # instead of one query per parent inside the loop below.
+    # ------------------------------------------------------------------
+    child_conditions = ["mri.parent IN %(parent_names)s"]
+    child_values = {"parent_names": parent_names}
+
+    if filters.get("project"):
+        if isinstance(filters["project"], list):
+            child_conditions.append("(mri.project IN %(child_projects)s OR mri.project IS NULL)")
+            child_values["child_projects"] = tuple(filters["project"])
+        else:
+            child_conditions.append("(mri.project = %(child_project)s OR mri.project IS NULL)")
+            child_values["child_project"] = filters["project"]
+
+    child_condition_str = " AND ".join(child_conditions)
+
+    child_query = f"""
+        SELECT 
+            NULL AS material_request,  
+            NULL AS Owner,
+            NULL AS workflow_state,
+            NULL AS status,
+            NULL AS transaction_date,
+            NULL AS material_request_type,
+            mri.parent AS parent_material_request,
+            mri.item_code,
+            mri.item_name,
+            mri.qty,
+            IFNULL(CAST(mri.project AS CHAR), '') AS project,
+            mri.schedule_date,
+            1 AS indent
+        FROM `tabMaterial Request Item` AS mri
+        WHERE {child_condition_str}
+        ORDER BY mri.parent, mri.idx
+    """
+
+    all_child_rows = frappe.db.sql(child_query, child_values, as_dict=True)
+
+    children_by_parent = defaultdict(list)
+    for child in all_child_rows:
+        children_by_parent[child["parent_material_request"]].append(child)
+
     data = []
     for parent in parent_rows:
-        # Fetch Material Request Items (Child Rows)
-        child_conditions = "mri.parent = %s"
-        child_values = [parent["material_request"]]
+        child_rows = children_by_parent.get(parent["material_request"])
 
-        # Additional project filtering for child rows
-        if filters.get("project"):
-            if isinstance(filters["project"], list):
-                child_conditions += " AND (mri.project IN %s OR mri.project IS NULL)"
-                child_values.append(tuple(filters["project"]))
-            else:
-                child_conditions += " AND (mri.project = %s OR mri.project IS NULL)"
-                child_values.append(filters["project"])
-
-        child_query = f"""
-            SELECT 
-                NULL AS material_request,  
-                NULL AS Owner,
-                NULL AS workflow_state,
-                NULL AS status,
-                Null AS transaction_date,
-                Null AS material_request_type,
-                mri.item_code,
-                mri.item_name,
-                mri.qty,
-                IFNULL(CAST(mri.project AS CHAR), '') AS project,
-                mri.schedule_date,
-                %s AS parent_material_request,
-                1 AS indent  
-            FROM `tabMaterial Request Item` AS mri
-            WHERE {child_conditions}
-        """
-        
-        child_values.insert(0, parent["material_request"])
-        child_rows = frappe.db.sql(child_query, child_values, as_dict=True)
-        
-        # Only add parent and children if there are child rows
+        # Only add parent and children if there are child rows (same as before)
         if child_rows:
             data.append(parent)
             data.extend(child_rows)

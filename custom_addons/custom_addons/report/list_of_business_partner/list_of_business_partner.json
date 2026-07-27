@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-06-25 12:47:02.939646",
+ "modified": "2026-07-27 07:59:19.486565",
  "modified_by": "Administrator",
  "module": "Custom Addons",
  "name": "List of Business Partner",
@@ -36,13 +36,7 @@
    "role": "Sales Manager"
   },
   {
-   "role": "Stock User"
-  },
-  {
    "role": "Sales User"
-  },
-  {
-   "role": "Employee Self Service"
   }
  ],
  "timeout": 0

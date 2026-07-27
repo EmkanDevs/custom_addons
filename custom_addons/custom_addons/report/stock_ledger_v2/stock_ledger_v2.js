@@ -124,7 +124,7 @@ frappe.query_reports["Stock Ledger V2"] = {
 			fieldname: "active_items",
 			label: __("Active Items Only"),
 			fieldtype: "Check",
-			default: 1
+			default: 0
 		},
 		
 	],

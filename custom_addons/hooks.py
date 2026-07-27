@@ -311,7 +311,8 @@ doctype_js = {
 }
 
 app_include_js = [
-    "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"
+    "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js",
+    "/assets/custom_addons/js/report_print_fix.js"
 ]
 
 doctype_list_js = {

@@ -145,21 +145,40 @@
  "name": "Returned Material to Warehouse Request",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
- "permissions": [
+"permissions": [
   {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "submit": 1,
-   "write": 1
+    "create": 1,
+    "delete": 1,
+    "email": 1,
+    "export": 1,
+    "print": 1,
+    "read": 1,
+    "report": 1,
+    "role": "System Manager",
+    "share": 1,
+    "submit": 1,
+    "write": 1
+  },
+  {
+    "create": 1,
+    "print": 1,
+    "read": 1,
+    "report": 1,
+    "role": "Stock User",
+    "submit": 1,
+    "write": 1
+  },
+  {
+    "create": 1,
+    "delete": 1,
+    "print": 1,
+    "read": 1,
+    "report": 1,
+    "role": "Stock Manager",
+    "submit": 1,
+    "write": 1
   }
- ],
+],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",

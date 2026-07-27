@@ -115,7 +115,7 @@ class StockBalanceReport:
 
 			# Add petty cash information
 			report_data.update({
-				"is_petty_cash": petty_cash_data.get(report_data.item_code, False)
+				"is_petty_cash": petty_cash_data.get((report_data.company, report_data.item_code), False)
 			})
 
 			if self.filters.get("show_stock_ageing_data"):
@@ -157,30 +157,40 @@ class StockBalanceReport:
 			self.data.append(report_data)
 
 	def get_petty_cash_data(self):
-		"""Fetch petty cash information from Purchase Order and Purchase Invoice"""
+		"""Fetch petty cash flag per (company, item_code) so the flag can't leak across companies."""
 		petty_cash_data = {}
-		
-		# Get items from Purchase Order with is_petty_cash = 1
-		po_items = frappe.db.sql("""
-			SELECT DISTINCT poi.item_code 
-			FROM `tabPurchase Order Item` poi
-			INNER JOIN `tabPurchase Order` po ON po.name = poi.parent
-			WHERE po.docstatus = 1 AND po.custom_petty_cash = 1
-		""", as_dict=True)
-		
-		# Get items from Purchase Invoice with is_petty_cash = 1
-		pi_items = frappe.db.sql("""
-			SELECT DISTINCT pii.item_code 
-			FROM `tabPurchase Receipt Item` pii
-			INNER JOIN `tabPurchase Receipt` pi ON pi.name = pii.parent
-			WHERE pi.docstatus = 1 AND pi.custom_is_petty_cash = 1
-		""", as_dict=True)
-		
-		# Mark items as petty cash
-		for item in po_items + pi_items:
-			if item.item_code:
-				petty_cash_data[item.item_code] = True
-				
+
+		poi = frappe.qb.DocType("Purchase Order Item")
+		po = frappe.qb.DocType("Purchase Order")
+		pii = frappe.qb.DocType("Purchase Receipt Item")
+		pi = frappe.qb.DocType("Purchase Receipt")
+
+		po_query = (
+			frappe.qb.from_(poi)
+			.inner_join(po)
+			.on(po.name == poi.parent)
+			.select(poi.item_code, po.company)
+			.distinct()
+			.where((po.docstatus == 1) & (po.custom_petty_cash == 1))
+		)
+
+		pi_query = (
+			frappe.qb.from_(pii)
+			.inner_join(pi)
+			.on(pi.name == pii.parent)
+			.select(pii.item_code, pi.company)
+			.distinct()
+			.where((pi.docstatus == 1) & (pi.custom_is_petty_cash == 1))
+		)
+
+		if self.filters.get("company"):
+			po_query = po_query.where(po.company == self.filters.get("company"))
+			pi_query = pi_query.where(pi.company == self.filters.get("company"))
+
+		for item in po_query.run(as_dict=True) + pi_query.run(as_dict=True):
+			if item.item_code and item.company:
+				petty_cash_data[(item.company, item.item_code)] = True
+
 		return petty_cash_data
 
 	def get_item_warehouse_map(self):

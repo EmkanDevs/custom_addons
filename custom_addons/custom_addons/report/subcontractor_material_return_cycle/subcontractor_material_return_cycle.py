@@ -142,7 +142,7 @@ def get_data(filters):
         values["project"] = filters.get("project")
 
     if filters.get("supplier"):
-        conditions.append("se.custom_supplier_code = %(supplier)s")
+        conditions.append("se.custom_supplier_code_ = %(supplier)s")
         values["supplier"] = filters.get("supplier")
 
     if filters.get("item_code"):

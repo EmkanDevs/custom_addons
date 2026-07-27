@@ -25,6 +25,13 @@ frappe.query_reports["Material Request Transfers Report"] = {
             "default": frappe.datetime.get_today(),
             "reqd": 0,
             "width": "120px"
+        },
+        {
+            "fieldname": "company",
+            "label": __("Company"),
+            "fieldtype": "Link",
+            "options": "Company",
+            "default": frappe.defaults.get_user_default("Company")
         }
     ]
 };

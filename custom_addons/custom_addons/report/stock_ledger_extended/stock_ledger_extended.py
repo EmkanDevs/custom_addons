@@ -1,7 +1,6 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-
 import copy
 from collections import defaultdict
 
@@ -39,6 +38,13 @@ def execute(filters=None):
     if filters.get("segregate_serial_batch_bundle"):
         bundle_details = get_serial_batch_bundle_details(sl_entries, filters)
 
+    # ======================================================
+    # BATCH-FETCH EXTENDED FIELDS (fixes N+1: was doing
+    # 3-5 individual get_value() calls per SLE row, with
+    # some of those calls literally duplicated).
+    # ======================================================
+    extended_maps = get_extended_field_maps(sl_entries)
+
     data = []
     conversion_factors = []
     if opening_row:
@@ -74,67 +80,37 @@ def execute(filters=None):
         sle["supplier_delivery_note"] = None
         sle["return_material_ref_doc"] = None
         sle["purchase_order"] = None
-
+        sle["stock_entry_type"] = None
+        sle["expense_account"] = sle.get("expense_account")
 
         # ======================================================
-        # STOCK ENTRY DETAILS
+        # STOCK ENTRY DETAILS (from pre-fetched maps, no query here)
         # ======================================================
 
         if sle.voucher_type == "Stock Entry":
 
-            stock_entry = frappe.db.get_value(
-                "Stock Entry",
-                sle.voucher_no,
-                [
-                    "owner",
-                    "stock_entry_type",
-                    "outgoing_stock_entry",
-                    "custom_supplier_code_",
-                    "custom_suppliers_name_",
-                ],
-                as_dict=True,
-            )
+            stock_entry = extended_maps.stock_entries.get(sle.voucher_no)
 
             if stock_entry:
 
                 sle["creator"] = stock_entry.owner
+                sle["stock_entry_type"] = stock_entry.stock_entry_type
 
-                sle["return_material_ref_doc"] = (
-                    stock_entry.outgoing_stock_entry
-                )
+                sle["return_material_ref_doc"] = stock_entry.outgoing_stock_entry
 
-                sle["supplier_code"] = (
-                    stock_entry.custom_supplier_code_
-                )
+                sle["supplier_code"] = stock_entry.custom_supplier_code_
 
-                sle["supplier_name"] = (
-                    stock_entry.custom_suppliers_name_
-                )
-                
+                sle["supplier_name"] = stock_entry.custom_suppliers_name_
+
                 if stock_entry.supplier:
-                    sle["supplier_name"] = frappe.db.get_value(
-                        "Supplier",
-                        stock_entry.supplier,
-                        "supplier_name"
-                    )
+                    sle["supplier_name"] = extended_maps.suppliers.get(stock_entry.supplier)
 
             # ------------------------------------------
-            # STOCK ENTRY DETAIL
+            # STOCK ENTRY DETAIL (also covers material_request,
+            # previously fetched again in a second, redundant query)
             # ------------------------------------------
 
-            se_detail = frappe.db.get_value(
-                "Stock Entry Detail",
-                {
-                    "parent": sle.voucher_no,
-                    "item_code": sle.item_code,
-                },
-                [
-                    "material_request",
-                    "cost_center",
-                    "expense_account",
-                ],
-                as_dict=True,
-            )
+            se_detail = extended_maps.se_details.get((sle.voucher_no, sle.item_code))
 
             if se_detail:
 
@@ -142,106 +118,35 @@ def execute(filters=None):
                 sle["cost_center"] = se_detail.cost_center
                 sle["expense_account"] = se_detail.expense_account
 
-            # ------------------------------------------
-            # MATERIAL REQUEST
-            # ------------------------------------------
-
-            material_request = frappe.db.get_value(
-                "Stock Entry Detail",
-                {
-                    "parent": sle.voucher_no,
-                    "item_code": sle.item_code,
-                },
-                "material_request",
-            )
-
-            if material_request:
-                sle["material_request"] = material_request
-
-
         # ======================================================
-        # PURCHASE RECEIPT DETAILS
+        # PURCHASE RECEIPT DETAILS (from pre-fetched maps, no query here)
         # ======================================================
 
         elif sle.voucher_type == "Purchase Receipt":
 
-            purchase_receipt = frappe.db.get_value(
-                "Purchase Receipt",
-                sle.voucher_no,
-                [
-                    "owner",
-                    "supplier",
-                    "supplier_name",
-                    "supplier_delivery_note",
-                ],
-                as_dict=True,
-            )
+            purchase_receipt = extended_maps.purchase_receipts.get(sle.voucher_no)
 
             if purchase_receipt:
 
                 sle["creator"] = purchase_receipt.owner
                 sle["supplier_code"] = purchase_receipt.supplier
                 sle["supplier_name"] = purchase_receipt.supplier_name
-                sle["supplier_delivery_note"] = (
-                    purchase_receipt.supplier_delivery_note
-                )
+                sle["supplier_delivery_note"] = purchase_receipt.supplier_delivery_note
 
             # ------------------------------------------
-            # PURCHASE RECEIPT ITEM DETAILS
+            # PURCHASE RECEIPT ITEM DETAILS (also covers purchase_order,
+            # previously fetched again in a second, redundant query)
             # ------------------------------------------
 
-            pr_item = frappe.db.get_value(
-                "Purchase Receipt Item",
-                {
-                    "parent": sle.voucher_no,
-                    "item_code": sle.item_code,
-                },
-                [
-                    "purchase_order",
-                    "cost_center",
-                ],
-                as_dict=True,
-            )
+            pr_item = extended_maps.pr_items.get((sle.voucher_no, sle.item_code))
 
             if pr_item:
 
                 sle["purchase_order"] = pr_item.purchase_order
                 sle["cost_center"] = pr_item.cost_center
 
-            # ------------------------------------------
-            # PURCHASE ORDER
-            # ------------------------------------------
-
-            purchase_order = frappe.db.get_value(
-                "Purchase Receipt Item",
-                {
-                    "parent": sle.voucher_no,
-                    "item_code": sle.item_code,
-                },
-                "purchase_order",
-            )
-
-            if purchase_order:
-                sle["purchase_order"] = purchase_order
-
-        # --- Add new computed fields ---
-        sle["stock_entry_type"] = (
-            frappe.db.get_value("Stock Entry", sle.voucher_no, "stock_entry_type")
-            if sle.voucher_type == "Stock Entry"
-            else None
-        )
-
         # IN/OUT Quantity
         sle["actual_qty"] = sle.actual_qty
-
-        # Combined IN/OUT Value (from valuation_rate)
-        # sle["in_out_value"] = sle.valuation_rate or 0
-
-        # # Issued Amount
-        # sle["issued_amount"] = sle.stock_value_difference
-
-
-
 
         # Received Amount (only IN)
         sle["received_amount"] = abs(sle.stock_value_difference) if sle.actual_qty > 0 else 0
@@ -249,26 +154,27 @@ def execute(filters=None):
         # Issued Amount (only OUT)
         sle["issued_amount"] = abs(sle.stock_value_difference) if sle.actual_qty < 0 else 0
 
+        # Project Name (from pre-fetched map, no query here)
+        sle["project_name"] = extended_maps.projects.get(sle.project) if sle.project else None
 
-
-        # Project Name
-        sle["project_name"] = (
-            frappe.db.get_value("Project", sle.project, "project_name")
-            if sle.project
-            else None
-        )
         if bundle_info := bundle_details.get(sle.serial_and_batch_bundle):
             data.extend(get_segregated_bundle_entries(sle, bundle_info, batch_balance_dict, filters))
             continue
 
         if filters.get("batch_no") or inventory_dimension_filters_applied:
             actual_qty += flt(sle.actual_qty, precision)
-            stock_value += sle.stock_value_difference
+            stock_value = flt(
+                stock_value + sle.stock_value_difference,
+                precision,
+            )
             if sle.batch_no:
                 if not batch_balance_dict.get(sle.batch_no):
                     batch_balance_dict[sle.batch_no] = [0, 0]
 
-                batch_balance_dict[sle.batch_no][0] += sle.actual_qty
+                batch_balance_dict[sle.batch_no][0] = flt(
+                    batch_balance_dict[sle.batch_no][0] + sle.actual_qty,
+                    precision,
+                )
 
             if filters.get("segregate_serial_batch_bundle"):
                 actual_qty = batch_balance_dict[sle.batch_no][0]
@@ -297,6 +203,115 @@ def execute(filters=None):
 
     update_included_uom_in_report(columns, data, include_uom, conversion_factors)
     return columns, data
+
+
+def get_extended_field_maps(sl_entries):
+    """
+    Batch-fetch everything the row loop used to fetch one-row-at-a-time.
+
+    Returns a frappe._dict of lookup maps:
+        stock_entries      -> {voucher_no: row}
+        se_details         -> {(voucher_no, item_code): row}
+        purchase_receipts  -> {voucher_no: row}
+        pr_items           -> {(voucher_no, item_code): row}
+        suppliers          -> {supplier: supplier_name}
+        projects           -> {project: project_name}
+    """
+    stock_entry_names = set()
+    purchase_receipt_names = set()
+    project_names = set()
+
+    for sle in sl_entries:
+        if sle.voucher_type == "Stock Entry":
+            stock_entry_names.add(sle.voucher_no)
+        elif sle.voucher_type == "Purchase Receipt":
+            purchase_receipt_names.add(sle.voucher_no)
+        if sle.project:
+            project_names.add(sle.project)
+
+    stock_entries = {}
+    se_details = {}
+    suppliers = {}
+
+    if stock_entry_names:
+        se_rows = frappe.get_all(
+            "Stock Entry",
+            filters={"name": ("in", list(stock_entry_names))},
+            fields=[
+                "name",
+                "owner",
+                "stock_entry_type",
+                "outgoing_stock_entry",
+                "custom_supplier_code_",
+                "custom_suppliers_name_",
+                "supplier",
+            ],
+        )
+
+        supplier_codes = set()
+        for row in se_rows:
+            stock_entries[row.name] = row
+            if row.supplier:
+                supplier_codes.add(row.supplier)
+
+        if supplier_codes:
+            supplier_rows = frappe.get_all(
+                "Supplier",
+                filters={"name": ("in", list(supplier_codes))},
+                fields=["name", "supplier_name"],
+            )
+            suppliers = {row.name: row.supplier_name for row in supplier_rows}
+
+        sed_rows = frappe.get_all(
+            "Stock Entry Detail",
+            filters={"parent": ("in", list(stock_entry_names))},
+            fields=["parent", "item_code", "material_request", "cost_center", "expense_account"],
+        )
+        for row in sed_rows:
+            # Same (parent, item_code) can repeat across multiple detail rows in
+            # rare edge cases (duplicate item rows) - last one wins, same as the
+            # original single get_value() behaviour.
+            se_details[(row.parent, row.item_code)] = row
+
+    purchase_receipts = {}
+    pr_items = {}
+
+    if purchase_receipt_names:
+        pr_rows = frappe.get_all(
+            "Purchase Receipt",
+            filters={"name": ("in", list(purchase_receipt_names))},
+            fields=["name", "owner", "supplier", "supplier_name", "supplier_delivery_note"],
+        )
+        for row in pr_rows:
+            purchase_receipts[row.name] = row
+
+        pri_rows = frappe.get_all(
+            "Purchase Receipt Item",
+            filters={"parent": ("in", list(purchase_receipt_names))},
+            fields=["parent", "item_code", "purchase_order", "cost_center"],
+        )
+        for row in pri_rows:
+            pr_items[(row.parent, row.item_code)] = row
+
+    projects = {}
+    if project_names:
+        proj_rows = frappe.get_all(
+            "Project",
+            filters={"name": ("in", list(project_names))},
+            fields=["name", "project_name"],
+        )
+        projects = {row.name: row.project_name for row in proj_rows}
+
+    return frappe._dict(
+        {
+            "stock_entries": stock_entries,
+            "se_details": se_details,
+            "purchase_receipts": purchase_receipts,
+            "pr_items": pr_items,
+            "suppliers": suppliers,
+            "projects": projects,
+        }
+    )
 
 
 def get_segregated_bundle_entries(sle, bundle_details, batch_balance_dict, filters):
@@ -552,23 +567,6 @@ def get_columns(filters):
                 "fieldtype": "Data",
                 "width": 200,
             },
-
-
-
-            # {
-            #     "label": _("IN/OUT Quantity"),
-            #     "fieldname": "actual_qty",
-            #     "fieldtype": "Float",
-            #     "width": 110,
-            #     "convertible": "qty",
-            # },
-            # {
-            #     "label": _("IN/OUT Value"),
-            #     "fieldname": "in_out_value",
-            #     "fieldtype": "Currency",
-            #     "options": "Company:company:default_currency",
-            #     "width": 120,
-            # },
 
             {
                 "label": _("Received Amount"),
@@ -938,32 +936,76 @@ def get_opening_balance(filters, columns, sl_entries):
     if not (filters.item_code and filters.warehouse and filters.from_date):
         return
 
-    from erpnext.stock.stock_ledger import get_previous_sle
+    # filters.item_code can be a single string or a list (multi-select Item
+    # filter). Normalise to a list so we can always drive the query off a
+    # single IN clause below, instead of the previous get_previous_sle()
+    # helper, which only accepts one scalar item_code and raises
+    # "Operand should contain 1 column(s)" the moment more than one item is
+    # selected.
+    item_codes = filters.item_code
+    if isinstance(item_codes, str):
+        item_codes = [item_codes]
 
-    last_entry = get_previous_sle(
-        {
-            "item_code": filters.item_code,
-            "warehouse_condition": get_warehouse_condition(filters.warehouse),
-            "posting_date": filters.from_date,
-            "posting_time": "00:00:00",
-        }
+    from_datetime = get_datetime(filters.from_date + " 00:00:00")
+
+    sle = frappe.qb.DocType("Stock Ledger Entry")
+    query = (
+        frappe.qb.from_(sle)
+        .select(
+            Sum(sle.actual_qty).as_("qty_after_transaction"),
+            Sum(sle.stock_value_difference).as_("stock_value"),
+        )
+        .where(
+            (sle.item_code.isin(item_codes))
+            & (sle.docstatus < 2)
+            & (sle.is_cancelled == 0)
+            & (sle.posting_datetime < from_datetime)
+        )
     )
 
-    # check if any SLEs are actually Opening Stock Reconciliation
-    for sle in list(sl_entries):
-        if (
-            sle.get("voucher_type") == "Stock Reconciliation"
-            and sle.posting_date == filters.from_date
-            and frappe.db.get_value("Stock Reconciliation", sle.voucher_no, "purpose") == "Opening Stock"
-        ):
-            last_entry = sle
-            sl_entries.remove(sle)
+    # Same tree-aware (lft/rgt) warehouse filter used for the main ledger
+    # query, so parent-warehouse selections and multi-warehouse filters are
+    # handled consistently, and it works whether filters.warehouse is a
+    # single warehouse or a list.
+    query = apply_warehouse_filter(query, sle, filters)
+
+    if filters.get("company"):
+        query = query.where(sle.company == filters.company)
+
+    opening_data = query.run(as_dict=True)[0]
+
+    for field in ["qty_after_transaction", "stock_value"]:
+        if opening_data.get(field) is None:
+            opening_data[field] = 0.0
+
+    valuation_rate = (
+        flt(opening_data.qty_after_transaction)
+        and flt(opening_data.stock_value) / flt(opening_data.qty_after_transaction)
+        or 0
+    )
+
+    # check if any SLEs are actually Opening Stock Reconciliation.
+    # This exact-row override only makes sense when a single item is being
+    # reported on (an Opening Stock Reconciliation row belongs to one
+    # item+warehouse); with multiple items selected the summed balance above
+    # already covers all of them correctly via the IN clause.
+    if len(item_codes) == 1:
+        for row in list(sl_entries):
+            if (
+                row.get("voucher_type") == "Stock Reconciliation"
+                and row.posting_date == filters.from_date
+                and frappe.db.get_value("Stock Reconciliation", row.voucher_no, "purpose") == "Opening Stock"
+            ):
+                opening_data.qty_after_transaction = row.get("qty_after_transaction", 0)
+                opening_data.stock_value = row.get("stock_value", 0)
+                valuation_rate = row.get("valuation_rate", 0)
+                sl_entries.remove(row)
 
     row = {
         "item_code": _("'Opening'"),
-        "qty_after_transaction": last_entry.get("qty_after_transaction", 0),
-        "valuation_rate": last_entry.get("valuation_rate", 0),
-        "stock_value": last_entry.get("stock_value", 0),
+        "qty_after_transaction": opening_data.qty_after_transaction,
+        "valuation_rate": valuation_rate,
+        "stock_value": opening_data.stock_value,
     }
 
     return row
