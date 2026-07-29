@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-07-13 10:24:10.760959",
+ "modified": "2026-07-29 07:18:02.424672",
  "modified_by": "Administrator",
  "module": "Custom Addons",
  "name": "Subcontractor Material Return Cycle",
@@ -19,6 +19,13 @@
  "ref_doctype": "Stock Entry",
  "report_name": "Subcontractor Material Return Cycle",
  "report_type": "Script Report",
- "roles": [],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Stock User"
+  }
+ ],
  "timeout": 0
 }
