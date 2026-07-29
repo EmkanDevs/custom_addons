@@ -180,7 +180,7 @@ class StockBalanceReport:
 			.on(pi.name == pii.parent)
 			.select(pii.item_code, pi.company)
 			.distinct()
-			.where((pi.docstatus == 1) & (pi.custom_is_petty_cash == 1))
+			.where((pi.docstatus == 1) & (pi.is_petty_cash == 1))
 		)
 
 		if self.filters.get("company"):
