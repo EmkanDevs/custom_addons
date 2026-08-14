@@ -271,7 +271,18 @@ doc_events = {
     # },
     "Salary Component": {
         "validate": "custom_addons.custom_addons.doc_events.salary_component.validate"
-    }
+    },
+    "Purchase Invoice": {
+        "validate": "custom_addons.custom_addons.doc_events.purchase_invoice.validate",
+        "on_submit": "custom_addons.custom_addons.doc_events.purchase_invoice.on_submit",
+        "on_cancel": "custom_addons.custom_addons.doc_events.purchase_invoice.on_cancel",
+    },
+    "Blanket Order": {
+        "on_submit": "custom_addons.custom_addons.doc_events.blanket_order.on_submit",
+    },
+    "Item": {
+        "validate": "custom_addons.custom_addons.doc_events.item.validate_stock_blanket_exclusivity"
+    },
     
     
 }
@@ -306,6 +317,7 @@ doctype_js = {
             "Salary Slip":                "public/js/salary_slip_list.js",
             "Material Request":"public/js/material_request.js",
             "Purchase Invoice": "public/js/purchase_invoice.js",
+            "Blanket Order": "public/js/blanket_order.js",
             "Journal Entry":"public/js/journal_entry.js",
 
 }

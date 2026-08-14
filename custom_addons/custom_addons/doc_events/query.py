@@ -68,3 +68,64 @@ def pr_query_with_totals(doctype, txt, searchfield, start, page_len, filters):
         row["grand_total"] = fmt_money(row["grand_total"], precision=2)
 
     return data
+
+
+
+
+@frappe.whitelist()
+def bo_query_with_totals(doctype, txt, searchfield, start, page_len, filters):
+	filters = frappe.parse_json(filters) if isinstance(filters, str) else (filters or {})
+
+	conditions = {
+		"docstatus": 1,
+		"blanket_order_type": "Purchasing",
+		"blanket_order_po_exemption": 1,
+	}
+
+	for key, value in filters.items():
+		if value not in (None, "", []):
+			conditions[key] = value
+
+	if txt:
+		conditions["name"] = ["like", f"%{txt}%"]
+
+	return frappe.get_list(
+		"Blanket Order",
+		filters=conditions,
+		fields=["name", "supplier", "from_date", "to_date", "blanket_order_type"],
+		order_by="from_date desc",
+		limit_start=cint(start),
+		limit_page_length=cint(page_len),
+		as_list=False,
+	)
+
+
+@frappe.whitelist()
+def blanket_eligible_item_query(doctype, txt, searchfield, start, page_len, filters):
+	filters = frappe.parse_json(filters) if isinstance(filters, str) else (filters or {})
+
+	conditions = [
+		"`tabItem`.disabled = 0",
+		"`tabItem`.is_stock_item = 0",
+		"`tabItem`.is_fixed_asset = 0",
+		"`tabItem`.blanket_order_po_exemption = 1",
+	]
+
+	values = {"page_len": page_len, "start": start}
+
+	if txt:
+		conditions.append("(`tabItem`.name like %(txt)s or `tabItem`.item_name like %(txt)s)")
+		values["txt"] = f"%{txt}%"
+
+	condition_str = " and ".join(conditions)
+
+	return frappe.db.sql(
+		f"""
+		select `tabItem`.name, `tabItem`.item_name
+		from `tabItem`
+		where {condition_str}
+		order by `tabItem`.name
+		limit %(page_len)s offset %(start)s
+		""",
+		values,
+	)
