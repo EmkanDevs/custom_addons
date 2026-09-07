@@ -277,9 +277,9 @@ doc_events = {
         "on_submit": "custom_addons.custom_addons.doc_events.purchase_invoice.on_submit",
         "on_cancel": "custom_addons.custom_addons.doc_events.purchase_invoice.on_cancel",
     },
-    "Blanket Order": {
-        "on_submit": "custom_addons.custom_addons.doc_events.blanket_order.on_submit",
-    },
+    # "Blanket Order": {
+    #     "on_submit": "custom_addons.custom_addons.doc_events.blanket_order.on_submit",
+    # }, 
     "Item": {
         "validate": "custom_addons.custom_addons.doc_events.item.validate_stock_blanket_exclusivity"
     },
