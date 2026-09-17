@@ -341,7 +341,14 @@ fixtures = [
     {
         "dt": "Custom Field",
         "filters": {
-            "module": "Custom Addons"
+            "fieldname": "custom_entry_type"
         }
     },
 ]
+
+from custom_addons.custom_addons.override.asset import _make_journal_entry_for_depreciation
+import erpnext.assets.doctype.asset.depreciation as depreciation_module
+
+depreciation_module._make_journal_entry_for_depreciation = (
+    _make_journal_entry_for_depreciation
+)
