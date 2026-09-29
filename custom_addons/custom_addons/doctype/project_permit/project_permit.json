@@ -1,0 +1,251 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-08-11 16:06:56.818765",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "permit_no",
+  "project",
+  "project_name",
+  "priority",
+  "column_break_uqag",
+  "permit_date",
+  "location",
+  "targeted_office",
+  "targeted_office_arabic",
+  "column_break_pd3r",
+  "permit_under_supplier",
+  "permit_under_supplier_name",
+  "permit_under_supplier_name_arabic",
+  "project_permit_type",
+  "project_permit_type_arabic",
+  "section_break_8dgv",
+  "permit_description",
+  "section_break_zkmx",
+  "valid_from",
+  "column_break_ntws",
+  "valid_to",
+  "column_break_he56",
+  "permit_duration_days",
+  "payment_section",
+  "invoice_no",
+  "invoice_date",
+  "amount",
+  "column_break_w8o9",
+  "invoice_expires_hours",
+  "last_date_to_pay",
+  "invoice_status"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "permit_no",
+   "fieldtype": "Data",
+   "label": "Permit No",
+   "unique": 1
+  },
+  {
+   "fieldname": "permit_under_supplier",
+   "fieldtype": "Link",
+   "label": "Permit Under Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "targeted_office",
+   "fieldtype": "Link",
+   "label": "Targeted Office",
+   "options": "Targeted Visit Office"
+  },
+  {
+   "fetch_from": "targeted_office.targeted_office_arabic",
+   "fieldname": "targeted_office_arabic",
+   "fieldtype": "Data",
+   "label": "Targeted Office Arabic",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "permit_under_supplier.supplier_name",
+   "fieldname": "permit_under_supplier_name",
+   "fieldtype": "Data",
+   "label": "Permit Under Supplier Name",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "permit_date",
+   "fieldtype": "Date",
+   "label": "Permit Date"
+  },
+  {
+   "fetch_from": "permit_under_supplier.supplier_name_in_arabic",
+   "fieldname": "permit_under_supplier_name_arabic",
+   "fieldtype": "Data",
+   "label": "Permit Under Supplier Name Arabic",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project_permit_type",
+   "fieldtype": "Link",
+   "label": " Project Permit Type",
+   "options": "Project Permit Type"
+  },
+  {
+   "fetch_from": "project_permit_type.project_permit_type_arabic",
+   "fieldname": "project_permit_type_arabic",
+   "fieldtype": "Data",
+   "label": " Project Permit Type Arabic",
+   "read_only": 1
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  },
+  {
+   "fieldname": "permit_duration_days",
+   "fieldtype": "Data",
+   "label": "Permit Duration (Days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_section",
+   "fieldtype": "Section Break",
+   "label": "Payment:"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fetch_from": "project.project_name",
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "label": "Invoice No"
+  },
+  {
+   "fieldname": "invoice_date",
+   "fieldtype": "Date",
+   "label": "Invoice Date"
+  },
+  {
+   "default": "Unpaid",
+   "fieldname": "invoice_status",
+   "fieldtype": "Select",
+   "label": "Invoice Status",
+   "options": "Unpaid\nPaid\nExpired"
+  },
+  {
+   "fieldname": "invoice_expires_hours",
+   "fieldtype": "Int",
+   "label": "Invoice Expires (Hours)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_w8o9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_date_to_pay",
+   "fieldtype": "Date",
+   "label": "Last Date to Pay"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PROJ-PERMIT-"
+  },
+  {
+   "fieldname": "column_break_uqag",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pd3r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_8dgv",
+   "fieldtype": "Section Break",
+   "label": "Validity and Description"
+  },
+  {
+   "fieldname": "column_break_ntws",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_he56",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Link",
+   "label": "Priority",
+   "options": "Issue Priority"
+  },
+  {
+   "fieldname": "permit_description",
+   "fieldtype": "Long Text",
+   "label": "Permit Description"
+  },
+  {
+   "fieldname": "section_break_zkmx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-10-15 08:00:25.776309",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Project Permit",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

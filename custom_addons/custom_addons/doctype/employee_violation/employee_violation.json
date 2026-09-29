@@ -1,0 +1,336 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-08-24 13:05:25.971321",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_section",
+  "employee",
+  "employee_name",
+  "column_break_1",
+  "department",
+  "designation",
+  "column_break_2",
+  "branch",
+  "violation_details_section",
+  "violation_date",
+  "violation_time",
+  "column_break_3",
+  "violation_type",
+  "severity",
+  "column_break_4",
+  "incident_location",
+  "description",
+  "column_break_5",
+  "witnesses",
+  "attachment",
+  "investigation_section",
+  "investigation_required",
+  "investigator",
+  "employee_explanation",
+  "column_break_6",
+  "investigation_notes",
+  "disciplinary_action_section",
+  "action_taken",
+  "warning_number",
+  "column_break_7",
+  "penalty_points",
+  "deduction_amount",
+  "column_break_8",
+  "suspension_days",
+  "effective_date",
+  "corrective_actions_section",
+  "action_description",
+  "responsible_person",
+  "column_break_9",
+  "due_date",
+  "completion_date",
+  "column_break_10",
+  "status",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_section",
+   "fieldtype": "Section Break",
+   "label": "Employee"
+  },
+  {
+   "fetch_from": "employee",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Data",
+   "label": "Department",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.branch",
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "violation_details_section",
+   "fieldtype": "Section Break",
+   "label": "Violation Details"
+  },
+  {
+   "fieldname": "violation_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Violation Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "violation_time",
+   "fieldtype": "Time",
+   "label": "Violation Time"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "violation_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Violation Type",
+   "options": "Violation Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "violation_type.severity",
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Minor\nMajor\nCritical"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incident_location",
+   "fieldtype": "Link",
+   "label": "Incident Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "witnesses",
+   "fieldtype": "Small Text",
+   "label": "Witnesses"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "fieldname": "investigation_section",
+   "fieldtype": "Section Break",
+   "label": "Investigation"
+  },
+  {
+   "default": "0",
+   "fieldname": "investigation_required",
+   "fieldtype": "Check",
+   "label": "Investigation Required"
+  },
+  {
+   "fieldname": "investigator",
+   "fieldtype": "Link",
+   "label": "Investigator",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "employee_explanation",
+   "fieldtype": "Text Editor",
+   "label": "Employee Explanation"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "investigation_notes",
+   "fieldtype": "Text Editor",
+   "label": "Investigation Notes"
+  },
+  {
+   "fieldname": "disciplinary_action_section",
+   "fieldtype": "Section Break",
+   "label": "Disciplinary Action"
+  },
+  {
+   "fieldname": "action_taken",
+   "fieldtype": "Select",
+   "label": "Action Taken",
+   "options": "Deduction\nWarning Letter\nDismissal"
+  },
+  {
+   "fieldname": "warning_number",
+   "fieldtype": "Select",
+   "label": "Warning Number",
+   "options": "First\nSecond\nThird"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "penalty_points",
+   "fieldtype": "Int",
+   "label": "Penalty Points",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "deduction_amount",
+   "fieldtype": "Currency",
+   "label": "Deduction Amount"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "suspension_days",
+   "fieldtype": "Int",
+   "label": "Suspension Days",
+   "non_negative": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "effective_date",
+   "fieldtype": "Date",
+   "label": "Effective Date"
+  },
+  {
+   "fieldname": "corrective_actions_section",
+   "fieldtype": "Section Break",
+   "label": "Corrective Actions"
+  },
+  {
+   "fieldname": "action_description",
+   "fieldtype": "Small Text",
+   "label": "Action Description"
+  },
+  {
+   "fieldname": "responsible_person",
+   "fieldtype": "Link",
+   "label": "Responsible Person",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "completion_date",
+   "fieldtype": "Date",
+   "label": "Completion Date"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "On-Going\nCancelled\nFinished"
+  },
+  {
+   "default": "EV-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "EV-.####"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-25 08:26:40.631884",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Employee Violation",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Employee"
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

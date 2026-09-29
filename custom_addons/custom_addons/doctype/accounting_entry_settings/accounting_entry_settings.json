@@ -1,0 +1,87 @@
+{
+    "actions": [],
+    "creation": "2026-09-02 10:00:00.000000",
+    "doctype": "DocType",
+    "document_type": "Other",
+    "engine": "InnoDB",
+    "field_order": [
+        "defaults_section",
+        "default_supplier",
+        "default_purchase_item",
+        "col_break_defaults",
+        "default_customer",
+        "default_sales_item"
+    ],
+    "fields": [
+        {
+            "fieldname": "defaults_section",
+            "fieldtype": "Section Break",
+            "label": "Accounting Entry Defaults"
+        },
+        {
+            "description": "Fallback supplier used when no supplier is selected in an Inward Accounting Entry.",
+            "fieldname": "default_supplier",
+            "fieldtype": "Link",
+            "label": "Default Supplier",
+            "options": "Supplier"
+        },
+        {
+            "description": "Default purchase item used when generating Purchase Invoices from Inward Accounting Entries.",
+            "fieldname": "default_purchase_item",
+            "fieldtype": "Link",
+            "label": "Default Purchase Item",
+            "options": "Item"
+        },
+        {
+            "fieldname": "col_break_defaults",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "Fallback customer used when no customer is selected in an Outward Accounting Entry.",
+            "fieldname": "default_customer",
+            "fieldtype": "Link",
+            "label": "Default Customer",
+            "options": "Customer"
+        },
+        {
+            "description": "Default sales item used when generating Sales Invoices from Outward Accounting Entries.",
+            "fieldname": "default_sales_item",
+            "fieldtype": "Link",
+            "label": "Default Sales Item",
+            "options": "Item"
+        }
+    ],
+    "issingle": 1,
+    "links": [],
+    "modified": "2026-09-02 10:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Custom Addons",
+    "name": "Accounting Entry Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

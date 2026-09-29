@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format: PO-IN-ACK-{#####}",
+ "creation": "2025-08-18 10:06:57.631901",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "created_by",
+  "po_acknowledgement",
+  "acknowledgement",
+  "acknowledged_by",
+  "pi_details_tab",
+  "pi_acknowledgement"
+ ],
+ "fields": [
+  {
+   "fieldname": "po_acknowledgement",
+   "fieldtype": "Table",
+   "label": "PO Acknowledgement",
+   "options": "Purchase Order Reference",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "acknowledgement",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Acknowledgement"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Data",
+   "label": "Created By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "acknowledged_by",
+   "fieldtype": "Data",
+   "label": "Acknowledged By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pi_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "PI Details"
+  },
+  {
+   "fieldname": "pi_acknowledgement",
+   "fieldtype": "Table",
+   "label": "PI Acknowledgement",
+   "options": "PI Acknowledgement"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-08-28 08:42:11.978595",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "PO Invoice Acknowledgement",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

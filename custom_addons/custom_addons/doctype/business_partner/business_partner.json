@@ -1,56 +1,332 @@
 {
-    "actions": [],
-    "creation": "2026-08-27 12:00:00.000000",
-    "doctype": "DocType",
-    "editable_grid": 1,
-    "engine": "InnoDB",
-    "field_order": [
-        "company",
-        "column_break_2",
-        "credit_limit",
-        "bypass_credit_limit_check"
-    ],
-    "fields": [
-        {
-            "columns": 4,
-            "fieldname": "company",
-            "fieldtype": "Link",
-            "in_list_view": 1,
-            "label": "Company",
-            "options": "Company",
-            "reqd": 1
-        },
-        {
-            "fieldname": "column_break_2",
-            "fieldtype": "Column Break"
-        },
-        {
-            "columns": 4,
-            "fieldname": "credit_limit",
-            "fieldtype": "Currency",
-            "in_list_view": 1,
-            "label": "Credit Limit"
-        },
-        {
-            "columns": 3,
-            "default": "0",
-            "fieldname": "bypass_credit_limit_check",
-            "fieldtype": "Check",
-            "in_list_view": 1,
-            "label": "Bypass Credit Limit Check"
-        }
-    ],
-    "index_web_pages_for_search": 1,
-    "istable": 1,
-    "links": [],
-    "modified": "2026-08-27 12:00:00.000000",
-    "modified_by": "Administrator",
-    "module": "Custom Addons",
-    "name": "Business Partner Credit Limit",
-    "owner": "Administrator",
-    "permissions": [],
-    "quick_entry": 1,
-    "sort_field": "modified",
-    "sort_order": "DESC",
-    "states": []
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-08-27 12:00:00",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "partner_details_section",
+  "naming_series",
+  "bp_code",
+  "business_partner_name",
+  "foreign_name",
+  "business_partner_type",
+  "column_break_1",
+  "business_partner_group",
+  "tax_id",
+  "cr_number",
+  "bank",
+  "currency",
+  "disabled",
+  "additional_ids_section",
+  "additional_ids",
+  "address_and_contact_tab",
+  "address_contacts_section",
+  "address_html",
+  "column_break_addr",
+  "contact_html",
+  "primary_address_and_contact_section",
+  "customer_primary_contact",
+  "mobile_no",
+  "email_id",
+  "column_break_contact",
+  "customer_primary_address",
+  "primary_address",
+  "accounting_tab",
+  "credit_limit_and_payment_terms_section",
+  "default_payment_terms_template",
+  "credit_limit",
+  "default_accounts_section",
+  "accounts"
+ ],
+ "fields": [
+  {
+   "fieldname": "partner_details_section",
+   "fieldtype": "Section Break",
+   "label": "Business Partner Details",
+   "options": "fa fa-user"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "no_copy": 1,
+   "options": "BP-.YYYY.-\nBP-",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "bp_code",
+   "fieldtype": "Data",
+   "label": "BP Code"
+  },
+  {
+   "bold": 1,
+   "fieldname": "business_partner_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Business Partner Name",
+   "no_copy": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "foreign_name",
+   "fieldtype": "Data",
+   "label": "Foreign Name"
+  },
+  {
+   "default": "Company",
+   "fieldname": "business_partner_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Business Partner Type",
+   "options": "Company\nIndividual\nGovernment\nPartnership",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "business_partner_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Business Partner Group",
+   "options": "Business Partner Group",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tax ID"
+  },
+  {
+   "fieldname": "cr_number",
+   "fieldtype": "Data",
+   "label": "CR Number"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Link",
+   "label": "Bank",
+   "options": "Bank"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "additional_ids_section",
+   "fieldtype": "Section Break",
+   "label": "Additional IDs"
+  },
+  {
+   "fieldname": "additional_ids",
+   "fieldtype": "Table",
+   "label": "Additional IDs",
+   "options": "Business Partner Additional ID"
+  },
+  {
+   "fieldname": "address_and_contact_tab",
+   "fieldtype": "Tab Break",
+   "label": "Address & Contact"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "address_contacts_section",
+   "fieldtype": "Section Break",
+   "label": "Address and Contact",
+   "options": "fa fa-map-marker"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "label": "Address HTML",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_addr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "contact_html",
+   "fieldtype": "HTML",
+   "label": "Contact HTML",
+   "read_only": 1
+  },
+  {
+   "description": "Select primary contact and address details",
+   "fieldname": "primary_address_and_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Primary Address and Contact"
+  },
+  {
+   "description": "Reselect if the chosen contact is edited after save",
+   "fieldname": "customer_primary_contact",
+   "fieldtype": "Link",
+   "label": "Business Partner Primary Contact",
+   "options": "Contact"
+  },
+  {
+   "fetch_from": "customer_primary_contact.mobile_no",
+   "fieldname": "mobile_no",
+   "fieldtype": "Read Only",
+   "label": "Mobile No"
+  },
+  {
+   "fetch_from": "customer_primary_contact.email_id",
+   "fieldname": "email_id",
+   "fieldtype": "Read Only",
+   "label": "Email Id"
+  },
+  {
+   "fieldname": "column_break_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Reselect if the chosen address is edited after save",
+   "fieldname": "customer_primary_address",
+   "fieldtype": "Link",
+   "label": "Business Partner Primary Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "primary_address",
+   "fieldtype": "Text",
+   "label": "Primary Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "accounting_tab",
+   "fieldtype": "Tab Break",
+   "label": "Accounting"
+  },
+  {
+   "description": "Mention if non-standard Receivable account",
+   "fieldname": "accounts",
+   "fieldtype": "Table",
+   "label": "Accounts",
+   "options": "Party Account"
+  },
+  {
+   "fieldname": "credit_limit_and_payment_terms_section",
+   "fieldtype": "Section Break",
+   "label": "Credit Limit and Payment Terms"
+  },
+  {
+   "fieldname": "default_payment_terms_template",
+   "fieldtype": "Link",
+   "label": "Default Payment Terms Template",
+   "options": "Payment Terms Template"
+  },
+  {
+   "fieldname": "credit_limit",
+   "fieldtype": "Table",
+   "label": "Credit Limit",
+   "options": "Customer Credit Limit"
+  },
+  {
+   "fieldname": "default_accounts_section",
+   "fieldtype": "Section Break",
+   "label": "Default Accounts"
+  }
+ ],
+ "icon": "fa fa-handshake-o",
+ "idx": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-09 09:35:32.864320",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Business Partner",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "search_fields": "business_partner_group,tax_id,mobile_no,primary_address",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "business_partner_name",
+ "track_changes": 1
 }

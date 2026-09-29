@@ -1,0 +1,61 @@
+{
+ "add_total_row": 1,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-09-07 07:37:41.894898",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-09-07 07:37:44.406997",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Accounts Payable with Payment Management",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Purchase Invoice",
+ "report_name": "Accounts Payable with Payment Management",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Auditor"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Operations Manager"
+  },
+  {
+   "role": "Purchase Master Manager"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "PCD"
+  },
+  {
+   "role": "Financial Control"
+  },
+  {
+   "role": "Purchase Reviewer"
+  },
+  {
+   "role": "Projects Reviewer"
+  },
+  {
+   "role": "Finance Manager"
+  }
+ ],
+ "timeout": 0
+}
