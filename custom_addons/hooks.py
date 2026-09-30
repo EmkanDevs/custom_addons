@@ -344,6 +344,12 @@ fixtures = [
             "fieldname": "custom_entry_type"
         }
     },
+    {
+        "dt": "Report",
+        "filters": [
+            ["name", "=", "List of Project Permits Report"]
+        ]
+    },
 ]
 
 from custom_addons.custom_addons.override.asset import _make_journal_entry_for_depreciation

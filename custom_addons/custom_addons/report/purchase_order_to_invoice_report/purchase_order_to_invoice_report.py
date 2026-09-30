@@ -9,15 +9,15 @@ def execute(filters=None):
 
     columns = [
         {
-            "label": "Purchase Receipt",
-            "fieldname": "purchase_receipt",
+            "label": "Purchase Order",
+            "fieldname": "purchase_order",
             "fieldtype": "Link",
-            "options": "Purchase Receipt",
+            "options": "Purchase Order",
             "width": 150,
         },
         {
-            "label": "Date",
-            "fieldname": "date",
+            "label": "PO Date",
+            "fieldname": "po_date",
             "fieldtype": "Date",
             "width": 100,
         },
@@ -40,6 +40,31 @@ def execute(filters=None):
             "fieldtype": "Link",
             "options": "Project",
             "width": 150,
+        },
+        {
+            "label": "Purchase Order Amount",
+            "fieldname": "purchase_order_amount",
+            "fieldtype": "Currency",
+            "width": 150,
+        },
+        {
+            "label": "Purchase Order Status",
+            "fieldname": "purchase_order_status",
+            "fieldtype": "Data",
+            "width": 150,
+        },
+        {
+            "label": "Purchase Receipt",
+            "fieldname": "purchase_receipt",
+            "fieldtype": "Link",
+            "options": "Purchase Receipt",
+            "width": 150,
+        },
+        {
+            "label": "PR Date",
+            "fieldname": "pr_date",
+            "fieldtype": "Date",
+            "width": 100,
         },
         {
             "label": "Purchase Receipt Amount",
@@ -74,108 +99,68 @@ def execute(filters=None):
     ]
 
     conditions = [
-        "pr.docstatus = 1",
-        "pr.posting_date BETWEEN %(from_date)s AND %(to_date)s",
+        "po.docstatus = 1",
+        "po.transaction_date BETWEEN %(from_date)s AND %(to_date)s",
     ]
+
+    if filters.get("purchase_order"):
+        conditions.append("po.name = %(purchase_order)s")
 
     if filters.get("purchase_receipt"):
         conditions.append("pr.name = %(purchase_receipt)s")
 
+    if filters.get("purchase_invoice"):
+        conditions.append("pi.name = %(purchase_invoice)s")
+
     if filters.get("supplier"):
-        conditions.append("pr.supplier = %(supplier)s")
+        conditions.append("po.supplier = %(supplier)s")
 
     if filters.get("project"):
-        conditions.append("pr.project = %(project)s")
+        conditions.append("po.project = %(project)s")
 
     query = f"""
         SELECT
-            pr.name AS purchase_receipt,
-            pr.posting_date AS date,
-            pr.supplier AS supplier_code,
-            pr.supplier_name AS supplier_name,
-            pr.project AS project_code,
-            pr.total AS purchase_receipt_amount,
-            pr.status AS purchase_receipt_status,
+            po.name AS purchase_order,
+            po.transaction_date AS po_date,
+            po.supplier AS supplier_code,
+            po.supplier_name AS supplier_name,
+            po.project AS project_code,
+            po.total AS purchase_order_amount,
+            po.status AS purchase_order_status,
 
-            COALESCE(inv.no_of_invoices, 0) AS no_of_invoices,
+            GROUP_CONCAT(DISTINCT pr.name) AS purchase_receipt,
+            MIN(pr.posting_date) AS pr_date,
+            COALESCE(SUM(DISTINCT pr.total), 0) AS purchase_receipt_amount,
 
-            COALESCE(inv.purchase_invoices_amount, 0)
-                AS purchase_invoices_amount,
+            GROUP_CONCAT(DISTINCT pr.status) AS purchase_receipt_status,
 
-            pr.total - COALESCE(inv.purchase_invoices_amount, 0)
+            COUNT(DISTINCT pi.name) AS no_of_invoices,
+            COALESCE(SUM(DISTINCT pi.total), 0) AS purchase_invoices_amount,
+
+            po.total - COALESCE(SUM(DISTINCT pi.total), 0)
                 AS pending_amount
 
-        FROM `tabPurchase Receipt` pr
+        FROM `tabPurchase Order` po
 
-        LEFT JOIN (
-            SELECT
-                matched.purchase_receipt,
+        LEFT JOIN `tabPurchase Receipt Item` pri
+            ON pri.purchase_order = po.name
 
-                COUNT(DISTINCT matched.invoice) AS no_of_invoices,
+        LEFT JOIN `tabPurchase Receipt` pr
+            ON pr.name = pri.parent
+            AND pr.docstatus = 1
 
-                SUM(matched.net_amount) AS purchase_invoices_amount
+        LEFT JOIN `tabPurchase Invoice Item` pii
+            ON pii.purchase_order = po.name
 
-            FROM (
-                /*
-                    Direct Purchase Receipt reference
-                */
-                SELECT DISTINCT
-                    pri.parent AS purchase_receipt,
-                    pii.parent AS invoice,
-                    pii.name AS invoice_item,
-                    pii.net_amount
-
-                FROM `tabPurchase Receipt Item` pri
-
-                INNER JOIN `tabPurchase Invoice Item` pii
-                    ON pii.pr_detail = pri.name
-                    AND pii.docstatus = 1
-
-                INNER JOIN `tabPurchase Invoice` pi
-                    ON pi.name = pii.parent
-                    AND pi.docstatus = 1
-
-
-                UNION
-
-
-                /*
-                    Fallback when PR reference is not available.
-
-                    Match the exact Purchase Order Item.
-                */
-                SELECT DISTINCT
-                    pri.parent AS purchase_receipt,
-                    pii.parent AS invoice,
-                    pii.name AS invoice_item,
-                    pii.net_amount
-
-                FROM `tabPurchase Receipt Item` pri
-
-                INNER JOIN `tabPurchase Invoice Item` pii
-                    ON pii.pr_detail IS NULL
-                    AND pii.purchase_order = pri.purchase_order
-                    AND pii.po_detail = pri.purchase_order_item
-                    AND pii.docstatus = 1
-
-                INNER JOIN `tabPurchase Invoice` pi
-                    ON pi.name = pii.parent
-                    AND pi.docstatus = 1
-
-                WHERE
-                    pri.purchase_order IS NOT NULL
-                    AND pri.purchase_order_item IS NOT NULL
-
-            ) matched
-
-            GROUP BY matched.purchase_receipt
-
-        ) inv
-            ON inv.purchase_receipt = pr.name
+        LEFT JOIN `tabPurchase Invoice` pi
+            ON pi.name = pii.parent
+            AND pi.docstatus = 1
 
         WHERE {" AND ".join(conditions)}
 
-        ORDER BY pr.posting_date DESC
+        GROUP BY po.name
+
+        ORDER BY po.transaction_date DESC
     """
 
     data = frappe.db.sql(
@@ -183,7 +168,9 @@ def execute(filters=None):
         {
             "from_date": filters.get("from_date"),
             "to_date": filters.get("to_date"),
+            "purchase_order": filters.get("purchase_order"),
             "purchase_receipt": filters.get("purchase_receipt"),
+            "purchase_invoice": filters.get("purchase_invoice"),
             "supplier": filters.get("supplier"),
             "project": filters.get("project"),
         },
