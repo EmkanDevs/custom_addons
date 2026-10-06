@@ -1,5 +1,5 @@
 import frappe
-from mkan_customization.mkan_customization.override.asset import get_asset_project
+from custom_addons.custom_addons.override.asset import get_asset_project
 
 def set_target_project(doc, method=None):
     if doc.purpose != "Receipt":

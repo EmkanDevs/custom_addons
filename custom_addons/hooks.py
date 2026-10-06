@@ -302,8 +302,11 @@ scheduler_events = {
         "custom_addons.custom_addons.doctype.gov_document_expiration.gov_document_expiration.send_expiration_reminders",
         "custom_addons.custom_addons.doctype.rental_contract.rental_contract.send_rental_reminders_electric_and_water",
         "custom_addons.custom_addons.doctype.rental_contract.rental_contract.send_rent_payment_reminders",
-        "custom_addons.custom_addons.override.asset.post_depreciation_entries",
+        
     ],
+    "daily_maintenance": [
+        "custom_addons.custom_addons.override.asset.post_depreciation_entries"
+        ],
     "weekly": [
         "custom_addons.custom_addons.doc_events.timesheet.auto_submit_upcoming_timesheets"
     ],
