@@ -64,6 +64,12 @@ def _make_journal_entry_for_depreciation(
 				}
 			)
 
+	project = get_asset_project(asset.name)
+	if project:
+		je.custom_project = project
+		credit_entry["project"] = project
+		debit_entry["project"] = project
+
 	je.append("accounts", credit_entry)
 	je.append("accounts", debit_entry)
 
@@ -90,3 +96,19 @@ def _make_journal_entry_for_depreciation(
 			row = asset.get("finance_books")[idx - 1]
 			row.value_after_depreciation -= depr_schedule.depreciation_amount
 			row.db_update()
+
+def get_asset_project(asset_name):
+	res = frappe.db.sql(
+		"""
+		SELECT ami.custom_target_project
+		FROM `tabAsset Movement Item` ami
+		JOIN `tabAsset Movement` am ON am.name = ami.parent
+		WHERE ami.asset = %s AND am.docstatus = 1
+		  AND IFNULL(ami.custom_target_project, '') != ''
+		ORDER BY am.transaction_date DESC, am.creation DESC
+		LIMIT 1
+		""",
+		asset_name,
+		as_dict=True
+	)
+	return res[0].get("custom_target_project") if res else frappe.db.get_value("Asset", asset_name, "custom_project")
