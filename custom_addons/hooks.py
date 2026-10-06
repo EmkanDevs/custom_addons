@@ -284,9 +284,9 @@ doc_events = {
         "validate": "custom_addons.custom_addons.doc_events.item.validate_stock_blanket_exclusivity"
     },
     "Asset Movement" :{
-        "validate": "mkan_customization.mkan_customization.doc_events.asset_movement.set_target_project",
-        "on_submit": "mkan_customization.mkan_customization.doc_events.asset_movement.update_asset_project",
-        "on_cancel": "mkan_customization.mkan_customization.doc_events.asset_movement.update_asset_project",
+        "validate": "custom_addons.custom_addons.doc_events.asset_movement.set_target_project",
+        "on_submit": "custom_addons.custom_addons.doc_events.asset_movement.update_asset_project",
+        "on_cancel": "custom_addons.custom_addons.doc_events.asset_movement.update_asset_project",
     },
     
     
@@ -325,6 +325,7 @@ doctype_js = {
             "Blanket Order": "public/js/blanket_order.js",
             "Journal Entry":"public/js/journal_entry.js",
             "Item":"public/js/item.js",
+            "Asset Movement":"public/js/asset_movement.js"
 
 }
 
@@ -338,7 +339,7 @@ doctype_list_js = {
     "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js",
     "Medical Insurance Sheet":    "public/js/medical_insurance_sheet_list.js",
     "Salary Slip":                "public/js/salary_slip_list.js",
-    "Asset Movement":"public/js/asset_movement.js"
+    
     
 
 }
