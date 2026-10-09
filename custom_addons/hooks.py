@@ -251,6 +251,9 @@ override_doctype_class = {
 }
 
 doc_events = {
+    "Material Request": {
+        "validate": "custom_addons.custom_addons.doc_events.material_request_dimensions.validate_item_dimensions",
+    },
     "Purchase Receipt":{
         "validate":"custom_addons.custom_addons.doc_events.purchase_receipt.validate",
         "on_cancel":"custom_addons.custom_addons.doc_events.purchase_receipt.on_cancel",
@@ -351,9 +354,10 @@ doctype_list_js = {
 fixtures = [
     {
         "dt": "Custom Field",
-        "filters": {
-            "fieldname": "custom_entry_type"
-        }
+        "or_filters": [
+            ["fieldname", "=", "custom_entry_type"],
+            ["name", "=", "Department-cost_center"],
+        ]
     },
     {
         "dt": "Report",
