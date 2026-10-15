@@ -131,7 +131,7 @@ from datetime import datetime, time
 from frappe.utils import today, get_datetime, getdate, add_to_date, flt, time_diff_in_hours
 from frappe.utils.xlsxutils import make_xlsx
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def mass_submit_timesheets(names):
     if isinstance(names, str):
         import json
@@ -141,12 +141,15 @@ def mass_submit_timesheets(names):
     errors = []
 
     for name in names:
+        savepoint = f"mass_submit_{name}"
+        frappe.db.savepoint(savepoint)
         try:
             doc = frappe.get_doc("Timesheet", name)
             if doc.docstatus == 0:  # Only submit Drafts
                 doc.submit()
                 count += 1
         except Exception as e:
+            frappe.db.rollback(save_point=savepoint)
             errors.append(f"Error submitting {name}: {str(e)}")
 
     if errors:
@@ -158,8 +161,20 @@ def mass_submit_timesheets(names):
     
     return count
 
-@frappe.whitelist()
-def upload_timesheet(file_url):
+@frappe.whitelist(methods=["POST"])
+def upload_timesheet(file_url, date=None, timesheet_date=None):
+    date = date or timesheet_date
+    if not date:
+        frappe.throw(_("Please select a Date for the timesheet upload."))
+
+    try:
+        selected_date = getdate(date)
+    except Exception:
+        frappe.throw(_("Invalid Date format for selected date."))
+
+    if not selected_date:
+        frappe.throw(_("Please select a valid Date."))
+
     # Get file details and path
     file_doc = frappe.get_doc("File", {"file_url": file_url})
     file_path = file_doc.get_full_path()
@@ -176,8 +191,10 @@ def upload_timesheet(file_url):
                     break 
                 except (UnicodeDecodeError, TypeError):
                     continue
-        elif ext in [".xlsx", ".xls"]:
+        elif ext == ".xlsx":
             df_raw = pd.read_excel(file_path, engine="openpyxl", header=None)
+        elif ext == ".xls":
+            df_raw = pd.read_excel(file_path, engine="xlrd", header=None)
         
         if df_raw is None:
             frappe.throw("Could not read file. The character encoding is not supported.")
@@ -212,7 +229,7 @@ def upload_timesheet(file_url):
         emp_id = row.get("Employees id")
         if not emp_id or emp_id.lower() in ["nan", ""]: 
             continue
-            
+
         # Clean ID (e.g., 'EMP-001.0' -> 'EMP-001')
         emp_id = emp_id.split('.')[0]
 
@@ -224,11 +241,20 @@ def upload_timesheet(file_url):
             skipped.append(f"Row {i+1}: Employee {emp_id} not found in system")
             continue
 
+        in_time_raw = row.get("In Time")
+        out_time_raw = row.get("Out Time")
+
+        if not in_time_raw or not out_time_raw:
+            skipped.append(f"Row {i+1}: Missing In Time or Out Time")
+            continue
+
+        savepoint = f"timesheet_row_{i}"
+        frappe.db.savepoint(savepoint)
+
         try:
-            # Parse Date and Time Strings
-            row_date = getdate(row.get("Date") or today())
-            in_str = (row.get("In Time") or "08:00").replace(".", ":")
-            out_str = (row.get("Out Time") or "17:00").replace(".", ":")
+            row_date = selected_date
+            in_str = str(in_time_raw).strip().replace(".", ":")
+            out_str = str(out_time_raw).strip().replace(".", ":")
 
             from_time = get_datetime(f"{row_date} {in_str}")
             to_time = get_datetime(f"{row_date} {out_str}")
@@ -300,27 +326,24 @@ def upload_timesheet(file_url):
                 d.ot_hrs = round(ot_hours, 2)
                 d.hours = round(normal_hours, 2)
 
-            # Insert document into database
-            ts.insert(ignore_permissions=True)
+            ts.insert()
             created.append(ts.name)
 
         except Exception as e:
+            frappe.db.rollback(save_point=savepoint)
             frappe.log_error(frappe.get_traceback(), "Timesheet Upload Error")
             skipped.append(f"Row {i+1}: {str(e)}")
 
-    # Commit changes to database
-    frappe.db.commit()
-    
     return {"created": created, "skipped": skipped}
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["GET"])
 def download_timesheet_template():
 
     columns = [
         "S.No",
         "Employees id",
-        "Employees Name"
+        "Employees Name",
         "Job Title",
         "Nationality",
         "Iqama Number",
@@ -334,7 +357,6 @@ def download_timesheet_template():
         "Date",
         "Stand By"
     ]
-    
 
     data = [columns]
 

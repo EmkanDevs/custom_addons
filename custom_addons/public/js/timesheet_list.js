@@ -122,6 +122,13 @@ frappe.listview_settings['Timesheet'] = {
                         fieldname: 'file',
                         fieldtype: 'Attach',
                         reqd: 1
+                    },
+                    {
+                        label: __('Date'),
+                        fieldname: 'date',
+                        fieldtype: 'Date',
+                        reqd: 1,
+                        default: frappe.datetime.get_today()
                     }
 
                 ],
@@ -133,6 +140,24 @@ frappe.listview_settings['Timesheet'] = {
                 // =====================================================
                 primary_action(values) {
 
+                    if (!values.date) {
+                        frappe.msgprint({
+                            title: __('Missing Date'),
+                            indicator: 'orange',
+                            message: __('Please select a Date.')
+                        });
+                        return;
+                    }
+
+                    if (!values.file) {
+                        frappe.msgprint({
+                            title: __('Missing File'),
+                            indicator: 'orange',
+                            message: __('Please attach an Excel file.')
+                        });
+                        return;
+                    }
+
                     let btn = dialog.get_primary_btn();
 
                     btn.prop('disabled', true);
@@ -142,7 +167,8 @@ frappe.listview_settings['Timesheet'] = {
                         method: 'custom_addons.custom_addons.doc_events.timesheet.upload_timesheet',
 
                         args: {
-                            file_url: values.file
+                            file_url: values.file,
+                            date: values.date
                         },
 
                         freeze: true,
@@ -195,7 +221,7 @@ frappe.listview_settings['Timesheet'] = {
                                             font-size: 12px;
                                             line-height: 1.7;
                                         ">
-                                            ${res.skipped.join('<br>')}
+                                            ${res.skipped.map(err => frappe.utils.escape_html(err)).join('<br>')}
                                         </div>
                                     `;
 
