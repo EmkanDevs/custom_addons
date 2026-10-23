@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2026-10-19 08:29:20.712986",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-10-22 16:05:36.340341",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "recruitment-control-center",
+ "owner": "Administrator",
+ "page_name": "recruitment-control-center",
+ "roles": [
+  {
+   "role": "Recruitment Control Center User"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Recruitment Control Center"
+}
