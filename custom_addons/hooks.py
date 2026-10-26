@@ -257,7 +257,8 @@ doc_events = {
     "Purchase Receipt":{
         "validate":[
             "custom_addons.custom_addons.doc_events.purchase_receipt.validate",
-            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate"
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
         ],
         "on_cancel":"custom_addons.custom_addons.doc_events.purchase_receipt.on_cancel",
         "after_insert":"custom_addons.custom_addons.doc_events.purchase_receipt.after_insert"
@@ -281,7 +282,8 @@ doc_events = {
     "Purchase Invoice": {
         "validate": [
             "custom_addons.custom_addons.doc_events.purchase_invoice.validate",
-            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate"
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
         ],
         "on_submit": "custom_addons.custom_addons.doc_events.purchase_invoice.on_submit",
         "on_cancel": "custom_addons.custom_addons.doc_events.purchase_invoice.on_cancel",
@@ -298,16 +300,28 @@ doc_events = {
         "on_cancel": "custom_addons.custom_addons.doc_events.asset_movement.update_asset_project",
     },
     "Payment Entry" :{
-        "validate": "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+        "validate": [
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"         
+        ]
     },
     "Sales Invoice" :{
-        "validate": "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+        "validate": [
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
+        ]
     },
     "Delivery Note" :{
-        "validate": "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+        "validate": [
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
+        ]
     },
     "Journal Entry" :{
-        "validate": "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+        "validate": [
+            "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
+        ]
     },
     
     
