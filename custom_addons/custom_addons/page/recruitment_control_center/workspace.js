@@ -909,12 +909,17 @@ frappe.rcc.WorkspaceTab = class WorkspaceTab {
 				if (self.active_doctype !== doctype || self.connection_filter !== connection_filter) return;
 				self.current_records = (r && r.message) || [];
 				self.filter_records(self.current_search_query || "");
+				const viewing_new =
+					self.current_doc &&
+					self.current_doc.__islocal &&
+					self.current_doc.doctype === doctype;
 				if (self.current_records.length > 0) {
 					if (
-						(connection_filter && connection_filter.auto_select) ||
-						!self.current_doc ||
-						self.current_doc.doctype !== doctype ||
-						!self.current_records.some((rec) => rec.name === self.current_doc.name)
+						!viewing_new &&
+						((connection_filter && connection_filter.auto_select) ||
+							!self.current_doc ||
+							self.current_doc.doctype !== doctype ||
+							!self.current_records.some((rec) => rec.name === self.current_doc.name))
 					) {
 						self.open_record(doctype, self.current_records[0].name);
 					}

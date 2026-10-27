@@ -4,7 +4,7 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2026-10-22 16:05:36.340341",
+ "modified": "2026-10-27 08:19:47.719598",
  "modified_by": "Administrator",
  "module": "Custom Addons",
  "name": "recruitment-control-center",
@@ -12,7 +12,13 @@
  "page_name": "recruitment-control-center",
  "roles": [
   {
-   "role": "Recruitment Control Center User"
+   "role": "System Manager"
+  },
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "HR Manager"
   }
  ],
  "script": null,

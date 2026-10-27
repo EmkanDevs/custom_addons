@@ -631,6 +631,7 @@ def get_onboarding_tasks_data():
             try:
                 activities = frappe.get_list(
                     "Employee Boarding Activity",
+                    parent_doctype="Employee Onboarding",
                     fields=["task", "user"],
                     filters=[
                         ["task", "in", task_names],
