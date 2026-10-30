@@ -244,6 +244,7 @@ app_license = "mit"
 
 override_whitelisted_methods = {
     "erpnext.buying.doctype.request_for_quotation.request_for_quotation.make_supplier_quotation_from_rfq":"custom_addons.custom_addons.override.request_for_quotation.make_supplier_quotation_from_rfq",
+    "erpnext.accounts.doctype.journal_entry.journal_entry.get_account_details_and_party_type": "custom_addons.custom_addons.override.journal_entry.get_account_details_and_party_type",
 }
 
 override_doctype_class = {
@@ -318,9 +319,11 @@ doc_events = {
         ]
     },
     "Journal Entry" :{
+        "before_validate": "custom_addons.custom_addons.doc_events.journal_entry.before_validate",
         "validate": [
+            "custom_addons.custom_addons.doc_events.journal_entry.validate",
             "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",
-            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate"
+            "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate",
         ]
     },
     
@@ -405,3 +408,6 @@ import erpnext.assets.doctype.asset.depreciation as depreciation_module
 depreciation_module._make_journal_entry_for_depreciation = (
     _make_journal_entry_for_depreciation
 )
+
+from custom_addons.custom_addons.override.journal_entry import apply_gl_entry_patch
+apply_gl_entry_patch()
