@@ -281,6 +281,7 @@ doc_events = {
         "validate": "custom_addons.custom_addons.doc_events.salary_component.validate"
     },
     "Purchase Invoice": {
+        "before_validate": "custom_addons.custom_addons.doc_events.purchase_invoice.before_validate",
         "validate": [
             "custom_addons.custom_addons.doc_events.purchase_invoice.validate",
             "custom_addons.custom_addons.doc_events.project_dimension_validation.validate",

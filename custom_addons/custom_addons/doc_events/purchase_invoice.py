@@ -6,6 +6,49 @@ from custom_addons.custom_addons.doc_events.blanket_order import (
 	update_ordered_qty_from_purchase_invoice,
 )
 
+def before_validate(doc, method=None):
+	"""When a Purchase Invoice pulls items from multiple Purchase Receipts,
+	ERPNext keeps only one PR's header discount. Sum them instead."""
+	if doc.docstatus != 0 or doc.is_return:
+		return
+
+	prs = {d.purchase_receipt for d in doc.get("items") if d.get("purchase_receipt")}
+	if len(prs) < 2:
+		return
+
+	total_discount = 0
+	apply_on = set()
+
+	for pr in prs:
+		pr_doc = frappe.db.get_value(
+			"Purchase Receipt",
+			pr,
+			["discount_amount", "total", "apply_discount_on"],
+			as_dict=True,
+		)
+		if not flt(pr_doc.discount_amount) or not flt(pr_doc.total):
+			continue
+
+		apply_on.add(pr_doc.apply_discount_on)
+
+		# prorate if only part of this PR is being billed
+		billed = sum(flt(d.base_amount) for d in doc.get("items") if d.get("purchase_receipt") == pr)
+		ratio = min(billed / flt(pr_doc.total), 1)
+		total_discount += flt(pr_doc.discount_amount) * ratio
+
+	if not total_discount:
+		return
+
+	if len(apply_on) > 1:
+		frappe.msgprint(
+			_("Selected Purchase Receipts use different 'Apply Discount On' values. Please set the discount manually.")
+		)
+		return
+
+	doc.apply_discount_on = apply_on.pop()
+	doc.additional_discount_percentage = 0
+	doc.discount_amount = flt(total_discount, doc.precision("discount_amount"))
+
 
 def validate(self, method):
 	if not has_direct_purchase_invoice_blanket_order_items(self):
