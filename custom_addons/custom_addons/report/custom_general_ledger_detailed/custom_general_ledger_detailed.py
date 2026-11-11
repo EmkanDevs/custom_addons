@@ -11,6 +11,7 @@ def execute(filters=None):
     standard_columns, data = standard_gl_execute(filters)
     add_account_details(data)
     add_voucher_details(data)
+    add_project_details(data)
     return get_columns(standard_columns), data
 
 
@@ -24,6 +25,22 @@ def get_columns(standard_columns):
     ]
     account_index = next(i for i, column in enumerate(columns) if column.get("fieldname") == "account")
     columns[account_index:account_index] = custom_columns
+
+    # Project Name right after Project
+    project_name_column = {
+        "label": _("Project Name"),
+        "fieldname": "project_name",
+        "fieldtype": "Data",
+        "width": 160,
+    }
+    project_index = next(
+        (i for i, column in enumerate(columns) if column.get("fieldname") == "project"), None
+    )
+    if project_index is not None:
+        columns.insert(project_index + 1, project_name_column)
+    else:
+        columns.append(project_name_column)
+
     columns.append({"label": _("Reference Number"), "fieldname": "reference_no", "fieldtype": "Data", "width": 130})
     return columns
 
@@ -43,6 +60,24 @@ def add_account_details(data):
         if account := details.get(row.get("account")):
             row["account_name"] = account.account_name
             row["account_number"] = account.account_number
+
+
+def add_project_details(data):
+    projects = {row.get("project") for row in data if row.get("project")}
+    if not projects:
+        return
+
+    project_map = dict(
+        frappe.get_all(
+            "Project",
+            filters={"name": ("in", list(projects))},
+            fields=["name", "project_name"],
+            as_list=True,
+        )
+    )
+    for row in data:
+        if row.get("project"):
+            row["project_name"] = project_map.get(row["project"]) or ""
 
 
 def add_voucher_details(data):
