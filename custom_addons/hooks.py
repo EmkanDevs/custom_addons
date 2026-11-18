@@ -382,6 +382,7 @@ doctype_list_js = {
     "Rental Equipment Timesheet": "public/js/rental_equipment_timesheet_list.js",
     "Medical Insurance Sheet":    "public/js/medical_insurance_sheet_list.js",
     "Salary Slip":                "public/js/salary_slip_list.js",
+    "Employee": "public/js/employee_list.js",
     
     
 
@@ -393,6 +394,7 @@ fixtures = [
         "or_filters": [
             ["fieldname", "=", "custom_entry_type"],
             ["name", "=", "Department-cost_center"],
+            ["name", "in", ["Account-custom_party_required_employee", "Account-custom_required_party_type"]],
         ]
     },
     {
