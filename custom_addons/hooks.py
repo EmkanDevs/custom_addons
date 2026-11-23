@@ -327,6 +327,9 @@ doc_events = {
             "custom_addons.custom_addons.doc_events.accounting_dimension_validation.validate",
         ]
     },
+    "Stock Entry": {
+        "validate": "custom_addons.custom_addons.doc_events.stock_entry.set_material_request_references",
+    },
     
     
 }
@@ -394,7 +397,7 @@ fixtures = [
         "or_filters": [
             ["fieldname", "=", "custom_entry_type"],
             ["name", "=", "Department-cost_center"],
-            ["name", "in", ["Account-custom_party_required_employee", "Account-custom_required_party_type"]],
+            ["name", "in", ["Account-custom_party_required_employee", "Account-custom_required_party_type","Stock Entry-custom_material_request_references"]],
         ]
     },
     {
