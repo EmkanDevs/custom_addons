@@ -403,6 +403,24 @@ fixtures = [
             ["name", "=", "List of Project Permits Report"]
         ]
     },
+    {
+        "dt": "Workflow State",
+        "filters": [
+            ["name", "in", ["Draft", "To Approve", "Approved", "Rejected"]]
+        ]
+    },
+    {
+        "dt": "Workflow Action Master",
+        "filters": [
+            ["name", "in", ["Review", "Approve", "Reject"]]
+        ]
+    },
+    {
+        "dt": "Workflow",
+        "filters": [
+            ["name", "=", "New Item Request Approval"]
+        ]
+    },
 ]
 
 from custom_addons.custom_addons.override.asset import _make_journal_entry_for_depreciation
