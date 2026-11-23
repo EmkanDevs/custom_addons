@@ -140,8 +140,8 @@ def mass_submit_timesheets(names):
     count = 0
     errors = []
 
-    for name in names:
-        savepoint = f"mass_submit_{name}"
+    for idx, name in enumerate(names):
+        savepoint = f"mass_submit_{idx}"
         frappe.db.savepoint(savepoint)
         try:
             doc = frappe.get_doc("Timesheet", name)
