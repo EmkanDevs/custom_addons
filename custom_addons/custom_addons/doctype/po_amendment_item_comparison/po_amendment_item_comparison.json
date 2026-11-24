@@ -1,0 +1,244 @@
+{
+ "actions": [],
+ "creation": "2026-10-28 12:30:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "match_status",
+  "item_code",
+  "replacement_item_code",
+  "item_name",
+  "mr_reference",
+  "match_basis",
+  "original_uom",
+  "replacement_uom",
+  "original_qty",
+  "replacement_qty",
+  "qty_difference",
+  "original_rate",
+  "replacement_rate",
+  "rate_difference",
+  "original_amount",
+  "replacement_amount",
+  "amount_difference",
+  "original_delivery_date",
+  "replacement_delivery_date",
+  "delivery_days_difference",
+  "qty_comparable",
+  "rate_comparable",
+  "amount_comparable",
+  "is_comparable",
+  "original_description",
+  "replacement_description",
+  "comparison_flags",
+  "original_po_detail",
+  "replacement_po_detail"
+ ],
+ "fields": [
+  {
+   "fieldname": "match_status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "read_only": 1,
+   "options": "Unchanged\nChanged\nAdded\nRemoved\nUnresolved",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "replacement_item_code",
+   "fieldtype": "Data",
+   "label": "Replacement Item Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mr_reference",
+   "fieldtype": "Data",
+   "label": "MR / MR Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "match_basis",
+   "fieldtype": "Data",
+   "label": "Matched On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_uom",
+   "fieldtype": "Data",
+   "label": "Orig UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "replacement_uom",
+   "fieldtype": "Data",
+   "label": "New UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_qty",
+   "fieldtype": "Float",
+   "label": "Orig Qty",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "replacement_qty",
+   "fieldtype": "Float",
+   "label": "New Qty",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "qty_difference",
+   "fieldtype": "Float",
+   "label": "Qty Diff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_rate",
+   "fieldtype": "Float",
+   "label": "Orig Rate",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "replacement_rate",
+   "fieldtype": "Float",
+   "label": "New Rate",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "rate_difference",
+   "fieldtype": "Float",
+   "label": "Rate Diff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_amount",
+   "fieldtype": "Float",
+   "label": "Orig Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "replacement_amount",
+   "fieldtype": "Float",
+   "label": "New Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount_difference",
+   "fieldtype": "Float",
+   "label": "Amount Diff",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "original_delivery_date",
+   "fieldtype": "Date",
+   "label": "Orig Delivery",
+   "read_only": 1
+  },
+  {
+   "fieldname": "replacement_delivery_date",
+   "fieldtype": "Date",
+   "label": "New Delivery",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_days_difference",
+   "fieldtype": "Int",
+   "label": "Delivery Diff (days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty_comparable",
+   "fieldtype": "Check",
+   "label": "Qty Comparable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rate_comparable",
+   "fieldtype": "Check",
+   "label": "Rate Comparable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount_comparable",
+   "fieldtype": "Check",
+   "label": "Amount Comparable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_comparable",
+   "fieldtype": "Check",
+   "label": "All Dimensions Comparable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_description",
+   "fieldtype": "Small Text",
+   "label": "Original Description",
+   "read_only": 1
+  },
+  {
+   "fieldname": "replacement_description",
+   "fieldtype": "Small Text",
+   "label": "Replacement Description",
+   "read_only": 1
+  },
+  {
+   "fieldname": "comparison_flags",
+   "fieldtype": "Small Text",
+   "label": "Flags",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "original_po_detail",
+   "fieldtype": "Data",
+   "label": "Original PO Row",
+   "read_only": 1
+  },
+  {
+   "fieldname": "replacement_po_detail",
+   "fieldtype": "Data",
+   "label": "Replacement PO Row",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-28 12:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "PO Amendment Item Comparison",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

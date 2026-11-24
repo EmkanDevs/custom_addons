@@ -1,0 +1,827 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:PO-AMD-{YYYY}-{#####}",
+ "creation": "2026-10-27 15:01:06.923821",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_0soy",
+  "log_reference_no",
+  "prepared_by",
+  "company",
+  "column_break_esqq",
+  "log_date",
+  "reviewed_by",
+  "workflow_status",
+  "purchase_orders_reference_section",
+  "cancelled_po_number",
+  "original_supplier",
+  "project",
+  "requested_by",
+  "requesting_department",
+  "column_break_sjte",
+  "new_po_number",
+  "replacement_supplier",
+  "specification_change",
+  "comparison_section",
+  "fetch_comparison_btn",
+  "comparison_warnings",
+  "column_break_cmp1",
+  "comparison_taken_on",
+  "comparison_taken_by",
+  "comparison_stale",
+  "pending_since",
+  "totals_section",
+  "original_currency",
+  "original_net_total",
+  "original_grand_total",
+  "column_break_tot2",
+  "replacement_currency",
+  "replacement_net_total",
+  "replacement_grand_total",
+  "comparison_value_status",
+  "column_break_tot3",
+  "total_value_difference",
+  "net_total_difference",
+  "rate_benefit",
+  "non_rate_value_change",
+  "rate_benefit_status",
+  "po_date_gap_days",
+  "items_summary_section",
+  "items_added",
+  "column_break_itm2",
+  "items_removed",
+  "column_break_itm3",
+  "items_changed",
+  "column_break_itm4",
+  "items_unresolved",
+  "header_comparison_section",
+  "header_comparison",
+  "item_comparison_section",
+  "item_comparison",
+  "mr_section",
+  "mr_comparison_status",
+  "mr_comparison_summary",
+  "mr_variance_explanation",
+  "mr_references",
+  "section_break_utuc",
+  "amendment_type",
+  "other_amendment_type",
+  "column_break_mjtv",
+  "amendment_reason_category",
+  "other_amendment_reason_category",
+  "justification_section",
+  "detailed_justification",
+  "impact_section",
+  "budget__cost_impact",
+  "budget_impact_currency",
+  "business_impact",
+  "risk__impact_assessment",
+  "corrective__preventive_action",
+  "column_break_hkak",
+  "supplier_notified_yesno",
+  "supplier_acknowledgment_status",
+  "supplier_acknowledgment_date",
+  "closure_date",
+  "remarks",
+  "attachments_section",
+  "supporting_attachments",
+  "approval_section",
+  "implementation_status",
+  "approver",
+  "approval_datetime",
+  "column_break_apr",
+  "approval_comments",
+  "cancellation_reason",
+  "comparison_hash",
+  "snapshot_checksum",
+  "section_break_smki",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_0soy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "log_reference_no",
+   "fieldtype": "Data",
+   "label": "Log Reference No",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "fetch_from": "cancelled_po_number.company",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_esqq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "log_date",
+   "fieldtype": "Date",
+   "label": "Log Date",
+   "default": "Today"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "workflow_status",
+   "fieldtype": "Select",
+   "label": "Workflow Status",
+   "options": "Draft\nPending Approval\nPending Technical/Quality\nPending Procurement\nPending Finance\nApproved\nRejected\nCancelled",
+   "default": "Draft",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "purchase_orders_reference_section",
+   "fieldtype": "Section Break",
+   "label": "Purchase Orders Reference"
+  },
+  {
+   "fieldname": "cancelled_po_number",
+   "fieldtype": "Link",
+   "label": "Original PO",
+   "options": "Purchase Order",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Cancelled POs can be selected."
+  },
+  {
+   "fieldname": "original_supplier",
+   "fieldtype": "Link",
+   "label": "Original Supplier",
+   "options": "Supplier",
+   "fetch_from": "cancelled_po_number.supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_standard_filter": 1,
+   "description": "Taken from the Original PO when the comparison is fetched."
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User"
+  },
+  {
+   "fieldname": "requesting_department",
+   "fieldtype": "Link",
+   "label": "Requesting Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_sjte",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "new_po_number",
+   "fieldtype": "Link",
+   "label": "Replacement PO",
+   "options": "Purchase Order",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "replacement_supplier",
+   "fieldtype": "Link",
+   "label": "Replacement Supplier",
+   "options": "Supplier",
+   "fetch_from": "new_po_number.supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "specification_change",
+   "fieldtype": "Data",
+   "label": "Specification Change"
+  },
+  {
+   "fieldname": "comparison_section",
+   "fieldtype": "Section Break",
+   "label": "PO Comparison"
+  },
+  {
+   "fieldname": "fetch_comparison_btn",
+   "fieldtype": "Button",
+   "label": "Fetch Comparison",
+   "depends_on": "eval:doc.docstatus==0 && (!doc.workflow_status || doc.workflow_status=='Draft')"
+  },
+  {
+   "fieldname": "comparison_warnings",
+   "fieldtype": "Small Text",
+   "label": "Warnings",
+   "read_only": 1,
+   "no_copy": 1,
+   "depends_on": "eval:doc.comparison_warnings"
+  },
+  {
+   "fieldname": "column_break_cmp1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "comparison_taken_on",
+   "fieldtype": "Datetime",
+   "label": "Comparison Taken On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "comparison_taken_by",
+   "fieldtype": "Link",
+   "label": "Comparison Taken By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "comparison_stale",
+   "fieldtype": "Check",
+   "label": "Comparison Out of Date",
+   "read_only": 1,
+   "no_copy": 1,
+   "depends_on": "eval:doc.comparison_stale"
+  },
+  {
+   "fieldname": "pending_since",
+   "fieldtype": "Datetime",
+   "label": "Pending Since",
+   "read_only": 1,
+   "no_copy": 1,
+   "depends_on": "eval:doc.pending_since"
+  },
+  {
+   "fieldname": "totals_section",
+   "fieldtype": "Section Break",
+   "label": "Value Summary",
+   "depends_on": "eval:doc.comparison_hash"
+  },
+  {
+   "fieldname": "original_currency",
+   "fieldtype": "Link",
+   "label": "Original Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "original_net_total",
+   "fieldtype": "Currency",
+   "label": "Original Net Total",
+   "options": "original_currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "original_grand_total",
+   "fieldtype": "Currency",
+   "label": "Original Grand Total",
+   "options": "original_currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_tot2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "replacement_currency",
+   "fieldtype": "Link",
+   "label": "Replacement Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "replacement_net_total",
+   "fieldtype": "Currency",
+   "label": "Replacement Net Total",
+   "options": "replacement_currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "replacement_grand_total",
+   "fieldtype": "Currency",
+   "label": "Replacement Grand Total",
+   "options": "replacement_currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "comparison_value_status",
+   "fieldtype": "Select",
+   "label": "Monetary Comparison",
+   "options": "\nComparable\nCurrency Mismatch",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_tot3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_value_difference",
+   "fieldtype": "Float",
+   "label": "Total Value Difference (Replacement \u2212 Original, Grand Total)",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Includes any quantity / scope change. Not a savings figure."
+  },
+  {
+   "fieldname": "net_total_difference",
+   "fieldtype": "Float",
+   "label": "Net Total Difference (Replacement \u2212 Original)",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "rate_benefit",
+   "fieldtype": "Float",
+   "label": "Rate Benefit (matched lines, at replacement qty)",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Positive = replacement rates are lower. Only lines with same UOM and currency."
+  },
+  {
+   "fieldname": "non_rate_value_change",
+   "fieldtype": "Float",
+   "label": "Other Commitment Change after Matched Rate Effect",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Grand total difference + rate benefit: includes quantity / scope, taxes, charges, discounts and rounding."
+  },
+  {
+   "fieldname": "rate_benefit_status",
+   "fieldtype": "Select",
+   "label": "Rate Benefit Coverage",
+   "options": "\nComplete\nPartial\nNot Comparable",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "po_date_gap_days",
+   "fieldtype": "Int",
+   "label": "PO Date Gap (Days)",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Replacement PO date minus Original PO date."
+  },
+  {
+   "fieldname": "items_summary_section",
+   "fieldtype": "Section Break",
+   "depends_on": "eval:doc.comparison_hash"
+  },
+  {
+   "fieldname": "items_added",
+   "fieldtype": "Int",
+   "label": "Items Added",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_itm2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_removed",
+   "fieldtype": "Int",
+   "label": "Items Removed",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_itm3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_changed",
+   "fieldtype": "Int",
+   "label": "Items Changed",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_itm4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_unresolved",
+   "fieldtype": "Int",
+   "label": "Items Unresolved",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "header_comparison_section",
+   "fieldtype": "Section Break",
+   "label": "Header Comparison",
+   "depends_on": "eval:doc.comparison_hash"
+  },
+  {
+   "fieldname": "header_comparison",
+   "fieldtype": "Table",
+   "label": "Header Comparison",
+   "options": "PO Amendment Header Comparison",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "item_comparison_section",
+   "fieldtype": "Section Break",
+   "label": "Item Comparison",
+   "depends_on": "eval:doc.comparison_hash"
+  },
+  {
+   "fieldname": "item_comparison",
+   "fieldtype": "Table",
+   "label": "Item Comparison",
+   "options": "PO Amendment Item Comparison",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "mr_section",
+   "fieldtype": "Section Break",
+   "label": "Material Request References",
+   "depends_on": "eval:doc.comparison_hash"
+  },
+  {
+   "fieldname": "mr_comparison_status",
+   "fieldtype": "Select",
+   "label": "MR Comparison",
+   "options": "\nMatch\nMismatch\nMissing",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "mr_comparison_summary",
+   "fieldtype": "Small Text",
+   "label": "MR Comparison Details",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "mr_variance_explanation",
+   "fieldtype": "Small Text",
+   "label": "MR Variance Explanation",
+   "depends_on": "eval:doc.mr_comparison_status && doc.mr_comparison_status!='Match'",
+   "description": "Required before sending for approval when MR references differ or are missing."
+  },
+  {
+   "fieldname": "mr_references",
+   "fieldtype": "Table",
+   "label": "MR References",
+   "options": "PO Amendment MR Reference",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "section_break_utuc",
+   "fieldtype": "Section Break",
+   "label": "Reason for Change"
+  },
+  {
+   "fieldname": "amendment_type",
+   "fieldtype": "Select",
+   "label": "Amendment Type",
+   "options": "\nQuantity\nUnit Price\nTotal Value\nDelivery Date\nPayment Terms\nDelivery Terms\nItem / Specification\nScope\nSupplier Details\nCancellation\nOther",
+   "description": "Select this first: it filters the available reasons."
+  },
+  {
+   "fieldname": "other_amendment_type",
+   "fieldtype": "Data",
+   "label": "Other Amendment Type",
+   "depends_on": "eval:doc.amendment_type=='Other'",
+   "mandatory_depends_on": "eval:doc.amendment_type=='Other'"
+  },
+  {
+   "fieldname": "column_break_mjtv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amendment_reason_category",
+   "fieldtype": "Link",
+   "label": "Reason for Change",
+   "options": "Amendment Reason Category",
+   "read_only_depends_on": "eval:!doc.amendment_type",
+   "description": "Reasons offered depend on the Amendment Type (maintained in Amendment Reason Category)."
+  },
+  {
+   "fieldname": "other_amendment_reason_category",
+   "fieldtype": "Data",
+   "label": "Other Reason",
+   "depends_on": "eval:doc.amendment_reason_category=='Other'",
+   "mandatory_depends_on": "eval:doc.amendment_reason_category=='Other'"
+  },
+  {
+   "fieldname": "justification_section",
+   "fieldtype": "Section Break",
+   "label": "Justification"
+  },
+  {
+   "fieldname": "detailed_justification",
+   "fieldtype": "Small Text",
+   "label": "Detailed Justification"
+  },
+  {
+   "fieldname": "impact_section",
+   "fieldtype": "Section Break",
+   "label": "Impact"
+  },
+  {
+   "fieldname": "budget__cost_impact",
+   "fieldtype": "Currency",
+   "label": "Budget / Cost Impact",
+   "options": "budget_impact_currency",
+   "description": "Buyer's manual assessment, in company currency. No budget validation or posting."
+  },
+  {
+   "fieldname": "budget_impact_currency",
+   "fieldtype": "Link",
+   "label": "Budget Impact Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "business_impact",
+   "fieldtype": "Small Text",
+   "label": "Business Impact",
+   "description": "Cost, delivery, quantity, quality, payment or budget impact."
+  },
+  {
+   "fieldname": "risk__impact_assessment",
+   "fieldtype": "Small Text",
+   "label": "Risk / Impact Assessment"
+  },
+  {
+   "fieldname": "corrective__preventive_action",
+   "fieldtype": "Small Text",
+   "label": "Corrective / Preventive Action"
+  },
+  {
+   "fieldname": "column_break_hkak",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_notified_yesno",
+   "fieldtype": "Check",
+   "label": "Supplier Notified (Yes/No)",
+   "default": "0",
+   "hidden": 1
+  },
+  {
+   "fieldname": "supplier_acknowledgment_status",
+   "fieldtype": "Select",
+   "label": "Supplier Acknowledgment Status",
+   "options": "\nPending\nAcknowledged\nRejected\nNot Required",
+   "default": "Pending",
+   "hidden": 1
+  },
+  {
+   "fieldname": "supplier_acknowledgment_date",
+   "fieldtype": "Date",
+   "label": "Supplier Acknowledgment Date",
+   "hidden": 1
+  },
+  {
+   "fieldname": "closure_date",
+   "fieldtype": "Date",
+   "label": "Closure Date",
+   "hidden": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "attachments_section",
+   "fieldtype": "Section Break",
+   "label": "Supporting Attachments"
+  },
+  {
+   "fieldname": "supporting_attachments",
+   "fieldtype": "Table",
+   "label": "Supporting Attachments",
+   "options": "PO Amendment Attachment",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "approval_section",
+   "fieldtype": "Section Break",
+   "label": "Approval Details"
+  },
+  {
+   "fieldname": "implementation_status",
+   "fieldtype": "Select",
+   "label": "Implementation Status",
+   "options": "Under Review\nApproved\nImplemented in ERP\nSupplier Notified\nClosed\nRejected",
+   "default": "Under Review",
+   "allow_on_submit": 1,
+   "no_copy": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "approver",
+   "fieldtype": "Link",
+   "label": "Approver",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "approval_datetime",
+   "fieldtype": "Datetime",
+   "label": "Approval Date / Time",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_apr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approval_comments",
+   "fieldtype": "Small Text",
+   "label": "Approval Comments",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason",
+   "no_copy": 1,
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.docstatus>=1",
+   "description": "Controlled administrative correction only. Never cancels either PO."
+  },
+  {
+   "fieldname": "comparison_hash",
+   "fieldtype": "Data",
+   "label": "Comparison Hash",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  },
+  {
+   "fieldname": "snapshot_checksum",
+   "fieldtype": "Data",
+   "label": "Snapshot Checksum",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  },
+  {
+   "fieldname": "section_break_smki",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "hidden": 1,
+   "no_copy": 1,
+   "options": "PO Amendment Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "PO Amendment Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1,
+   "cancel": 1,
+   "amend": 1
+  },
+  {
+   "role": "Buyer",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "Procurement Manager",
+   "read": 1,
+   "write": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "PO Amendment Requester",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "Technical Approver",
+   "read": 1,
+   "write": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "Procurement Approver",
+   "read": 1,
+   "write": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "Finance Approver",
+   "read": 1,
+   "write": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  },
+  {
+   "role": "Dashboard Manager",
+   "read": 1,
+   "export": 1,
+   "email": 1,
+   "print": 1,
+   "report": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "search_fields": "cancelled_po_number,new_po_number,workflow_status",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

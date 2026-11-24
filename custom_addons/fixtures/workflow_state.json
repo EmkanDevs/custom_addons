@@ -34,5 +34,32 @@
   "name": "Approved",
   "style": "Success",
   "workflow_state_name": "Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-11-24 10:42:31.201798",
+  "name": "Pending Technical/Quality",
+  "style": "Warning",
+  "workflow_state_name": "Pending Technical/Quality"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-11-24 10:42:31.515547",
+  "name": "Pending Finance",
+  "style": "Warning",
+  "workflow_state_name": "Pending Finance"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-01-27 03:08:00.575084",
+  "name": "Pending Procurement",
+  "style": "",
+  "workflow_state_name": "Pending Procurement"
  }
 ]

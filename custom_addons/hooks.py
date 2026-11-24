@@ -409,19 +409,19 @@ fixtures = [
     {
         "dt": "Workflow State",
         "filters": [
-            ["name", "in", ["Draft", "To Approve", "Approved", "Rejected"]]
+            ["name", "in", ["Draft", "To Approve", "Approved", "Rejected", "Pending Technical/Quality", "Pending Procurement", "Pending Finance"]]
         ]
     },
     {
         "dt": "Workflow Action Master",
         "filters": [
-            ["name", "in", ["Review", "Approve", "Reject"]]
+            ["name", "in", ["Review", "Approve", "Reject", "Submit for Approval"]]
         ]
     },
     {
         "dt": "Workflow",
         "filters": [
-            ["name", "=", "New Item Request Approval"]
+            ["name", "in", ["New Item Request Approval", "PO Amendment Log Approval"]]
         ]
     },
 ]

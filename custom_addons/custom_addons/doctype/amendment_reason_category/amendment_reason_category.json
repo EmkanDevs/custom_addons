@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:amendment_reason_category",
+ "creation": "2026-10-28 11:22:34.669894",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "amendment_reason_category",
+  "column_break_xjis",
+  "amendment_type",
+  "section_break_types",
+  "amendment_types"
+ ],
+ "fields": [
+  {
+   "fieldname": "amendment_reason_category",
+   "fieldtype": "Data",
+   "label": "Amendment Reason Category",
+   "unique": 1,
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_xjis",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amendment_type",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "read_only": 1,
+   "label": "Amendment Type (legacy)",
+   "options": "\nCancellation\nDelivery Date\nDelivery Terms\nItem / Specification\nPayment Terms\nQuantity\nScope\nSupplier Details\nTotal Value\nUnit Price\nOther",
+   "description": "Legacy single type. Use the table below."
+  },
+  {
+   "fieldname": "section_break_types",
+   "fieldtype": "Section Break",
+   "label": "Allowed for Amendment Types"
+  },
+  {
+   "fieldname": "amendment_types",
+   "fieldtype": "Table",
+   "label": "Amendment Types",
+   "options": "Amendment Reason Type",
+   "reqd": 1,
+   "description": "The reason is offered only when the log's Amendment Type is one of these."
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-02 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Amendment Reason Category",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Buyer"
+  },
+  {
+   "read": 1,
+   "role": "Procurement Manager"
+  },
+  {
+   "read": 1,
+   "role": "Auditor"
+  }
+ ],
+ "quick_entry": 0,
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,21 @@
+{
+ "content": null,
+ "doctype": "Page",
+ "idx": 0,
+ "module": "Custom Addons",
+ "name": "po-amendment-insights",
+ "owner": "Administrator",
+ "page_name": "po-amendment-insights",
+ "roles": [
+  {"role": "Technical Approver"},
+  {"role": "Procurement Approver"},
+  {"role": "Finance Approver"},
+  {"role": "Dashboard Manager"},
+  {"role": "System Manager"}
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "PO Amendment Insights Dashboard"
+}
