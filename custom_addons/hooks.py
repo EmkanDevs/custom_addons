@@ -328,7 +328,7 @@ doc_events = {
         ]
     },
     "Stock Entry": {
-        "validate": "custom_addons.custom_addons.doc_events.stock_entry.set_material_request_references",
+        "validate": "custom_addons.custom_addons.doc_events.stock_entry.validate",
     },
     
     

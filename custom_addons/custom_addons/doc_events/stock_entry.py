@@ -29,7 +29,7 @@ def validate(doc, method=None):
 
 def set_material_request_references(doc):
     # dict.fromkeys keeps first-seen order and removes duplicates
-    mrs = dict.fromkeys(row.custom_material_request for row in doc.items if row.custom_material_request)
+    mrs = dict.fromkeys(row.get("custom_material_request") for row in doc.items if row.get("custom_material_request"))
     doc.custom_material_request_references = "\n".join(mrs)
 
 
