@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2026-01-20 11:49:18.829793",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-01-20 11:49:18.829793",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "po-details-report",
+ "owner": "Administrator",
+ "page_name": "po-details-report",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "PO Details Report"
+}

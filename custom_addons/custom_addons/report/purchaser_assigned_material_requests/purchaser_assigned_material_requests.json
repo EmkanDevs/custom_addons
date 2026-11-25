@@ -1,0 +1,61 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-01-28 10:35:10.354045",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-01-28 10:35:10.354045",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Purchaser Assigned Material Requests",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Material Request",
+ "report_name": "Purchaser Assigned Material Requests",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "MR Requester"
+  },
+  {
+   "role": "MR Approver"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "General Manager"
+  },
+  {
+   "role": "Item Manager"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Purchase Master Manager"
+  },
+  {
+   "role": "Purchase Reviewer"
+  },
+  {
+   "role": "Projects Manager"
+  },
+  {
+   "role": "Stock User"
+  }
+ ],
+ "timeout": 0
+}

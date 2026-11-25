@@ -1,0 +1,40 @@
+.dashboard-grid{
+    display:grid;
+    gap:20px;
+}
+
+.kpi-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.kpi-card{
+    background:#2f5d91;
+    color:white;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.kpi-title{
+    font-size:14px;
+    opacity:.8;
+}
+
+.kpi-value{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.chart-box,
+.summary-box,
+.detail-box{
+    background:white;
+    border:1px solid #d1d8dd;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:20px;
+}

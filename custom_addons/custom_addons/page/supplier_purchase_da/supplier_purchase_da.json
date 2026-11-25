@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2026-08-03 09:57:08.438767",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-11-25 07:39:40.407092",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "supplier-purchase-da",
+ "owner": "Administrator",
+ "page_name": "supplier-purchase-da",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Supplier Purchase"
+}
