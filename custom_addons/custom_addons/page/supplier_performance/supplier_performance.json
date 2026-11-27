@@ -1,0 +1,22 @@
+{
+ "content": null,
+ "doctype": "Page",
+ "idx": 0,
+ "module": "Custom Addons",
+ "name": "supplier-performance",
+ "owner": "Administrator",
+ "page_name": "supplier-performance",
+ "roles": [
+  {"role": "Purchase User"},
+  {"role": "Purchase Manager"},
+  {"role": "Purchase Master Manager"},
+  {"role": "Procurement Manager"},
+  {"role": "Purchase Reviewer"},
+  {"role": "System Manager"}
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Supplier Performance Dashboard"
+}

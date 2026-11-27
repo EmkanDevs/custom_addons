@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "creation": "2026-11-26 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "settings_tab",
+  "scale_section",
+  "max_rating",
+  "weak_rating",
+  "criteria_section",
+  "criteria",
+  "rules_section",
+  "rating_rules",
+  "bands_section",
+  "bands",
+  "guide_tab",
+  "guide_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Configuration"
+  },
+  {
+   "fieldname": "scale_section",
+   "fieldtype": "Section Break",
+   "label": "Rating Scale"
+  },
+  {
+   "fieldname": "max_rating",
+   "fieldtype": "Int",
+   "label": "Highest Rating",
+   "default": "5",
+   "reqd": 1,
+   "description": "Ratings run from 1 to this number. Points = rating / highest rating x weight."
+  },
+  {
+   "fieldname": "weak_rating",
+   "fieldtype": "Int",
+   "label": "Weak Rating Limit",
+   "default": "3",
+   "description": "A criterion rated at or below this is named in the comment as an area to review."
+  },
+  {
+   "fieldname": "criteria_section",
+   "fieldtype": "Section Break",
+   "label": "Criteria and Weights"
+  },
+  {
+   "fieldname": "criteria",
+   "fieldtype": "Table",
+   "label": "Criteria",
+   "options": "Supplier Scorecard Setting Criterion",
+   "description": "Enabled weights must add up to 100. A criterion with the data source No source is always N/A."
+  },
+  {
+   "fieldname": "rules_section",
+   "fieldtype": "Section Break",
+   "label": "Rating Rules"
+  },
+  {
+   "fieldname": "rating_rules",
+   "fieldtype": "Table",
+   "label": "Rating Rules",
+   "options": "Supplier Scorecard Rating Rule",
+   "description": "One row per rating from 2 up to the highest rating. The criterion gets that rating when its value reaches the limit (at least for Higher, at most for Lower). Below every limit the rating is 1."
+  },
+  {
+   "fieldname": "bands_section",
+   "fieldtype": "Section Break",
+   "label": "Standing Bands"
+  },
+  {
+   "fieldname": "bands",
+   "fieldtype": "Table",
+   "label": "Bands",
+   "options": "Supplier Scorecard Band",
+   "description": "A supplier gets the band with the highest From % that its overall % reaches. One band must start at 0."
+  },
+  {
+   "fieldname": "guide_tab",
+   "fieldtype": "Tab Break",
+   "label": "Calculation Guide & Manual"
+  },
+  {
+   "fieldname": "guide_html",
+   "fieldtype": "HTML",
+   "label": "Calculation Guide"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-27 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Supplier Scorecard Settings",
+ "owner": "Administrator",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "issingle": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Purchase Master Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "creation": "2026-11-26 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "criterion",
+  "rating",
+  "threshold"
+ ],
+ "fields": [
+  {
+   "fieldname": "criterion",
+   "fieldtype": "Link",
+   "label": "Criterion",
+   "options": "Supplier Scorecard Criteria",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4
+  },
+  {
+   "fieldname": "rating",
+   "fieldtype": "Int",
+   "label": "Rating",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "threshold",
+   "fieldtype": "Float",
+   "label": "Value Limit",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-26 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Supplier Scorecard Rating Rule",
+ "owner": "Administrator",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "istable": 1,
+ "editable_grid": 1
+}

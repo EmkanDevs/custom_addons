@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "creation": "2026-11-26 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "criterion",
+  "label",
+  "column_label",
+  "weight",
+  "provider",
+  "direction",
+  "unit"
+ ],
+ "fields": [
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "criterion",
+   "fieldtype": "Link",
+   "label": "Criterion",
+   "options": "Supplier Scorecard Criteria",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "column_label",
+   "fieldtype": "Data",
+   "label": "Short Label"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight %",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "provider",
+   "fieldtype": "Select",
+   "label": "Data Source",
+   "options": "Delivery\nQuality\nPrice\nResponse\nPayment Terms\nNo source",
+   "default": "No source",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Better When",
+   "options": "Higher\nLower",
+   "default": "Higher",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "label": "Unit (shown with the value)"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-26 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Addons",
+ "name": "Supplier Scorecard Setting Criterion",
+ "owner": "Administrator",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "istable": 1,
+ "editable_grid": 1
+}

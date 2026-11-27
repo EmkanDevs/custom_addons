@@ -10,3 +10,4 @@ custom_addons.custom_addons.patches.add_project_settings_custom_fields
 
 custom_addons.custom_addons.patches.setup_po_amendment_approval_workflow
 custom_addons.custom_addons.patches.add_po_amendment_insights_shortcut
+custom_addons.custom_addons.patches.seed_supplier_scorecard_settings
